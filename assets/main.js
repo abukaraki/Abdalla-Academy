@@ -360,7 +360,13 @@ function renderDetail(root) {
 function renderStats() {
   document.querySelectorAll("[data-count]").forEach((node) => {
     const type = node.getAttribute("data-count");
-    node.textContent = content.filter((item) => item.type === type).length;
+    const count = content.filter((item) => {
+      if (type === "courses") return Boolean(item.course);
+      if (type === "software") return item.category === "software" || item.tags?.includes("software");
+      if (type === "videos") return item.mediaType === "video" || item.type === "lectures";
+      return item.type === type;
+    }).length;
+    node.textContent = String(count);
   });
 }
 
