@@ -122,6 +122,13 @@ function text(value) {
   return value[currentLang] || value.ar || value.en || "";
 }
 
+function renderBodySegment(segment) {
+  if (!segment) return "";
+  const value = String(segment).trim();
+  if (value.startsWith("<")) return value;
+  return `<p>${value}</p>`;
+}
+
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem("academy-language", lang);
@@ -309,8 +316,8 @@ function renderDetail(root) {
   }
 
   const paragraphs = text(item.body) || [];
-  const intro = paragraphs.slice(0, 3).map((paragraph) => `<p>${paragraph}</p>`).join("");
-  const body = paragraphs.slice(3).map((paragraph) => `<p>${paragraph}</p>`).join("");
+  const intro = paragraphs.slice(0, 3).map(renderBodySegment).join("");
+  const body = paragraphs.slice(3).map(renderBodySegment).join("");
   let media = item.icon ? `<img class="detail-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   if (item.mediaType === "video" && item.video) {
     const isExternal = /^https?:/.test(item.video);

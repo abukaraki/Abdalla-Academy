@@ -4,7 +4,7 @@ window.SITE_CONTENT = {
       "id": "php-xampp-install-windows",
       "type": "software",
       "date": "2026-05-23",
-      "duration": "15 min",
+      "duration": "25 min",
       "level": "PHP Basics",
       "course": {
         "ar": "دورة PHP",
@@ -15,8 +15,8 @@ window.SITE_CONTENT = {
         "en": "Download and Install XAMPP on Windows"
       },
       "summary": {
-        "ar": "درس عملي يشرح من أين نحمل XAMPP، وكيف نثبت البيئة المحلية لتشغيل PHP وApache وMariaDB.",
-        "en": "A practical lesson showing where to download XAMPP and how to set up a local PHP, Apache, and MariaDB environment."
+        "ar": "شرح عملي لفكرة السيرفر المحلي: ما معنى server، لماذا نحتاج Apache وPHP وMariaDB، وكيف يجهز XAMPP بيئة تدريب آمنة لتشغيل مشاريع PHP على جهازك.",
+        "en": "A practical explanation of the local server idea: what a server means, why Apache, PHP, and MariaDB are needed, and how XAMPP prepares a safe training environment for PHP projects on your machine."
       },
       "mediaType": "article",
       "category": "software",
@@ -36,6 +36,10 @@ window.SITE_CONTENT = {
           "caption": {
             "ar": "الخطوة الأولى: تشغيل ملف التثبيت الرسمي وظهور نافذة Setup - XAMPP.",
             "en": "Step 1: Run the official installer and open the Setup - XAMPP window."
+          },
+          "description": {
+            "ar": "هذه أول شاشة في معالج التثبيت. وجودها يعني أنك فتحت ملف XAMPP الرسمي، والهدف هنا هو تجهيز حزمة السيرفر المحلي التي ستشغل Apache وPHP وMariaDB على جهازك.",
+            "en": "This is the first screen of the installer. It means the official XAMPP setup file is open, and the goal is to prepare the local server package that will run Apache, PHP, and MariaDB on your machine."
           }
         },
         {
@@ -43,6 +47,10 @@ window.SITE_CONTENT = {
           "caption": {
             "ar": "الخطوة الثانية: اختيار المكونات الأساسية أثناء التثبيت.",
             "en": "Step 2: Select the essential components during installation."
+          },
+          "description": {
+            "ar": "في شاشة المكونات اختر الأدوات التي تحتاجها للتعلم: Apache لتشغيل السيرفر، PHP لتنفيذ ملفات المشروع، MariaDB لتخزين البيانات، وphpMyAdmin لإدارة قاعدة البيانات من المتصفح.",
+            "en": "On the components screen, choose the tools needed for learning: Apache to run the server, PHP to execute project files, MariaDB to store data, and phpMyAdmin to manage the database from the browser."
           }
         },
         {
@@ -50,6 +58,10 @@ window.SITE_CONTENT = {
           "caption": {
             "ar": "الخطوة الثالثة: انتظار انتهاء نسخ الملفات وتثبيت مكونات XAMPP.",
             "en": "Step 3: Wait while the installer copies files and installs XAMPP components."
+          },
+          "description": {
+            "ar": "أثناء التثبيت يقوم XAMPP بنسخ ملفات السيرفر والأدوات إلى جهازك. يفضل أن يكون المسار بسيطا مثل C:\\xampp حتى يسهل الوصول إلى htdocs وتشغيل المشاريع بدون تعقيد صلاحيات.",
+            "en": "During installation, XAMPP copies the server and tool files to your machine. A simple path such as C:\\xampp is preferred because it makes htdocs easy to access and avoids unnecessary permission complexity."
           }
         },
         {
@@ -57,23 +69,31 @@ window.SITE_CONTENT = {
           "caption": {
             "ar": "الخطوة الرابعة: تشغيل Apache وMySQL من لوحة تحكم XAMPP.",
             "en": "Step 4: Start Apache and MySQL from the XAMPP Control Panel."
+          },
+          "description": {
+            "ar": "لوحة التحكم هي المكان الذي تشغل منه الخدمات. عندما تضغط Start أمام Apache يصبح جهازك قادرا على استقبال طلبات localhost، وعندما تشغل MySQL تصبح قاعدة البيانات جاهزة لمشاريع PHP.",
+            "en": "The control panel is where services are started. When Apache starts, your machine can receive localhost requests. When MySQL starts, the database becomes ready for PHP projects."
           }
         }
       ],
       "body": {
         "ar": [
-          "XAMPP هو حزمة تطوير محلية تجمع أهم الأدوات التي يحتاجها المتعلم لتشغيل PHP على جهازه. الفكرة العلمية وراءه بسيطة: نحتاج إلى خادم ويب يستقبل الطلبات، ومفسر PHP ينفذ الملفات، وقاعدة بيانات نخزن فيها البيانات. في XAMPP يقوم Apache بدور خادم الويب، وتقوم PHP بتنفيذ الكود، وتوفر MariaDB قاعدة البيانات، بينما يساعد phpMyAdmin على إدارتها من المتصفح.",
-          "ابدأ دائما من الموقع الرسمي Apache Friends. تحميل البرامج من مصدرها الرسمي يقلل خطر الملفات المعدلة أو الإصدارات غير الموثوقة. افتح صفحة التحميل، ثم اختر نسخة Windows المناسبة. لا تحتاج في البداية إلى البحث عن إعدادات متقدمة؛ الهدف هنا هو تجهيز بيئة تعلم مستقرة.",
-          "بعد تنزيل ملف التثبيت، شغله بالطريقة المعتادة. إذا ظهرت رسالة من Windows User Account Control فاقرأها وتأكد أن الملف من المصدر الرسمي قبل المتابعة. أثناء اختيار المكونات، يكفي للبدء تحديد Apache وPHP وMariaDB وphpMyAdmin. هذه المكونات تغطي أغلب دروس PHP الأساسية.",
-          "يفضل تثبيت XAMPP في مسار بسيط مثل C:\\xampp بدلا من مسار طويل داخل Program Files، لأن بعض أنظمة ويندوز قد تفرض قيود صلاحيات على مجلدات البرامج. بعد انتهاء التثبيت افتح XAMPP Control Panel، ثم اضغط Start أمام Apache وMySQL.",
-          "للتأكد من نجاح التثبيت، افتح المتصفح واكتب localhost. إذا ظهرت صفحة XAMPP فهذا يعني أن Apache يعمل. بعد ذلك يمكن تجربة phpMyAdmin عبر localhost/phpmyadmin للتأكد من عمل قاعدة البيانات. إذا لم يعمل Apache غالبا يوجد برنامج آخر يستخدم المنفذ 80 مثل IIS أو Skype أو خدمة ويب أخرى."
+          "XAMPP ليس مجرد برنامج تثبيت؛ هو بيئة سيرفر محلي تساعدك على تشغيل مشروع PHP على جهازك كما لو أن جهازك يستقبل طلبات من متصفح حقيقي. بدل رفع كل تجربة إلى استضافة خارجية، تستطيع بناء المشروع واختباره محليا بسرعة وأمان.",
+          "السيرفر في أبسط معنى هو برنامج يستقبل طلبا ويعيد نتيجة. عندما تكتب localhost في المتصفح، المتصفح يرسل طلبا إلى جهازك نفسه. Apache يستقبل الطلب، وإذا كان الملف PHP يمرره إلى PHP ليتم تنفيذه، ثم يعيد الناتج إلى المتصفح كصفحة HTML.",
+          "الفائدة من السيرفر المحلي أنك تتعلم وتجرّب بدون تكلفة وبدون التأثير على موقع حقيقي. تستطيع اختبار النماذج، الاتصال بقاعدة البيانات، قراءة الأخطاء، وتعديل الملفات بسرعة. لهذا نستخدم XAMPP في بداية دورة PHP.",
+          "<section class=\"lesson-section\"><h2>ماذا يحدث عند فتح مشروع PHP؟</h2><ol class=\"lesson-steps\"><li>تكتب في المتصفح عنوانا مثل <strong>http://localhost/myproject</strong>.</li><li>المتصفح يرسل الطلب إلى Apache الموجود داخل XAMPP.</li><li>Apache يبحث عن الملف المطلوب داخل مجلد <strong>htdocs</strong>.</li><li>إذا كان الملف PHP، يتم تنفيذ الكود عن طريق PHP.</li><li>إذا احتاج الكود بيانات، يتصل بقاعدة MariaDB.</li><li>النتيجة النهائية ترجع إلى المتصفح كصفحة يمكن قراءتها.</li></ol></section>",
+          "<section class=\"lesson-section\"><h2>مكونات XAMPP الأساسية</h2><ul class=\"lesson-bullets\"><li><strong>Apache:</strong> خادم الويب الذي يستقبل الطلبات ويرجع الصفحات.</li><li><strong>PHP:</strong> اللغة التي تنفذ منطق التطبيق على السيرفر.</li><li><strong>MariaDB:</strong> قاعدة البيانات التي تخزن المستخدمين والمنتجات والمقالات وأي بيانات منظمة.</li><li><strong>phpMyAdmin:</strong> واجهة رسومية لإدارة قاعدة البيانات من المتصفح.</li><li><strong>htdocs:</strong> المجلد الذي تضع داخله مشاريع PHP حتى يستطيع Apache تشغيلها.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>خطوات تشغيل أول مشروع</h2><ol class=\"lesson-steps\"><li>افتح XAMPP Control Panel.</li><li>اضغط Start أمام Apache.</li><li>اضغط Start أمام MySQL إذا كان المشروع يحتاج قاعدة بيانات.</li><li>افتح مجلد <strong>C:\\xampp\\htdocs</strong>.</li><li>أنشئ مجلدا باسم مشروعك، مثلا <strong>php_course</strong>.</li><li>أنشئ ملف <strong>index.php</strong> داخله.</li><li>افتح المتصفح واكتب <strong>http://localhost/php_course</strong>.</li></ol><pre class=\"lesson-code\"><code>&lt;?php\necho \"Hello PHP\";\n?&gt;</code></pre></section>",
+          "<section class=\"lesson-section\"><h2>أخطاء شائعة أثناء تشغيل XAMPP</h2><ul class=\"lesson-bullets\"><li>إذا لم يعمل Apache، غالبا يوجد برنامج آخر يستخدم المنفذ 80 مثل IIS أو Skype أو خدمة ويب أخرى.</li><li>إذا لم تظهر ملفات مشروعك، تأكد أنك وضعتها داخل htdocs وليس على سطح المكتب فقط.</li><li>إذا ظهرت صفحة بيضاء في PHP، فعّل عرض الأخطاء أثناء التدريب أو راجع ملف logs.</li><li>إذا لم يفتح phpMyAdmin، تأكد أن MySQL يعمل باللون الأخضر داخل لوحة التحكم.</li></ul></section>"
         ],
         "en": [
-          "XAMPP is a local development package that brings together the main tools needed to run PHP on your computer. The technical idea is simple: a web server receives browser requests, PHP executes server-side files, and a database stores application data. In XAMPP, Apache acts as the web server, PHP runs the code, MariaDB provides the database, and phpMyAdmin helps manage it from the browser.",
-          "Always start from the official Apache Friends website. Downloading software from the official source reduces the risk of modified files or untrusted versions. Open the download page and choose the Windows version. At the beginning, you do not need advanced settings; the goal is to prepare a stable learning environment.",
-          "After downloading the installer, run it normally. If Windows User Account Control appears, read it and confirm that the installer came from the official source before continuing. During component selection, the essentials for learning PHP are Apache, PHP, MariaDB, and phpMyAdmin. These components cover most beginner PHP lessons.",
-          "It is usually better to install XAMPP in a simple path such as C:\\xampp rather than inside Program Files, because Windows can apply stricter permissions to program folders. After installation, open the XAMPP Control Panel and click Start next to Apache and MySQL.",
-          "To verify the installation, open your browser and visit localhost. If the XAMPP page appears, Apache is running. You can then open localhost/phpmyadmin to confirm that the database tools work. If Apache does not start, another program may already be using port 80, such as IIS, Skype, or another local web service."
+          "XAMPP is not just an installer; it is a local server environment that lets your computer run a PHP project as if it were receiving real browser requests. Instead of uploading every experiment to external hosting, you can build and test locally with speed and safety.",
+          "A server, in the simplest sense, is a program that receives a request and returns a response. When you type localhost in the browser, the browser sends a request to your own machine. Apache receives the request, passes PHP files to PHP for execution, then returns the result to the browser as HTML.",
+          "The benefit of a local server is that you can learn and experiment without cost and without affecting a real website. You can test forms, connect to a database, read errors, and update files quickly. This is why XAMPP is used at the beginning of a PHP course.",
+          "<section class=\"lesson-section\"><h2>What happens when a PHP project opens?</h2><ol class=\"lesson-steps\"><li>You type an address such as <strong>http://localhost/myproject</strong> in the browser.</li><li>The browser sends the request to Apache inside XAMPP.</li><li>Apache looks for the requested file inside the <strong>htdocs</strong> folder.</li><li>If the file is PHP, PHP executes the code.</li><li>If the code needs data, it connects to MariaDB.</li><li>The final result returns to the browser as a readable page.</li></ol></section>",
+          "<section class=\"lesson-section\"><h2>Main XAMPP components</h2><ul class=\"lesson-bullets\"><li><strong>Apache:</strong> the web server that receives requests and returns pages.</li><li><strong>PHP:</strong> the language that runs application logic on the server.</li><li><strong>MariaDB:</strong> the database that stores users, products, articles, and structured data.</li><li><strong>phpMyAdmin:</strong> the graphical browser interface for managing the database.</li><li><strong>htdocs:</strong> the folder where PHP projects are placed so Apache can run them.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>Run your first project</h2><ol class=\"lesson-steps\"><li>Open the XAMPP Control Panel.</li><li>Click Start next to Apache.</li><li>Click Start next to MySQL if the project needs a database.</li><li>Open <strong>C:\\xampp\\htdocs</strong>.</li><li>Create a folder for the project, such as <strong>php_course</strong>.</li><li>Create an <strong>index.php</strong> file inside it.</li><li>Open the browser and visit <strong>http://localhost/php_course</strong>.</li></ol><pre class=\"lesson-code\"><code>&lt;?php\necho \"Hello PHP\";\n?&gt;</code></pre></section>",
+          "<section class=\"lesson-section\"><h2>Common XAMPP problems</h2><ul class=\"lesson-bullets\"><li>If Apache does not start, another program may be using port 80, such as IIS, Skype, or another web service.</li><li>If your project files do not appear, make sure they are inside htdocs, not only on the desktop.</li><li>If PHP shows a blank page, enable error display during training or check the logs.</li><li>If phpMyAdmin does not open, make sure MySQL is green in the control panel.</li></ul></section>"
         ]
       }
     },
@@ -81,7 +101,7 @@ window.SITE_CONTENT = {
       "id": "phpmyadmin-graphical-interface",
       "type": "software",
       "date": "2026-05-23",
-      "duration": "28 min",
+      "duration": "35 min",
       "level": "PHP Basics",
       "course": {
         "ar": "دورة PHP",
@@ -92,8 +112,8 @@ window.SITE_CONTENT = {
         "en": "Understanding the phpMyAdmin Graphical Interface"
       },
       "summary": {
-        "ar": "شرح عملي مفصل لواجهة phpMyAdmin الرسومية: كيف تصل إليها من XAMPP، كيف تنشئ قاعدة بيانات وجدولا، كيف تفهم الصفوف والأعمدة والمفاتيح، وكيف تستخدم العلاقات والإدخال بطريقة صحيحة.",
-        "en": "A practical, detailed guide to the phpMyAdmin graphical interface: how to open it from XAMPP, create a database and table, understand rows, columns, keys, and use relations and inserts correctly."
+        "ar": "شرح عملي مفصل لواجهة phpMyAdmin: إنشاء قاعدة وجدول، إدخال البيانات، قراءة SELECT، تعديل UPDATE، حذف DELETE، البحث، العلاقات، والنسخ الاحتياطي.",
+        "en": "A detailed practical guide to phpMyAdmin: creating databases and tables, inserting data, SELECT reads, UPDATE edits, DELETE removes, search, relationships, and backup."
       },
       "mediaType": "article",
       "category": "software",
@@ -643,27 +663,25 @@ window.SITE_CONTENT = {
           "phpMyAdmin هي واجهة رسومية لإدارة قواعد بيانات MySQL وMariaDB من المتصفح. بدلا من كتابة كل شيء من سطر الأوامر، تمنحك الواجهة طريقة منظمة لرؤية قواعد البيانات والجداول والحقول والصفوف، وتنفيذ أوامر SQL، واستيراد وتصدير البيانات، ومراجعة العلاقات بين الجداول.",
           "للوصول إلى phpMyAdmin داخل بيئة XAMPP المحلية: افتح XAMPP Control Panel، ثم اضغط Start أمام Apache وMySQL. بعد أن يتحول لونهما إلى الأخضر افتح المتصفح واكتب http://localhost/phpmyadmin. إذا ظهرت لك شاشة الدخول فهذا يعني أن الخادم يعمل وأن phpMyAdmin جاهزة للاستخدام.",
           "في بيئة التدريب المحلية يكون اسم المستخدم غالبا root، وقد تكون كلمة المرور فارغة حسب إعدادات XAMPP. هذا مناسب للتعلم على جهازك فقط، أما في الخوادم الحقيقية فيجب استخدام حساب مخصص وكلمة مرور قوية وصلاحيات محدودة، لأن قاعدة البيانات تحتوي على معلومات حساسة.",
-          "أول خطوة عملية هي إنشاء قاعدة بيانات. من تبويب Databases اكتب اسما واضحا مثل php_course ثم اختر الترميز utf8mb4_general_ci لدعم العربية والإنجليزية والرموز، وبعدها اضغط Create. القاعدة الجديدة ستظهر في الشريط الجانبي، ومنها تبدأ بإنشاء الجداول.",
-          "لإنشاء جدول، اختر قاعدة البيانات من الشريط الجانبي، ثم اكتب اسم الجدول مثل users وحدد عدد الأعمدة المطلوبة. جدول المستخدمين البسيط قد يحتاج id وname وemail وcreated_at. بعد الضغط على Create ستظهر شاشة تحديد خصائص كل عمود.",
-          "عند تعريف الأعمدة انتبه إلى نوع البيانات. حقل id يكون عادة INT ويأخذ Primary Key مع Auto Increment حتى يحصل كل صف على رقم فريد تلقائيا. حقول الاسم والبريد تستخدم غالبا VARCHAR، أما التواريخ فتستخدم DATE أو DATETIME أو TIMESTAMP حسب الحاجة.",
-          "تبويب Structure يشرح بنية الجدول: كل Row في هذه الشاشة يمثل عمودا داخل الجدول، وليس سجلا من بيانات المستخدمين. من هنا ترى اسم العمود ونوعه وطوله وهل يسمح بالقيم الفارغة وهل عليه مفتاح أو فهرس. هذا التبويب مهم قبل إدخال البيانات لأنه يحدد شكل التخزين.",
-          "تبويب Insert يستخدم لإضافة صف جديد داخل الجدول. املأ القيم المناسبة ثم اضغط Go. بعدها افتح تبويب Browse للتأكد من ظهور السجل. إذا ظهر خطأ، اقرأ الرسالة بدقة؛ غالبا يكون السبب نوع بيانات غير صحيح، أو حقل مطلوب لم يتم تعبئته، أو قيمة مكررة في مفتاح فريد.",
-          "تبويب SQL يسمح بكتابة أوامر مباشرة مثل SELECT وINSERT وUPDATE وDELETE. استخدمه عندما تريد فهم ما يحدث خلف الواجهة الرسومية. حتى لو بدأت بالواجهة، تعلم قراءة SQL مهم جدا لأن أي تطبيق PHP يتعامل مع قاعدة البيانات عن طريق استعلامات SQL.",
-          "عند وجود أكثر من جدول، تصبح العلاقات مهمة. مثلا جدول orders يمكن أن يحتوي user_id يشير إلى id في جدول users. من Relation view أو مخطط العلاقات تستطيع رؤية هذه الروابط وتوثيقها بصريا، وهذا يساعدك على تصميم قاعدة بيانات مفهومة وقابلة للتوسع.",
-          "استخدم Export لأخذ نسخة احتياطية من قاعدة البيانات بصيغة SQL، واستخدم Import لاسترجاع نسخة أو نقلها إلى جهاز آخر. قبل أي تعديل كبير على الجداول أو البيانات، خذ نسخة احتياطية حتى تستطيع الرجوع إذا حدث خطأ أثناء التدريب أو التطوير."
+          "<section class=\"lesson-section\"><h2>العمل العملي داخل phpMyAdmin</h2><ol class=\"lesson-steps\"><li>افتح XAMPP وشغل Apache وMySQL.</li><li>افتح المتصفح واكتب <strong>http://localhost/phpmyadmin</strong>.</li><li>من تبويب Databases أنشئ قاعدة باسم <strong>php_course</strong> واختر <strong>utf8mb4_general_ci</strong>.</li><li>اختر القاعدة من الشريط الجانبي وأنشئ جدول <strong>users</strong> بأربعة أعمدة.</li><li>عرّف الأعمدة: <strong>id</strong> نوعه INT ومفتاح Primary مع A_I، و<strong>name</strong> VARCHAR، و<strong>email</strong> VARCHAR، و<strong>created_at</strong> TIMESTAMP.</li><li>افتح Insert لإضافة بيانات، ثم Browse لمشاهدة الصفوف، ثم SQL لتنفيذ أوامر القراءة والتعديل والحذف.</li></ol></section>",
+          "<section class=\"lesson-section\"><h2>SELECT: قراءة البيانات</h2><p>استخدم SELECT عندما تريد عرض البيانات بدون تغييرها. من الواجهة افتح الجدول ثم تبويب Browse، أو افتح SQL واكتب الاستعلام التالي.</p><pre class=\"lesson-code\"><code>SELECT id, name, email\nFROM users\nORDER BY id DESC;</code></pre><ul class=\"lesson-bullets\"><li><strong>SELECT</strong> يحدد الأعمدة المطلوبة.</li><li><strong>FROM</strong> يحدد اسم الجدول.</li><li><strong>ORDER BY</strong> يرتب النتائج حسب رقم المستخدم من الأحدث إلى الأقدم.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>INSERT: إضافة صف جديد</h2><p>استخدم INSERT عندما تريد إضافة سجل جديد. من الواجهة افتح تبويب Insert، املأ الحقول، ثم اضغط Go. لا تكتب id إذا كان Auto Increment.</p><pre class=\"lesson-code\"><code>INSERT INTO users (name, email)\nVALUES ('Abdalla', 'abdalla@example.com');</code></pre><ul class=\"lesson-bullets\"><li>الأعمدة بين الأقواس تحدد أين ستدخل القيم.</li><li>القيم في VALUES يجب أن تطابق ترتيب الأعمدة.</li><li>بعد التنفيذ افتح Browse للتأكد من ظهور الصف الجديد.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>UPDATE: تعديل بيانات موجودة</h2><p>استخدم UPDATE عندما تريد تعديل سجل موجود. من الواجهة افتح Browse ثم اضغط Edit أمام الصف، أو استخدم SQL. أهم شيء أن تضع شرط WHERE حتى لا يتم تعديل كل الصفوف.</p><pre class=\"lesson-code\"><code>UPDATE users\nSET email = 'new-email@example.com'\nWHERE id = 1;</code></pre><ul class=\"lesson-bullets\"><li><strong>SET</strong> يحدد القيمة الجديدة.</li><li><strong>WHERE</strong> يحدد الصف المطلوب تعديله.</li><li>قبل UPDATE كبير نفذ SELECT بنفس الشرط لتتأكد من الصفوف المستهدفة.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>DELETE: حذف صف</h2><p>استخدم DELETE بحذر لأنه يزيل البيانات. من الواجهة افتح Browse ثم اضغط Delete أمام الصف المطلوب، أو استخدم SQL بشرط واضح. لا تنفذ DELETE بدون WHERE أثناء التدريب.</p><pre class=\"lesson-code\"><code>DELETE FROM users\nWHERE id = 1;</code></pre><ul class=\"lesson-bullets\"><li>احذف الصف حسب المفتاح الأساسي id.</li><li>خذ نسخة Export قبل حذف بيانات مهمة.</li><li>إذا أردت حذف كل البيانات للتدريب استخدم جدول تجريبي وليس جدول مشروع حقيقي.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>البحث والتصفية</h2><p>للبحث من الواجهة استخدم تبويب Search داخل الجدول، واختر العمود والقيمة. وفي SQL يمكنك استخدام WHERE وLIKE.</p><pre class=\"lesson-code\"><code>SELECT *\nFROM users\nWHERE email LIKE '%gmail.com';</code></pre><ul class=\"lesson-bullets\"><li>علامة % تعني أي نص قبل أو بعد القيمة.</li><li>Search مفيد للمبتدئ، لكن SQL يعطيك تحكما أدق.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>العلاقات والنسخ الاحتياطي</h2><ol class=\"lesson-steps\"><li>إذا أصبح لديك جدول users وجدول orders، اجعل orders.user_id يشير إلى users.id.</li><li>استخدم Relation view لرؤية العلاقة وتوثيقها.</li><li>استخدم Export لأخذ نسخة SQL قبل التعديلات الكبيرة.</li><li>استخدم Import لاسترجاع نسخة أو نقل قاعدة البيانات إلى جهاز آخر.</li></ol></section>"
         ],
         "en": [
           "phpMyAdmin is a graphical interface for managing MySQL and MariaDB databases from the browser. Instead of doing everything from the command line, it gives you an organized way to view databases, tables, fields, rows, run SQL commands, import and export data, and inspect relationships between tables.",
           "To open phpMyAdmin in a local XAMPP environment, launch the XAMPP Control Panel, then click Start next to Apache and MySQL. When both services turn green, open your browser and go to http://localhost/phpmyadmin. If the login or dashboard appears, the server is running and phpMyAdmin is ready.",
           "In a local training environment, the username is commonly root, and the password may be empty depending on the XAMPP setup. This is acceptable for learning on your own machine only. On real servers, always use a dedicated account, a strong password, and limited permissions because databases often contain sensitive information.",
-          "The first practical step is creating a database. Open the Databases tab, enter a clear name such as php_course, choose utf8mb4_general_ci to support Arabic, English, and symbols, then click Create. The new database will appear in the sidebar, and you can start creating tables inside it.",
-          "To create a table, select the database from the sidebar, enter a table name such as users, and choose the number of columns you need. A simple users table may include id, name, email, and created_at. After clicking Create, phpMyAdmin shows the screen where each column is configured.",
-          "When defining columns, pay close attention to data types. The id field is usually INT, marked as Primary Key, and set to Auto Increment so every row receives a unique number automatically. Names and emails usually use VARCHAR, while dates use DATE, DATETIME, or TIMESTAMP depending on the use case.",
-          "The Structure tab explains the table design: each row on this screen represents a column in the table, not a user record. Here you can see the column name, type, length, whether it allows NULL values, and whether it has a key or index. This tab matters before inserting data because it defines how data will be stored.",
-          "The Insert tab is used to add a new row to the table. Fill in the values and click Go. Then open the Browse tab to confirm that the record was saved. If an error appears, read it carefully; common causes are invalid data types, required fields left empty, or duplicate values in a unique key.",
-          "The SQL tab lets you write commands directly, such as SELECT, INSERT, UPDATE, and DELETE. Use it to understand what happens behind the graphical interface. Even if you start visually, learning to read SQL is essential because every PHP application communicates with the database through SQL queries.",
-          "When a database has more than one table, relationships become important. For example, an orders table can contain user_id that points to id in the users table. Relation View and relationship diagrams help you see and document these links visually, making the database easier to understand and extend.",
-          "Use Export to create a SQL backup of the database, and use Import to restore a backup or move it to another machine. Before making major changes to tables or data, create a backup so you can recover safely if something goes wrong during practice or development."
+          "<section class=\"lesson-section\"><h2>Practical work inside phpMyAdmin</h2><ol class=\"lesson-steps\"><li>Open XAMPP and start Apache and MySQL.</li><li>Open the browser and visit <strong>http://localhost/phpmyadmin</strong>.</li><li>From the Databases tab, create <strong>php_course</strong> and choose <strong>utf8mb4_general_ci</strong>.</li><li>Select the database from the sidebar and create a <strong>users</strong> table with four columns.</li><li>Define the columns: <strong>id</strong> as INT, Primary, and A_I; <strong>name</strong> as VARCHAR; <strong>email</strong> as VARCHAR; and <strong>created_at</strong> as TIMESTAMP.</li><li>Use Insert to add data, Browse to view rows, and SQL to run read, update, and delete commands.</li></ol></section>",
+          "<section class=\"lesson-section\"><h2>SELECT: reading data</h2><p>Use SELECT when you want to view data without changing it. In the interface, open the table and use Browse, or open SQL and run the query below.</p><pre class=\"lesson-code\"><code>SELECT id, name, email\nFROM users\nORDER BY id DESC;</code></pre><ul class=\"lesson-bullets\"><li><strong>SELECT</strong> chooses the columns.</li><li><strong>FROM</strong> chooses the table.</li><li><strong>ORDER BY</strong> sorts users from newest to oldest.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>INSERT: adding a new row</h2><p>Use INSERT when you want to add a new record. In the interface, open Insert, fill the fields, and click Go. Do not type id if it uses Auto Increment.</p><pre class=\"lesson-code\"><code>INSERT INTO users (name, email)\nVALUES ('Abdalla', 'abdalla@example.com');</code></pre><ul class=\"lesson-bullets\"><li>The columns inside parentheses define where values will go.</li><li>The values must match the column order.</li><li>After running it, open Browse to confirm that the new row appears.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>UPDATE: modifying existing data</h2><p>Use UPDATE when you want to edit an existing record. In the interface, open Browse and click Edit beside the row, or use SQL. The most important rule is to include WHERE so you do not update every row.</p><pre class=\"lesson-code\"><code>UPDATE users\nSET email = 'new-email@example.com'\nWHERE id = 1;</code></pre><ul class=\"lesson-bullets\"><li><strong>SET</strong> defines the new value.</li><li><strong>WHERE</strong> targets the row to update.</li><li>Before a major UPDATE, run SELECT with the same WHERE condition.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>DELETE: removing a row</h2><p>Use DELETE carefully because it removes data. In the interface, open Browse and click Delete beside the target row, or use SQL with a clear condition. Do not run DELETE without WHERE during practice.</p><pre class=\"lesson-code\"><code>DELETE FROM users\nWHERE id = 1;</code></pre><ul class=\"lesson-bullets\"><li>Delete by primary key id.</li><li>Export a backup before deleting important data.</li><li>If you want to clear data for practice, use a training table, not a real project table.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>Search and filtering</h2><p>To search visually, use the Search tab inside the table and choose a column and value. In SQL, use WHERE and LIKE.</p><pre class=\"lesson-code\"><code>SELECT *\nFROM users\nWHERE email LIKE '%gmail.com';</code></pre><ul class=\"lesson-bullets\"><li>The % symbol means any text before or after the value.</li><li>Search is helpful for beginners, but SQL gives more precise control.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>Relationships and backup</h2><ol class=\"lesson-steps\"><li>If you have a users table and an orders table, make orders.user_id point to users.id.</li><li>Use Relation View to see and document the relationship.</li><li>Use Export to create a SQL backup before major changes.</li><li>Use Import to restore a backup or move the database to another machine.</li></ol></section>"
         ]
       }
     },
