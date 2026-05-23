@@ -328,8 +328,14 @@ function renderDetail(root) {
   if (item.images?.length) {
     media += `<div class="lesson-gallery">${item.images.map((image) => `
       <figure>
-        <img src="${image.src}" alt="${text(image.caption)}" loading="lazy">
+        <div class="annotated-image">
+          <img src="${image.src}" alt="${text(image.caption)}" loading="lazy">
+          ${(image.annotations || []).map((annotation, index) => `
+            <span class="annotation-box" style="left:${annotation.x}%;top:${annotation.y}%;width:${annotation.w}%;height:${annotation.h}%;">${index + 1}</span>
+          `).join("")}
+        </div>
         <figcaption>${text(image.caption)}</figcaption>
+        ${image.annotations?.length ? `<ol class="annotation-list">${image.annotations.map((annotation, index) => `<li><strong>${index + 1}</strong> ${text(annotation.label)}</li>`).join("")}</ol>` : ""}
       </figure>
     `).join("")}</div>`;
   }

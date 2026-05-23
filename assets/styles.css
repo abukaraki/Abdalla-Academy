@@ -826,6 +826,52 @@ html[lang="en"] .lang-ar {
   height: auto;
 }
 
+.annotated-image {
+  position: relative;
+}
+
+.annotation-box {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 3px solid #bd8a2f;
+  border-radius: 6px;
+  background: rgba(189, 138, 47, 0.08);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0 0 1px rgba(4, 33, 63, 0.35), 0 8px 22px rgba(4, 33, 63, 0.18);
+  pointer-events: none;
+}
+
+.annotation-list {
+  margin: 0;
+  padding: 0.85rem 1.25rem 1rem;
+  color: #334155;
+}
+
+html[dir="rtl"] .annotation-list {
+  padding-right: 1.25rem;
+  padding-left: 1rem;
+}
+
+.annotation-list li + li {
+  margin-top: 0.4rem;
+}
+
+.annotation-list strong {
+  display: inline-grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-inline-end: 0.35rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.78rem;
+}
+
 .lesson-gallery figcaption {
   padding: 0.75rem 0.9rem;
   color: var(--muted);

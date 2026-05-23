@@ -2,7 +2,7 @@ window.SITE_CONTENT = {
   items: [
     {
       id: "php-xampp-install-windows",
-      type: "lectures",
+      type: "software",
       date: "2026-05-23",
       duration: "15 min",
       level: "PHP Basics",
@@ -69,6 +69,234 @@ window.SITE_CONTENT = {
           "After downloading the installer, run it normally. If Windows User Account Control appears, read it and confirm that the installer came from the official source before continuing. During component selection, the essentials for learning PHP are Apache, PHP, MariaDB, and phpMyAdmin. These components cover most beginner PHP lessons.",
           "It is usually better to install XAMPP in a simple path such as C:\\xampp rather than inside Program Files, because Windows can apply stricter permissions to program folders. After installation, open the XAMPP Control Panel and click Start next to Apache and MySQL.",
           "To verify the installation, open your browser and visit localhost. If the XAMPP page appears, Apache is running. You can then open localhost/phpmyadmin to confirm that the database tools work. If Apache does not start, another program may already be using port 80, such as IIS, Skype, or another local web service."
+        ]
+      }
+    },
+    {
+      id: "phpmyadmin-graphical-interface",
+      type: "software",
+      date: "2026-05-23",
+      duration: "18 min",
+      level: "PHP Basics",
+      course: {
+        ar: "دورة PHP",
+        en: "PHP Course"
+      },
+      title: {
+        ar: "شرح واجهة phpMyAdmin الرسومية",
+        en: "Understanding the phpMyAdmin Graphical Interface"
+      },
+      summary: {
+        ar: "درس يشرح أهم أجزاء واجهة phpMyAdmin: الشريط الجانبي، قواعد البيانات، الجداول، التصفح، SQL، الاستيراد، التصدير، وإدارة المستخدمين.",
+        en: "A lesson explaining the main parts of the phpMyAdmin interface: sidebar, databases, tables, Browse, SQL, Import, Export, and user management."
+      },
+      mediaType: "article",
+      category: "software",
+      tags: ["software", "phpmyadmin", "php", "mysql", "mariadb"],
+      icon: "assets/images/phpmyadmin/phpmyadmin-login.png",
+      thumbnail: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+      sourceUrl: "https://www.phpmyadmin.net/docs/",
+      images: [
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-login.png",
+          caption: {
+            ar: "شاشة الدخول في phpMyAdmin.",
+            en: "The phpMyAdmin login screen."
+          },
+          annotations: [
+            {
+              x: 7,
+              y: 37,
+              w: 52,
+              h: 18,
+              label: {
+                ar: "اختيار اللغة: يستخدم لتغيير لغة الواجهة قبل تسجيل الدخول.",
+                en: "Language selector: changes the interface language before login."
+              }
+            },
+            {
+              x: 43,
+              y: 65,
+              w: 45,
+              h: 8,
+              label: {
+                ar: "اسم المستخدم: يكتب هنا اسم مستخدم قاعدة البيانات مثل root في بيئة التدريب المحلية.",
+                en: "Username field: enter the database username, such as root in a local training environment."
+              }
+            },
+            {
+              x: 43,
+              y: 76,
+              w: 45,
+              h: 8,
+              label: {
+                ar: "كلمة المرور: تستخدم لحماية الوصول إلى قواعد البيانات.",
+                en: "Password field: protects access to the databases."
+              }
+            },
+            {
+              x: 81,
+              y: 89,
+              w: 10,
+              h: 7,
+              label: {
+                ar: "زر الدخول: يرسل بيانات المستخدم ويفتح لوحة التحكم عند نجاح المصادقة.",
+                en: "Login button: submits the credentials and opens the dashboard when authentication succeeds."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          caption: {
+            ar: "لوحة phpMyAdmin الرئيسية بعد الدخول.",
+            en: "The main phpMyAdmin dashboard after login."
+          },
+          annotations: [
+            {
+              x: 1,
+              y: 12,
+              w: 20,
+              h: 8,
+              label: {
+                ar: "شعار phpMyAdmin وأزرار الوصول السريع مثل الصفحة الرئيسية والإعدادات.",
+                en: "phpMyAdmin logo and quick actions such as home and settings."
+              }
+            },
+            {
+              x: 1,
+              y: 26,
+              w: 18,
+              h: 21,
+              label: {
+                ar: "الشريط الجانبي: يعرض قواعد البيانات والجداول للتنقل السريع.",
+                en: "Sidebar: lists databases and tables for quick navigation."
+              }
+            },
+            {
+              x: 21,
+              y: 15,
+              w: 77,
+              h: 5,
+              label: {
+                ar: "شريط التبويبات الرئيسي: Databases وSQL وExport وImport وغيرها.",
+                en: "Main tabs bar: Databases, SQL, Export, Import, and other tools."
+              }
+            },
+            {
+              x: 23,
+              y: 23,
+              w: 42,
+              h: 25,
+              label: {
+                ar: "الإعدادات العامة: تغيير كلمة المرور، الترميز، وبعض خيارات الخادم.",
+                en: "General settings: password, collation, and server options."
+              }
+            },
+            {
+              x: 67,
+              y: 23,
+              w: 30,
+              h: 35,
+              label: {
+                ar: "معلومات خادم قاعدة البيانات: نوع الخادم، النسخة، المستخدم، والترميز.",
+                en: "Database server information: server type, version, user, and charset."
+              }
+            },
+            {
+              x: 22,
+              y: 98,
+              w: 6,
+              h: 2,
+              label: {
+                ar: "Console: نافذة سريعة لكتابة أوامر SQL ومراجعة الأوامر.",
+                en: "Console: a quick panel for SQL commands and command review."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
+          caption: {
+            ar: "واجهة بنية الجدول داخل phpMyAdmin.",
+            en: "The table structure view inside phpMyAdmin."
+          },
+          annotations: [
+            {
+              x: 0,
+              y: 0,
+              w: 21,
+              h: 48,
+              label: {
+                ar: "شجرة قواعد البيانات: تعرض قواعد البيانات والجداول مثل world وCity وCountry.",
+                en: "Database tree: shows databases and tables such as world, City, and Country."
+              }
+            },
+            {
+              x: 23,
+              y: 2,
+              w: 74,
+              h: 6,
+              label: {
+                ar: "تبويبات الجدول: Browse وStructure وSQL وSearch وInsert وغيرها.",
+                en: "Table tabs: Browse, Structure, SQL, Search, Insert, and more."
+              }
+            },
+            {
+              x: 23,
+              y: 8,
+              w: 74,
+              h: 18,
+              label: {
+                ar: "بنية الأعمدة: أسماء الحقول، نوع البيانات، Null، المفاتيح، والقيم الافتراضية.",
+                en: "Column structure: fields, data types, Null, keys, and default values."
+              }
+            },
+            {
+              x: 75,
+              y: 8,
+              w: 22,
+              h: 18,
+              label: {
+                ar: "عمود العمليات: تعديل الحقل أو حذفه أو إضافة فهرس عليه.",
+                en: "Actions column: change, drop, or index a field."
+              }
+            },
+            {
+              x: 22,
+              y: 33,
+              w: 38,
+              h: 24,
+              label: {
+                ar: "معلومات الجدول: حجم البيانات، عدد الصفوف، والترميز.",
+                en: "Table information: data size, row count, and collation."
+              }
+            }
+          ]
+        }
+      ],
+      body: {
+        ar: [
+          "phpMyAdmin أداة رسومية تعمل من خلال المتصفح لإدارة قواعد بيانات MySQL أو MariaDB. بدلا من كتابة كل الأوامر يدويا داخل الطرفية، توفر الواجهة أزرارا وتبويبات تساعدك على إنشاء قواعد البيانات، إنشاء الجداول، عرض البيانات، تعديل الصفوف، تنفيذ أوامر SQL، واستيراد أو تصدير الملفات.",
+          "عند فتح phpMyAdmin من خلال الرابط localhost/phpmyadmin تظهر الواجهة عادة مقسومة إلى منطقتين رئيسيتين. في الجهة الجانبية تظهر قائمة قواعد البيانات، وفي المساحة الرئيسية تظهر تفاصيل العنصر الذي تختاره. هذا التقسيم مهم لأنه يساعدك على التنقل بين قاعدة البيانات والجداول والعمليات بسرعة.",
+          "الشريط الجانبي يعرض أسماء قواعد البيانات المتاحة. عند الضغط على اسم قاعدة بيانات تظهر الجداول الموجودة داخلها. إذا كنت تعمل على مشروع PHP، فغالبا ستنشئ قاعدة بيانات خاصة بالمشروع ثم تضيف داخلها جداول مثل users أو products أو orders حسب طبيعة التطبيق.",
+          "تبويب Browse يستخدم لعرض الصفوف الموجودة داخل الجدول. من خلاله يمكن رؤية البيانات كما لو كانت في جدول منظم، مع أزرار للتعديل والحذف والنسخ. هذا التبويب مفيد جدا أثناء التعلم لأنه يوضح أثر الكود مباشرة بعد عمليات الإدخال أو التحديث.",
+          "تبويب Structure يعرض بنية الجدول: أسماء الأعمدة، أنواع البيانات، المفاتيح، الفهارس، والقيم الافتراضية. فهم هذا التبويب مهم قبل كتابة كود PHP، لأن الخطأ في نوع العمود أو المفتاح الأساسي قد يسبب مشاكل عند حفظ البيانات أو البحث عنها.",
+          "تبويب SQL يسمح بتنفيذ أوامر SQL مباشرة. يمكنك كتابة أمر مثل SELECT لقراءة البيانات أو INSERT لإضافة صف جديد أو UPDATE لتعديل بيانات. حتى مع وجود واجهة رسومية، تعلم SQL يبقى ضروريا لأن الواجهة في النهاية تنفذ أوامر قاعدة البيانات.",
+          "تبويب Import يستخدم لإدخال قاعدة بيانات أو جدول من ملف خارجي مثل .sql. هذا مفيد عند نقل مشروع من جهاز إلى آخر أو عند استلام قاعدة بيانات جاهزة للتدريب. قبل الاستيراد، تأكد أن الملف من مصدر موثوق وأن قاعدة البيانات المناسبة محددة.",
+          "تبويب Export يستخدم لاستخراج نسخة من قاعدة البيانات أو الجداول. في المشاريع التعليمية، التصدير يساعدك على حفظ نسخة احتياطية قبل التجربة أو قبل تعديل كبير. غالبا يكون تنسيق SQL هو الخيار المناسب لأنه يحفظ بنية الجداول والبيانات.",
+          "من أفضل الممارسات داخل phpMyAdmin أن تسمي قواعد البيانات والجداول بأسماء واضحة، وأن تستخدم مفاتيح أساسية مثل id، وأن تتجنب تعديل بيانات مهمة بدون نسخة احتياطية. الواجهة الرسومية تجعل العمل أسهل، لكنها لا تعني أن العمليات بلا تأثير؛ حذف جدول أو قاعدة بيانات قد يزيل البيانات نهائيا."
+        ],
+        en: [
+          "phpMyAdmin is a browser-based graphical tool for managing MySQL or MariaDB databases. Instead of typing every command manually in a terminal, the interface gives you buttons and tabs for creating databases, creating tables, viewing data, editing rows, running SQL commands, and importing or exporting files.",
+          "When you open phpMyAdmin through localhost/phpmyadmin, the interface is usually divided into two main areas. The sidebar displays the available databases, while the main workspace shows details for the selected item. This layout helps you move quickly between databases, tables, and operations.",
+          "The sidebar lists the available database names. When you select a database, the tables inside it appear. In a PHP project, you will usually create one database for the project, then add tables such as users, products, or orders depending on the application.",
+          "The Browse tab is used to view the rows stored inside a table. It shows data in a structured table view, with actions for editing, deleting, and copying rows. This tab is especially useful while learning because it shows the result of insert or update operations immediately.",
+          "The Structure tab displays the table design: column names, data types, keys, indexes, and default values. Understanding this tab is important before writing PHP code, because a wrong column type or primary key can cause problems when saving or searching data.",
+          "The SQL tab allows you to run SQL statements directly. You can write a SELECT statement to read data, INSERT to add a new row, or UPDATE to modify existing data. Even with a graphical interface, learning SQL remains important because the interface ultimately works through database commands.",
+          "The Import tab is used to load a database or table from an external file such as a .sql file. This is useful when moving a project between computers or when receiving a ready database for practice. Before importing, make sure the file comes from a trusted source and the correct database is selected.",
+          "The Export tab creates a copy of a database or selected tables. In educational projects, exporting is useful for backups before experiments or major changes. The SQL format is usually the best choice because it preserves both table structure and data.",
+          "Good practice in phpMyAdmin includes using clear names for databases and tables, defining primary keys such as id, and avoiding major changes without a backup. The graphical interface makes database work easier, but the operations are still real; deleting a table or database can permanently remove data."
         ]
       }
     },
