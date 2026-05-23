@@ -19,29 +19,36 @@ window.SITE_CONTENT = {
         en: "A practical lesson showing where to download XAMPP and how to set up a local PHP, Apache, and MariaDB environment."
       },
       mediaType: "article",
-      icon: "assets/icons/xampp.svg",
+      icon: "assets/images/xampp/xampp-logo.png",
       sourceUrl: "https://www.apachefriends.org/download.html",
       downloadUrl: "https://www.apachefriends.org/download.html",
       images: [
         {
-          src: "assets/images/xampp/download-step.svg",
+          src: "assets/images/xampp/xampp-setup-welcome.webp",
           caption: {
-            ar: "الخطوة الأولى: الدخول إلى صفحة التحميل الرسمية واختيار نسخة Windows.",
-            en: "Step 1: Open the official download page and choose the Windows version."
+            ar: "الخطوة الأولى: تشغيل ملف التثبيت الرسمي وظهور نافذة Setup - XAMPP.",
+            en: "Step 1: Run the official installer and open the Setup - XAMPP window."
           }
         },
         {
-          src: "assets/images/xampp/install-step.svg",
+          src: "assets/images/xampp/xampp-components.png",
           caption: {
             ar: "الخطوة الثانية: اختيار المكونات الأساسية أثناء التثبيت.",
             en: "Step 2: Select the essential components during installation."
           }
         },
         {
-          src: "assets/images/xampp/control-panel-step.svg",
+          src: "assets/images/xampp/xampp-installing.jpg",
           caption: {
-            ar: "الخطوة الثالثة: تشغيل Apache وMySQL من لوحة تحكم XAMPP.",
-            en: "Step 3: Start Apache and MySQL from the XAMPP Control Panel."
+            ar: "الخطوة الثالثة: انتظار انتهاء نسخ الملفات وتثبيت مكونات XAMPP.",
+            en: "Step 3: Wait while the installer copies files and installs XAMPP components."
+          }
+        },
+        {
+          src: "assets/images/xampp/xampp-control-panel.webp",
+          caption: {
+            ar: "الخطوة الرابعة: تشغيل Apache وMySQL من لوحة تحكم XAMPP.",
+            en: "Step 4: Start Apache and MySQL from the XAMPP Control Panel."
           }
         }
       ],
