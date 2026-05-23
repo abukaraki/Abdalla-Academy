@@ -21,20 +21,44 @@ window.SITE_CONTENT = {
       mediaType: "article",
       icon: "assets/icons/xampp.svg",
       sourceUrl: "https://www.apachefriends.org/download.html",
+      downloadUrl: "https://www.apachefriends.org/download.html",
+      images: [
+        {
+          src: "assets/images/xampp/download-step.svg",
+          caption: {
+            ar: "الخطوة الأولى: الدخول إلى صفحة التحميل الرسمية واختيار نسخة Windows.",
+            en: "Step 1: Open the official download page and choose the Windows version."
+          }
+        },
+        {
+          src: "assets/images/xampp/install-step.svg",
+          caption: {
+            ar: "الخطوة الثانية: اختيار المكونات الأساسية أثناء التثبيت.",
+            en: "Step 2: Select the essential components during installation."
+          }
+        },
+        {
+          src: "assets/images/xampp/control-panel-step.svg",
+          caption: {
+            ar: "الخطوة الثالثة: تشغيل Apache وMySQL من لوحة تحكم XAMPP.",
+            en: "Step 3: Start Apache and MySQL from the XAMPP Control Panel."
+          }
+        }
+      ],
       body: {
         ar: [
-          "نبدأ من الموقع الرسمي Apache Friends حتى نتجنب النسخ غير الموثوقة.",
-          "اختر نسخة Windows المناسبة، ثم حمل ملف التثبيت وشغله كأي برنامج عادي.",
-          "أثناء التثبيت يكفي اختيار المكونات الأساسية لتعلم PHP: Apache وPHP وMariaDB وphpMyAdmin.",
-          "بعد انتهاء التثبيت افتح XAMPP Control Panel وشغل Apache وMySQL.",
-          "للتجربة، افتح المتصفح واكتب localhost. إذا ظهرت صفحة XAMPP فهذا يعني أن البيئة تعمل."
+          "XAMPP هو حزمة تطوير محلية تجمع أهم الأدوات التي يحتاجها المتعلم لتشغيل PHP على جهازه. الفكرة العلمية وراءه بسيطة: نحتاج إلى خادم ويب يستقبل الطلبات، ومفسر PHP ينفذ الملفات، وقاعدة بيانات نخزن فيها البيانات. في XAMPP يقوم Apache بدور خادم الويب، وتقوم PHP بتنفيذ الكود، وتوفر MariaDB قاعدة البيانات، بينما يساعد phpMyAdmin على إدارتها من المتصفح.",
+          "ابدأ دائما من الموقع الرسمي Apache Friends. تحميل البرامج من مصدرها الرسمي يقلل خطر الملفات المعدلة أو الإصدارات غير الموثوقة. افتح صفحة التحميل، ثم اختر نسخة Windows المناسبة. لا تحتاج في البداية إلى البحث عن إعدادات متقدمة؛ الهدف هنا هو تجهيز بيئة تعلم مستقرة.",
+          "بعد تنزيل ملف التثبيت، شغله بالطريقة المعتادة. إذا ظهرت رسالة من Windows User Account Control فاقرأها وتأكد أن الملف من المصدر الرسمي قبل المتابعة. أثناء اختيار المكونات، يكفي للبدء تحديد Apache وPHP وMariaDB وphpMyAdmin. هذه المكونات تغطي أغلب دروس PHP الأساسية.",
+          "يفضل تثبيت XAMPP في مسار بسيط مثل C:\\xampp بدلا من مسار طويل داخل Program Files، لأن بعض أنظمة ويندوز قد تفرض قيود صلاحيات على مجلدات البرامج. بعد انتهاء التثبيت افتح XAMPP Control Panel، ثم اضغط Start أمام Apache وMySQL.",
+          "للتأكد من نجاح التثبيت، افتح المتصفح واكتب localhost. إذا ظهرت صفحة XAMPP فهذا يعني أن Apache يعمل. بعد ذلك يمكن تجربة phpMyAdmin عبر localhost/phpmyadmin للتأكد من عمل قاعدة البيانات. إذا لم يعمل Apache غالبا يوجد برنامج آخر يستخدم المنفذ 80 مثل IIS أو Skype أو خدمة ويب أخرى."
         ],
         en: [
-          "Start from the official Apache Friends website to avoid untrusted downloads.",
-          "Choose the suitable Windows version, download the installer, and run it like a normal application.",
-          "For learning PHP, the essential components are Apache, PHP, MariaDB, and phpMyAdmin.",
-          "After installation, open the XAMPP Control Panel and start Apache and MySQL.",
-          "To test it, open the browser and visit localhost. If the XAMPP page appears, the environment is working."
+          "XAMPP is a local development package that brings together the main tools needed to run PHP on your computer. The technical idea is simple: a web server receives browser requests, PHP executes server-side files, and a database stores application data. In XAMPP, Apache acts as the web server, PHP runs the code, MariaDB provides the database, and phpMyAdmin helps manage it from the browser.",
+          "Always start from the official Apache Friends website. Downloading software from the official source reduces the risk of modified files or untrusted versions. Open the download page and choose the Windows version. At the beginning, you do not need advanced settings; the goal is to prepare a stable learning environment.",
+          "After downloading the installer, run it normally. If Windows User Account Control appears, read it and confirm that the installer came from the official source before continuing. During component selection, the essentials for learning PHP are Apache, PHP, MariaDB, and phpMyAdmin. These components cover most beginner PHP lessons.",
+          "It is usually better to install XAMPP in a simple path such as C:\\xampp rather than inside Program Files, because Windows can apply stricter permissions to program folders. After installation, open the XAMPP Control Panel and click Start next to Apache and MySQL.",
+          "To verify the installation, open your browser and visit localhost. If the XAMPP page appears, Apache is running. You can then open localhost/phpmyadmin to confirm that the database tools work. If Apache does not start, another program may already be using port 80, such as IIS, Skype, or another local web service."
         ]
       }
     },

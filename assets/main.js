@@ -310,6 +310,25 @@ function renderDetail(root) {
   if (item.sourceUrl) {
     media += `<p><a href="${item.sourceUrl}" rel="noopener" target="_blank">Apache Friends XAMPP</a></p>`;
   }
+  if (item.downloadUrl) {
+    media += `<p><a class="button primary" href="${item.downloadUrl}" rel="noopener" target="_blank">${currentLang === "ar" ? "تحميل XAMPP من الموقع الرسمي" : "Download XAMPP from the official site"}</a></p>`;
+  }
+  if (item.images?.length) {
+    media += `<div class="lesson-gallery">${item.images.map((image) => `
+      <figure>
+        <img src="${image.src}" alt="${text(image.caption)}" loading="lazy">
+        <figcaption>${text(image.caption)}</figcaption>
+      </figure>
+    `).join("")}</div>`;
+  }
+  const shareUrl = encodeURIComponent(window.location.href);
+  const shareTitle = encodeURIComponent(text(item.title));
+  media += `<div class="share-box" aria-label="Share lesson">
+    <strong>${currentLang === "ar" ? "مشاركة الدرس" : "Share this lesson"}</strong>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}" target="_blank" rel="noopener">X</a>
+    <a href="https://wa.me/?text=${shareTitle}%20${shareUrl}" target="_blank" rel="noopener">WhatsApp</a>
+  </div>`;
 
   root.innerHTML = `
     <section class="page-hero">
