@@ -684,6 +684,34 @@ html[lang="en"] .lang-ar {
   padding: 1rem 0;
 }
 
+.materials-guide {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.materials-guide article {
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 8px 22px rgba(23, 32, 42, 0.045);
+}
+
+.materials-guide strong {
+  display: block;
+  color: var(--primary-strong);
+  font-size: 1rem;
+}
+
+.materials-guide span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .search-input {
   width: min(100%, 520px);
   min-height: 42px;
@@ -1419,6 +1447,7 @@ html[dir="rtl"] .lesson-bullets {
   .feature-grid,
   .feature-grid.compact,
   .content-grid,
+  .materials-guide,
   .topic-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1463,6 +1492,7 @@ html[dir="rtl"] .lesson-bullets {
   .feature-grid,
   .feature-grid.compact,
   .content-grid,
+  .materials-guide,
   .topic-grid,
   .stats-grid,
   .stats-strip,
