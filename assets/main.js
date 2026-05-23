@@ -35,7 +35,7 @@ const ui = {
     adsenseTitle: "مصمم ليكون واضحا ومناسبا للمراجعة.",
     adsenseText: "المنصة تتجنب الصفحات الفارغة، الإعلانات المضللة، النوافذ المزعجة، والمحتوى المنسوخ. قبل التقديم، أضف محتوى أصليا أكثر واستبدل بيانات التواصل والرابط الرسمي.",
     footerText: "",
-    lecturesPageTitle: "المحاضرات",
+    lecturesPageTitle: "محاضرات الدورات",
     lecturesPageLead: "",
     blogPageTitle: "المدونة",
     blogPageLead: "المدونة تساعد المنصة على البقاء نشطة بمحتوى أصلي وسهل القراءة.",
@@ -96,7 +96,7 @@ const ui = {
     adsenseTitle: "Designed to be clear and review-friendly.",
     adsenseText: "The platform avoids empty pages, misleading ads, intrusive popups, and copied content. Before applying, add more original content and replace the official contact details and URL.",
     footerText: "",
-    lecturesPageTitle: "Lectures",
+    lecturesPageTitle: "Course Lectures",
     lecturesPageLead: "",
     blogPageTitle: "Blog",
     blogPageLead: "The blog keeps the platform active with original and readable content.",
@@ -187,11 +187,30 @@ function cardAction(item) {
   return ui[currentLang].readMore;
 }
 
+function courseLectures() {
+  return content
+    .filter((item) => item.type === "course" && item.playlist?.length)
+    .flatMap((courseItem) => courseItem.playlist.map((lesson, index) => ({
+      id: `${courseItem.id}-lesson-${index + 1}`,
+      type: "lectures",
+      date: courseItem.date,
+      duration: currentLang === "ar" ? `محاضرة ${index + 1}` : `Lesson ${index + 1}`,
+      level: courseItem.level,
+      course: courseItem.title,
+      title: lesson.title,
+      summary: lesson.summary,
+      thumbnail: courseItem.thumbnail,
+      icon: courseItem.icon,
+      href: `content.html?id=${encodeURIComponent(courseItem.id)}&lesson=${index + 1}`
+    })));
+}
+
 function makeCard(item) {
   const article = document.createElement("article");
   article.className = "content-card";
   const image = item.thumbnail || item.images?.[0]?.src || item.icon || "";
-  const media = image ? `<a class="content-media" href="content.html?id=${encodeURIComponent(item.id)}"><img src="${image}" alt="${text(item.title)}" loading="lazy"></a>` : "";
+  const href = item.href || `content.html?id=${encodeURIComponent(item.id)}`;
+  const media = image ? `<a class="content-media" href="${href}"><img src="${image}" alt="${text(item.title)}" loading="lazy"></a>` : "";
   const icon = item.icon ? `<img class="content-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   const course = item.course ? `<span>${text(item.course)}</span>` : "";
   const lessonCount = item.playlist?.length ? `<span>${item.playlist.length} ${ui[currentLang].lessons}</span>` : "";
@@ -205,8 +224,8 @@ function makeCard(item) {
       <span>${item.duration || ""}</span>
       <span>${item.level || ""}</span>
     </div>
-    <h2><a href="content.html?id=${encodeURIComponent(item.id)}">${text(item.title)}</a></h2>
-    <a class="button small" href="content.html?id=${encodeURIComponent(item.id)}">${cardAction(item)}</a>
+    <h2><a href="${href}">${text(item.title)}</a></h2>
+    <a class="button small" href="${href}">${cardAction(item)}</a>
   `;
   return article;
 }
@@ -280,6 +299,12 @@ function renderPagedItems(root, items) {
 function renderCollection(type, root) {
   const search = document.querySelector("[data-search]");
   const query = (search?.value || "").trim().toLowerCase();
+  if (type === "lectures") {
+    const items = courseLectures()
+      .filter((item) => `${text(item.title)} ${text(item.summary)} ${text(item.course)}`.toLowerCase().includes(query));
+    renderPagedItems(root, items);
+    return;
+  }
   const byType = (item) => {
     if (type === "courses") return item.type === "course";
     if (type === "software") return item.category === "software" || item.tags?.includes("software");
@@ -295,8 +320,12 @@ function renderCollection(type, root) {
 
 function renderCourseDetail(root, item) {
   const intro = (text(item.body) || []).map(renderBodySegment).join("");
+  const selectedLesson = Math.min(
+    Math.max(1, Number(new URLSearchParams(window.location.search).get("lesson") || 1)),
+    item.playlist?.length || 1
+  );
   const playlist = (item.playlist || []).map((lesson, index) => `
-    <article class="playlist-item${index === 0 ? " is-active" : ""}">
+    <article class="playlist-item${index + 1 === selectedLesson ? " is-active" : ""}">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <div>
         <h3>${text(lesson.title)}</h3>
@@ -305,7 +334,7 @@ function renderCourseDetail(root, item) {
       <button class="playlist-select" type="button">${currentLang === "ar" ? "اختيار" : "Select"}</button>
     </article>
   `).join("");
-  const firstLesson = item.playlist?.[0];
+  const firstLesson = item.playlist?.[selectedLesson - 1] || item.playlist?.[0];
   const codeLab = item.codeLab ? `
     <section class="code-lab" data-code-lab="${item.codeLab.preview ? "preview" : "plain"}">
       <div class="code-lab-head">
@@ -360,7 +389,7 @@ function renderSearch(root) {
   if (search && !search.value) search.value = urlQuery;
   const query = (search?.value || urlQuery).trim().toLowerCase();
 
-  const source = content.slice().sort((a, b) => b.date.localeCompare(a.date));
+  const source = content.concat(courseLectures()).sort((a, b) => b.date.localeCompare(a.date));
   const items = query
     ? source.filter((item) => `${text(item.title)} ${text(item.summary)} ${item.type}`.toLowerCase().includes(query))
     : source;
@@ -450,6 +479,10 @@ function renderDetail(root) {
 function renderStats() {
   document.querySelectorAll("[data-count]").forEach((node) => {
     const type = node.getAttribute("data-count");
+    if (type === "lectures") {
+      node.textContent = String(courseLectures().length);
+      return;
+    }
     const count = content.filter((item) => {
       if (type === "courses") return item.type === "course";
       if (type === "software") return item.category === "software" || item.tags?.includes("software");
