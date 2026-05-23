@@ -58,7 +58,11 @@ const ui = {
     playlist: "قائمة المحاضرات",
     practice: "تدريب الكود",
     runCode: "تشغيل الكود",
-    codeHint: "اكتب الكود هنا وشاهد النتيجة عندما تكون اللغة قابلة للتشغيل داخل المتصفح."
+    codeHint: "اكتب الكود هنا ثم شغله. المنصة تعرض النتيجة والأخطاء التعليمية مباشرة.",
+    output: "النتيجة",
+    issues: "الأخطاء والملاحظات",
+    noIssues: "لا توجد أخطاء واضحة.",
+    compilerNote: "هذا فحص تدريبي داخل المتصفح، والتشغيل الحقيقي لهذه اللغة يحتاج البيئة المناسبة."
   },
   en: {
     brandTitle: "Abdalla Academy",
@@ -119,7 +123,11 @@ const ui = {
     playlist: "Playlist",
     practice: "Code Practice",
     runCode: "Run Code",
-    codeHint: "Write code here and preview the result when the language can run in the browser."
+    codeHint: "Write code here, then run it. The platform shows output and learning errors immediately.",
+    output: "Output",
+    issues: "Errors and Notes",
+    noIssues: "No clear issues found.",
+    compilerNote: "This is a browser-based training check. Real execution for this language needs the proper environment."
   }
 };
 
@@ -336,17 +344,29 @@ function renderCourseDetail(root, item) {
   `).join("");
   const firstLesson = item.playlist?.[selectedLesson - 1] || item.playlist?.[0];
   const codeLab = item.codeLab ? `
-    <section class="code-lab" data-code-lab="${item.codeLab.preview ? "preview" : "plain"}">
+    <section class="code-lab" data-code-lab="${item.codeLab.preview ? "preview" : "plain"}" data-course-id="${item.id}">
       <div class="code-lab-head">
         <div>
           <p class="eyebrow">${ui[currentLang].practice}</p>
           <h2>${text(item.codeLab.title)}</h2>
         </div>
-        ${item.codeLab.preview ? `<button class="button primary" type="button" data-run-code>${ui[currentLang].runCode}</button>` : ""}
+        <button class="button primary" type="button" data-run-code>${ui[currentLang].runCode}</button>
       </div>
       <p>${ui[currentLang].codeHint}</p>
-      <textarea class="code-editor" spellcheck="false">${text(item.codeLab.initialCode)}</textarea>
-      ${item.codeLab.preview ? `<iframe class="code-preview" title="${text(item.codeLab.title)}"></iframe>` : `<pre class="code-output"><code>${text(item.codeLab.note)}</code></pre>`}
+      <div class="compiler-grid">
+        <textarea class="code-editor" spellcheck="false">${text(item.codeLab.initialCode)}</textarea>
+        <div class="compiler-result">
+          ${item.codeLab.preview ? `<iframe class="code-preview" title="${text(item.codeLab.title)}"></iframe>` : ""}
+          <section class="compiler-panel">
+            <h3>${ui[currentLang].output}</h3>
+            <pre class="code-output"><code>${text(item.codeLab.note) || ui[currentLang].compilerNote}</code></pre>
+          </section>
+          <section class="compiler-panel">
+            <h3>${ui[currentLang].issues}</h3>
+            <ul class="compiler-issues"></ul>
+          </section>
+        </div>
+      </div>
     </section>
   ` : "";
 
@@ -657,15 +677,156 @@ function setupCodeLabs(scope = document) {
   scope.querySelectorAll(".code-lab").forEach((lab) => {
     const editor = lab.querySelector(".code-editor");
     const preview = lab.querySelector(".code-preview");
+    const output = lab.querySelector(".code-output code");
+    const issues = lab.querySelector(".compiler-issues");
+    const courseId = lab.dataset.courseId || "";
     const run = () => {
-      if (!editor || !preview) return;
-      preview.srcdoc = editor.value;
+      if (!editor) return;
+      const code = editor.value;
+      const result = analyzeCode(courseId, code);
+      if (output) output.textContent = result.output;
+      if (issues) {
+        issues.innerHTML = result.issues.length
+          ? result.issues.map((issue) => `<li class="${issue.type || "note"}"><strong>${issue.title}</strong><span>${issue.message}</span></li>`).join("")
+          : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? "تابع التجربة وعدل الكود." : "Keep experimenting and improving the code."}</span></li>`;
+      }
+      if (preview) {
+        if (courseId.includes("js") && output) {
+          output.textContent = currentLang === "ar" ? "تشغيل JavaScript..." : "Running JavaScript...";
+        }
+        preview.srcdoc = buildPreviewDocument(courseId, code);
+      }
     };
     lab.querySelector("[data-run-code]")?.addEventListener("click", run);
     editor?.addEventListener("input", run);
-    if (preview) run();
+    run();
   });
 }
+
+function buildPreviewDocument(courseId, code) {
+  if (!courseId.includes("js")) return code;
+  const bridge = `<script>
+    window.onerror = function(message, source, lineno, colno) {
+      parent.postMessage({ source: "academy-compiler", kind: "error", message: String(message), line: lineno }, "*");
+    };
+    ["log", "warn", "error"].forEach(function(method) {
+      var original = console[method];
+      console[method] = function() {
+        var text = Array.from(arguments).map(function(value) {
+          try { return typeof value === "object" ? JSON.stringify(value) : String(value); }
+          catch (error) { return String(value); }
+        }).join(" ");
+        parent.postMessage({ source: "academy-compiler", kind: method, message: text }, "*");
+        original.apply(console, arguments);
+      };
+    });
+  <\/script>`;
+  if (/<head[^>]*>/i.test(code)) return code.replace(/<head[^>]*>/i, (match) => `${match}${bridge}`);
+  return `${bridge}${code}`;
+}
+
+function balanceIssue(code, open, close, label) {
+  const left = (code.match(new RegExp(`\\${open}`, "g")) || []).length;
+  const right = (code.match(new RegExp(`\\${close}`, "g")) || []).length;
+  if (left === right) return null;
+  return {
+    type: "error",
+    title: currentLang === "ar" ? `مشكلة في ${label}` : `${label} issue`,
+    message: currentLang === "ar" ? `عدد ${open} لا يساوي عدد ${close}. راجع الإغلاق.` : `${open} and ${close} counts do not match. Check closing characters.`
+  };
+}
+
+function analyzeCode(courseId, code) {
+  const issues = [];
+  const lower = code.toLowerCase();
+  const add = (type, titleAr, titleEn, messageAr, messageEn) => {
+    issues.push({
+      type,
+      title: currentLang === "ar" ? titleAr : titleEn,
+      message: currentLang === "ar" ? messageAr : messageEn
+    });
+  };
+  const semicolonLines = code.split("\n")
+    .map((line, index) => ({ line: line.trim(), index: index + 1 }))
+    .filter(({ line }) => line && !line.startsWith("//") && !line.startsWith("#") && !/[;{}:]$/.test(line));
+
+  if (courseId.includes("html")) {
+    if (!/<!doctype html>/i.test(code)) add("warn", "DOCTYPE مفقود", "Missing DOCTYPE", "أضف <!doctype html> في بداية الصفحة.", "Add <!doctype html> at the beginning of the page.");
+    ["html", "head", "body", "title"].forEach((tag) => {
+      if (!new RegExp(`<${tag}[\\s>]`, "i").test(code)) add("warn", `وسم ${tag} غير موجود`, `Missing ${tag} tag`, `وجود <${tag}> يجعل الصفحة أوضح للمتصفح ومحركات البحث.`, `<${tag}> makes the page clearer for browsers and search engines.`);
+    });
+    const opened = [...code.matchAll(/<([a-z][a-z0-9-]*)(\s[^>]*)?>/gi)].map((match) => match[1].toLowerCase()).filter((tag) => !["meta", "link", "img", "br", "hr", "input"].includes(tag));
+    opened.forEach((tag) => {
+      const openCount = (lower.match(new RegExp(`<${tag}(\\s|>)`, "g")) || []).length;
+      const closeCount = (lower.match(new RegExp(`</${tag}>`, "g")) || []).length;
+      if (openCount !== closeCount) add("error", `وسم ${tag} غير مغلق`, `Unclosed ${tag} tag`, `عدد <${tag}> لا يساوي عدد </${tag}>.`, `<${tag}> count does not match </${tag}> count.`);
+    });
+    return {
+      output: currentLang === "ar" ? "تم عرض صفحة HTML في شاشة المعاينة." : "HTML rendered in the preview panel.",
+      issues
+    };
+  }
+
+  if (courseId.includes("js")) {
+    [balanceIssue(code, "{", "}", currentLang === "ar" ? "الأقواس المتعرجة" : "curly braces"), balanceIssue(code, "(", ")", currentLang === "ar" ? "الأقواس" : "parentheses")].filter(Boolean).forEach((issue) => issues.push(issue));
+    if (/document\.getElementById\(["'][^"']+["']\)/.test(code) && !/id=["'][^"']+["']/.test(code)) add("warn", "تحقق من id", "Check id", "تستخدم getElementById، تأكد أن العنصر موجود في HTML.", "You use getElementById; make sure the element exists in HTML.");
+    return {
+      output: currentLang === "ar" ? "تم تشغيل JavaScript داخل المعاينة. راجع النتيجة والأخطاء إن وجدت." : "JavaScript ran inside the preview. Check the result and any issues.",
+      issues
+    };
+  }
+
+  if (courseId.includes("cpp")) {
+    if (!/#include\s*<iostream>/.test(code)) add("error", "iostream غير موجود", "Missing iostream", "أضف #include <iostream> لاستخدام cout وcin.", "Add #include <iostream> to use cout and cin.");
+    if (!/int\s+main\s*\(/.test(code)) add("error", "main غير موجودة", "Missing main", "كل برنامج C++ يحتاج دالة int main().", "Every C++ program needs int main().");
+    semicolonLines.filter(({ line }) => /(cout|cin|=|\+\+|--)/.test(line)).slice(0, 4).forEach(({ index }) => add("error", "فاصلة منقوطة مفقودة", "Missing semicolon", `راجع نهاية السطر ${index}. غالبا يحتاج ;`, `Check line ${index}. It probably needs ;`));
+    [balanceIssue(code, "{", "}", currentLang === "ar" ? "الأقواس المتعرجة" : "curly braces"), balanceIssue(code, "(", ")", currentLang === "ar" ? "الأقواس" : "parentheses")].filter(Boolean).forEach((issue) => issues.push(issue));
+    return {
+      output: currentLang === "ar" ? "استخدم compiler محلي لتشغيل C++. هذا الفحص يراجع أخطاء البداية الشائعة." : "Use a local compiler to run C++. This check reviews common beginner issues.",
+      issues
+    };
+  }
+
+  if (courseId.includes("mysql")) {
+    if (!/;\s*$/.test(code.trim())) add("warn", "نهاية الاستعلام", "Query ending", "يفضل إنهاء أمر SQL بفاصلة منقوطة ;", "It is best to end SQL commands with a semicolon ;");
+    if (/delete\s+from/i.test(code) && !/\bwhere\b/i.test(code)) add("error", "DELETE بدون WHERE", "DELETE without WHERE", "هذا قد يحذف كل الصفوف. أضف WHERE.", "This may delete all rows. Add WHERE.");
+    if (/update\s+\w+/i.test(code) && !/\bwhere\b/i.test(code)) add("error", "UPDATE بدون WHERE", "UPDATE without WHERE", "هذا قد يعدل كل الصفوف. أضف WHERE.", "This may update all rows. Add WHERE.");
+    if (!/\b(select|insert|update|delete|create|alter)\b/i.test(code)) add("warn", "أمر SQL غير واضح", "Unclear SQL command", "اكتب أمرا مثل SELECT أو INSERT أو UPDATE أو DELETE.", "Write a command such as SELECT, INSERT, UPDATE, or DELETE.");
+    return {
+      output: currentLang === "ar" ? "نفذ SQL داخل phpMyAdmin أو MySQL Workbench. الفحص هنا يحذر من الأخطاء الخطيرة." : "Run SQL in phpMyAdmin or MySQL Workbench. This check warns about risky mistakes.",
+      issues
+    };
+  }
+
+  if (courseId.includes("php")) {
+    if (!/<\?php/.test(code)) add("error", "وسم PHP مفقود", "Missing PHP tag", "ابدأ ملف PHP بـ <?php.", "Start the PHP file with <?php.");
+    semicolonLines.filter(({ line }) => !line.startsWith("<?") && !line.startsWith("?>") && /(echo|\$|=)/.test(line)).slice(0, 4).forEach(({ index }) => add("error", "فاصلة منقوطة مفقودة", "Missing semicolon", `راجع نهاية السطر ${index}. أغلب أوامر PHP تنتهي بـ ;`, `Check line ${index}. Most PHP statements end with ;`));
+    if (/\$_(GET|POST)/.test(code) && !/(htmlspecialchars|filter_input|filter_var)/.test(code)) add("warn", "تنظيف المدخلات", "Input sanitization", "عند قراءة GET أو POST استخدم validation أو escaping.", "When reading GET or POST, use validation or escaping.");
+    return {
+      output: currentLang === "ar" ? "ضع هذا الملف داخل htdocs وشغله من localhost. الفحص هنا يساعدك قبل التشغيل." : "Place this file inside htdocs and run it from localhost. This check helps before execution.",
+      issues
+    };
+  }
+
+  return { output: ui[currentLang].compilerNote, issues };
+}
+
+window.addEventListener("message", (event) => {
+  if (event.data?.source !== "academy-compiler") return;
+  const lab = document.querySelector('.code-lab[data-course-id*="js"]');
+  const output = lab?.querySelector(".code-output code");
+  const issues = lab?.querySelector(".compiler-issues");
+  if (!lab || !output) return;
+  if (event.data.kind === "error") {
+    if (issues) {
+      issues.innerHTML = `<li class="error"><strong>${currentLang === "ar" ? "خطأ JavaScript" : "JavaScript Error"}</strong><span>${event.data.message}${event.data.line ? ` - line ${event.data.line}` : ""}</span></li>`;
+    }
+    output.textContent = currentLang === "ar" ? "لم يكتمل التشغيل بسبب خطأ." : "Execution stopped because of an error.";
+    return;
+  }
+  const previous = output.textContent.includes("Running") || output.textContent.includes("تشغيل") ? "" : output.textContent;
+  output.textContent = `${previous}${previous ? "\n" : ""}${event.data.kind.toUpperCase()}: ${event.data.message}`;
+});
 
 function setupPlaylist(scope = document) {
   const current = scope.querySelector(".current-lesson");

@@ -1178,20 +1178,92 @@ html[dir="rtl"] .lesson-bullets {
   font: 0.92rem/1.6 Consolas, "Courier New", monospace;
 }
 
+.compiler-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
+  gap: 0.85rem;
+  align-items: stretch;
+}
+
+.compiler-result {
+  display: grid;
+  gap: 0.75rem;
+}
+
 .code-preview,
 .code-output {
   width: 100%;
-  min-height: 260px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #fff;
 }
 
+.code-preview {
+  min-height: 220px;
+}
+
 .code-output {
   margin: 0;
   padding: 0.95rem;
+  min-height: 95px;
   overflow-x: auto;
-  color: #334155;
+  background: #071b2d;
+  color: #f8fafc;
+  direction: ltr;
+  text-align: left;
+}
+
+.compiler-panel {
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.compiler-panel h3 {
+  margin: 0 0 0.55rem;
+  color: var(--primary-strong);
+  font-size: 0.98rem;
+}
+
+.compiler-issues {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compiler-issues li {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.6rem;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid var(--line);
+  background: #f8fafc;
+}
+
+.compiler-issues li.error {
+  border-color: #f2b8b5;
+  background: #fff1f1;
+}
+
+.compiler-issues li.warn {
+  border-color: rgba(189, 138, 47, 0.35);
+  background: #fffaf0;
+}
+
+.compiler-issues li.ok {
+  border-color: rgba(22, 128, 91, 0.35);
+  background: #f0fdf7;
+}
+
+.compiler-issues strong {
+  color: var(--ink);
+}
+
+.compiler-issues span {
+  color: var(--muted);
 }
 
 .playlist-section {
@@ -1516,6 +1588,10 @@ html[dir="rtl"] .lesson-bullets {
   .code-lab-head {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .compiler-grid {
+    grid-template-columns: 1fr;
   }
 
   .button {
