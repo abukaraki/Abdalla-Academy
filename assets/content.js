@@ -100,8 +100,8 @@ window.SITE_CONTENT = {
         {
           src: "assets/images/phpmyadmin/phpmyadmin-login.png",
           caption: {
-            ar: "شاشة الدخول في phpMyAdmin.",
-            en: "The phpMyAdmin login screen."
+            ar: "اختيار لغة واجهة phpMyAdmin قبل الدخول.",
+            en: "Selecting the phpMyAdmin interface language before login."
           },
           annotations: [
             {
@@ -110,38 +110,46 @@ window.SITE_CONTENT = {
               w: 52,
               h: 18,
               label: {
-                ar: "اختيار اللغة: يستخدم لتغيير لغة الواجهة قبل تسجيل الدخول.",
-                en: "Language selector: changes the interface language before login."
+                ar: "قائمة اللغة: تغير لغة الواجهة فقط، ولا تغير بيانات قاعدة البيانات.",
+                en: "Language list: changes only the interface language, not the database data."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-login.png",
+          caption: {
+            ar: "حقل اسم المستخدم في شاشة الدخول.",
+            en: "The username field on the login screen."
+          },
+          annotations: [
             {
               x: 43,
               y: 65,
               w: 45,
               h: 8,
               label: {
-                ar: "اسم المستخدم: يكتب هنا اسم مستخدم قاعدة البيانات مثل root في بيئة التدريب المحلية.",
-                en: "Username field: enter the database username, such as root in a local training environment."
+                ar: "اسم المستخدم: في بيئة XAMPP المحلية غالبا يكون root أثناء التدريب.",
+                en: "Username: in a local XAMPP environment, root is commonly used during training."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-login.png",
+          caption: {
+            ar: "حقل كلمة المرور في شاشة الدخول.",
+            en: "The password field on the login screen."
+          },
+          annotations: [
             {
               x: 43,
               y: 76,
               w: 45,
               h: 8,
               label: {
-                ar: "كلمة المرور: تستخدم لحماية الوصول إلى قواعد البيانات.",
-                en: "Password field: protects access to the databases."
-              }
-            },
-            {
-              x: 81,
-              y: 89,
-              w: 10,
-              h: 7,
-              label: {
-                ar: "زر الدخول: يرسل بيانات المستخدم ويفتح لوحة التحكم عند نجاح المصادقة.",
-                en: "Login button: submits the credentials and opens the dashboard when authentication succeeds."
+                ar: "كلمة المرور: تحمي الوصول إلى قواعد البيانات، وقد تكون فارغة في بعض إعدادات التدريب المحلية.",
+                en: "Password: protects database access and may be empty in some local training setups."
               }
             }
           ]
@@ -149,68 +157,94 @@ window.SITE_CONTENT = {
         {
           src: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
           caption: {
-            ar: "لوحة phpMyAdmin الرئيسية بعد الدخول.",
-            en: "The main phpMyAdmin dashboard after login."
+            ar: "الشريط الجانبي لقواعد البيانات والجداول.",
+            en: "The sidebar for databases and tables."
           },
           annotations: [
-            {
-              x: 1,
-              y: 12,
-              w: 20,
-              h: 8,
-              label: {
-                ar: "شعار phpMyAdmin وأزرار الوصول السريع مثل الصفحة الرئيسية والإعدادات.",
-                en: "phpMyAdmin logo and quick actions such as home and settings."
-              }
-            },
             {
               x: 1,
               y: 26,
               w: 18,
               h: 21,
               label: {
-                ar: "الشريط الجانبي: يعرض قواعد البيانات والجداول للتنقل السريع.",
-                en: "Sidebar: lists databases and tables for quick navigation."
+                ar: "الشريط الجانبي: منه تختار قاعدة البيانات ثم الجدول الذي تريد العمل عليه.",
+                en: "Sidebar: use it to select the database, then the table you want to work with."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          caption: {
+            ar: "شريط التبويبات الرئيسي في phpMyAdmin.",
+            en: "The main tabs bar in phpMyAdmin."
+          },
+          annotations: [
             {
               x: 21,
               y: 15,
               w: 77,
               h: 5,
               label: {
-                ar: "شريط التبويبات الرئيسي: Databases وSQL وExport وImport وغيرها.",
-                en: "Main tabs bar: Databases, SQL, Export, Import, and other tools."
+                ar: "التبويبات: Databases وSQL وExport وImport تنقلك بين أهم وظائف الإدارة.",
+                en: "Tabs: Databases, SQL, Export, and Import move you between the main management tools."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          caption: {
+            ar: "قسم الإعدادات العامة في لوحة phpMyAdmin.",
+            en: "The general settings panel in phpMyAdmin."
+          },
+          annotations: [
             {
               x: 23,
               y: 23,
               w: 42,
               h: 25,
               label: {
-                ar: "الإعدادات العامة: تغيير كلمة المرور، الترميز، وبعض خيارات الخادم.",
-                en: "General settings: password, collation, and server options."
+                ar: "الإعدادات العامة: منها تغير كلمة المرور والترميز وبعض خيارات الاتصال.",
+                en: "General settings: used for password changes, collation, and connection options."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          caption: {
+            ar: "معلومات خادم قاعدة البيانات.",
+            en: "Database server information."
+          },
+          annotations: [
             {
               x: 67,
               y: 23,
               w: 30,
               h: 35,
               label: {
-                ar: "معلومات خادم قاعدة البيانات: نوع الخادم، النسخة، المستخدم، والترميز.",
-                en: "Database server information: server type, version, user, and charset."
+                ar: "معلومات الخادم: تعرض نوع الخادم، الإصدار، المستخدم الحالي، والترميز.",
+                en: "Server information: shows server type, version, current user, and charset."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          caption: {
+            ar: "منطقة Console أسفل واجهة phpMyAdmin.",
+            en: "The Console area at the bottom of phpMyAdmin."
+          },
+          annotations: [
             {
               x: 22,
               y: 98,
               w: 6,
               h: 2,
               label: {
-                ar: "Console: نافذة سريعة لكتابة أوامر SQL ومراجعة الأوامر.",
-                en: "Console: a quick panel for SQL commands and command review."
+                ar: "Console: نافذة سريعة لكتابة أو مراجعة أوامر SQL بدون مغادرة الصفحة.",
+                en: "Console: a quick area for writing or reviewing SQL commands without leaving the page."
               }
             }
           ]
@@ -218,8 +252,8 @@ window.SITE_CONTENT = {
         {
           src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
           caption: {
-            ar: "واجهة بنية الجدول داخل phpMyAdmin.",
-            en: "The table structure view inside phpMyAdmin."
+            ar: "شجرة قواعد البيانات داخل phpMyAdmin.",
+            en: "The database tree inside phpMyAdmin."
           },
           annotations: [
             {
@@ -228,48 +262,274 @@ window.SITE_CONTENT = {
               w: 21,
               h: 48,
               label: {
-                ar: "شجرة قواعد البيانات: تعرض قواعد البيانات والجداول مثل world وCity وCountry.",
-                en: "Database tree: shows databases and tables such as world, City, and Country."
+                ar: "شجرة قواعد البيانات: تظهر قواعد البيانات والجداول، ومنها تختار الجدول المطلوب.",
+                en: "Database tree: shows databases and tables, and lets you choose the target table."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
+          caption: {
+            ar: "تبويبات الجدول مثل Browse وStructure وSQL.",
+            en: "Table tabs such as Browse, Structure, and SQL."
+          },
+          annotations: [
             {
               x: 23,
               y: 2,
               w: 74,
               h: 6,
               label: {
-                ar: "تبويبات الجدول: Browse وStructure وSQL وSearch وInsert وغيرها.",
-                en: "Table tabs: Browse, Structure, SQL, Search, Insert, and more."
+                ar: "تبويبات الجدول: Browse لعرض الصفوف، Structure للبنية، SQL لتنفيذ الأوامر.",
+                en: "Table tabs: Browse for rows, Structure for design, SQL for commands."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
+          caption: {
+            ar: "صفوف بنية الجدول التي تمثل الأعمدة.",
+            en: "Structure rows representing table columns."
+          },
+          annotations: [
             {
               x: 23,
               y: 8,
               w: 74,
               h: 18,
               label: {
-                ar: "بنية الأعمدة: أسماء الحقول، نوع البيانات، Null، المفاتيح، والقيم الافتراضية.",
-                en: "Column structure: fields, data types, Null, keys, and default values."
+                ar: "كل Row هنا يمثل عمودا داخل الجدول، مثل ID أو Name أو Population.",
+                en: "Each row here represents a table column, such as ID, Name, or Population."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
+          caption: {
+            ar: "منطقة المفاتيح والفهارس في بنية الجدول.",
+            en: "The keys and indexes area in the table structure."
+          },
+          annotations: [
+            {
+              x: 50,
+              y: 25,
+              w: 38,
+              h: 5,
+              label: {
+                ar: "المفاتيح والفهارس: Primary وUnique وIndex تساعد على تعريف السجلات وتسريع البحث.",
+                en: "Keys and indexes: Primary, Unique, and Index identify records and improve search speed."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
+          caption: {
+            ar: "عمود العمليات لتعديل الحقول.",
+            en: "The actions column for editing fields."
+          },
+          annotations: [
             {
               x: 75,
               y: 8,
               w: 22,
               h: 18,
               label: {
-                ar: "عمود العمليات: تعديل الحقل أو حذفه أو إضافة فهرس عليه.",
-                en: "Actions column: change, drop, or index a field."
+                ar: "عمود العمليات: منه تعدل الحقل أو تحذفه أو تضيف له فهرسا.",
+                en: "Actions column: change, drop, or add an index to a field."
               }
-            },
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-table-structure.jpg",
+          caption: {
+            ar: "معلومات الجدول والإحصاءات.",
+            en: "Table information and statistics."
+          },
+          annotations: [
             {
               x: 22,
               y: 33,
               w: 38,
               h: 24,
               label: {
-                ar: "معلومات الجدول: حجم البيانات، عدد الصفوف، والترميز.",
-                en: "Table information: data size, row count, and collation."
+                ar: "معلومات الجدول: تعرض الحجم، عدد الصفوف، الترميز، وآخر تحديث.",
+                en: "Table information: shows size, row count, collation, and last update."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-relation-view.png",
+          caption: {
+            ar: "تبويب Relation view داخل بنية الجدول.",
+            en: "The Relation view tab inside table structure."
+          },
+          annotations: [
+            {
+              x: 36,
+              y: 7,
+              w: 14,
+              h: 5,
+              label: {
+                ar: "Relation view: يستخدم لتعريف العلاقات بين الجداول عندما تكون المفاتيح والفهارس جاهزة.",
+                en: "Relation view: used to define relationships between tables when keys and indexes are ready."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-relation-view.png",
+          caption: {
+            ar: "اختيار جدول من الشريط الجانبي قبل تعديل بنيته.",
+            en: "Selecting a table from the sidebar before editing its structure."
+          },
+          annotations: [
+            {
+              x: 4,
+              y: 89,
+              w: 8,
+              h: 4,
+              label: {
+                ar: "اسم الجدول المحدد: عند اختيار staff تظهر بنية هذا الجدول في المساحة الرئيسية.",
+                en: "Selected table: choosing staff loads that table's structure in the main area."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-relations-diagram.jpg",
+          caption: {
+            ar: "مخطط العلاقات بين الجداول.",
+            en: "A diagram of relationships between tables."
+          },
+          annotations: [
+            {
+              x: 43,
+              y: 50,
+              w: 18,
+              h: 17,
+              label: {
+                ar: "جدول المنتج: يظهر كصندوق مستقل يحتوي أسماء الأعمدة وأنواعها ويرتبط بجداول أخرى.",
+                en: "Product table: shown as an independent box with columns and data types, connected to other tables."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-relations-diagram.jpg",
+          caption: {
+            ar: "خط العلاقة بين جدولين في مخطط phpMyAdmin.",
+            en: "A relationship line between two tables in phpMyAdmin."
+          },
+          annotations: [
+            {
+              x: 60,
+              y: 52,
+              w: 13,
+              h: 11,
+              label: {
+                ar: "خط العلاقة: يوضح أن قيمة في جدول تشير إلى مفتاح في جدول آخر.",
+                en: "Relationship line: shows that a value in one table references a key in another table."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-insert-form.jpg",
+          caption: {
+            ar: "نموذج Insert لإضافة صف جديد.",
+            en: "The Insert form for adding a new row."
+          },
+          annotations: [
+            {
+              x: 17,
+              y: 18,
+              w: 50,
+              h: 25,
+              label: {
+                ar: "صفوف الإدخال: كل Row يمثل عمودا من الجدول وتكتب قيمته في خانة Value.",
+                en: "Insert rows: each row represents a table column and its value is written in the Value field."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-insert-form.jpg",
+          caption: {
+            ar: "حقل Value عند إدخال بيانات جديدة.",
+            en: "The Value field when inserting new data."
+          },
+          annotations: [
+            {
+              x: 47,
+              y: 21,
+              w: 19,
+              h: 26,
+              label: {
+                ar: "Value: هنا تكتب القيمة التي ستخزن داخل العمود المحدد مثل username أو email.",
+                en: "Value: this is where you type the value stored in the selected column, such as username or email."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-create-columns.gif",
+          caption: {
+            ar: "نموذج إنشاء أعمدة جدول جديد.",
+            en: "The form for creating columns in a new table."
+          },
+          annotations: [
+            {
+              x: 0,
+              y: 3,
+              w: 22,
+              h: 94,
+              label: {
+                ar: "Name: أسماء الأعمدة التي ستصبح حقولا داخل الجدول مثل ID وFirst_Name.",
+                en: "Name: column names that become fields inside the table, such as ID and First_Name."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-create-columns.gif",
+          caption: {
+            ar: "اختيار نوع البيانات وطول القيمة.",
+            en: "Selecting the data type and value length."
+          },
+          annotations: [
+            {
+              x: 23,
+              y: 3,
+              w: 42,
+              h: 94,
+              label: {
+                ar: "Type وLength: يحددان طبيعة البيانات، مثل رقم SMALLINT أو نص VARCHAR بطول 50.",
+                en: "Type and Length: define the data, such as SMALLINT for numbers or VARCHAR(50) for text."
+              }
+            }
+          ]
+        },
+        {
+          src: "assets/images/phpmyadmin/phpmyadmin-create-columns.gif",
+          caption: {
+            ar: "تحديد المفتاح الأساسي والتزايد التلقائي.",
+            en: "Setting the primary key and auto increment."
+          },
+          annotations: [
+            {
+              x: 72,
+              y: 3,
+              w: 27,
+              h: 22,
+              label: {
+                ar: "Index وA_I: تجعل ID مفتاحا أساسيا ويتزايد تلقائيا مع كل سجل جديد.",
+                en: "Index and A_I: make ID a primary key that increments automatically for each new record."
               }
             }
           ]
