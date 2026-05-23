@@ -52,6 +52,13 @@ const ui = {
     previous: "السابق",
     next: "التالي",
     page: "صفحة"
+    ,
+    openCourse: "فتح الدورة",
+    lessons: "محاضرة",
+    playlist: "قائمة المحاضرات",
+    practice: "تدريب الكود",
+    runCode: "تشغيل الكود",
+    codeHint: "اكتب الكود هنا وشاهد النتيجة عندما تكون اللغة قابلة للتشغيل داخل المتصفح."
   },
   en: {
     brandTitle: "Abdalla Academy",
@@ -106,11 +113,18 @@ const ui = {
     previous: "Previous",
     next: "Next",
     page: "Page"
+    ,
+    openCourse: "Open Course",
+    lessons: "Lessons",
+    playlist: "Playlist",
+    practice: "Code Practice",
+    runCode: "Run Code",
+    codeHint: "Write code here and preview the result when the language can run in the browser."
   }
 };
 
 const content = window.SITE_CONTENT?.items || [];
-const pageSize = 4;
+const pageSize = 6;
 const menuButton = document.querySelector(".nav-toggle");
 const menu = document.querySelector("#site-menu");
 const languageButton = document.querySelector(".language-toggle");
@@ -167,6 +181,7 @@ function setLanguage(lang) {
 }
 
 function cardAction(item) {
+  if (item.type === "course") return ui[currentLang].openCourse;
   if (item.type === "lectures") return ui[currentLang].watch;
   if (item.type === "materials") return ui[currentLang].download;
   return ui[currentLang].readMore;
@@ -179,11 +194,13 @@ function makeCard(item) {
   const media = image ? `<a class="content-media" href="content.html?id=${encodeURIComponent(item.id)}"><img src="${image}" alt="${text(item.title)}" loading="lazy"></a>` : "";
   const icon = item.icon ? `<img class="content-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   const course = item.course ? `<span>${text(item.course)}</span>` : "";
+  const lessonCount = item.playlist?.length ? `<span>${item.playlist.length} ${ui[currentLang].lessons}</span>` : "";
   article.innerHTML = `
     ${media}
     <div class="card-meta">
       ${icon}
       ${course}
+      ${lessonCount}
       <span>${item.date}</span>
       <span>${item.duration || ""}</span>
       <span>${item.level || ""}</span>
@@ -264,7 +281,7 @@ function renderCollection(type, root) {
   const search = document.querySelector("[data-search]");
   const query = (search?.value || "").trim().toLowerCase();
   const byType = (item) => {
-    if (type === "courses") return Boolean(item.course);
+    if (type === "courses") return item.type === "course";
     if (type === "software") return item.category === "software" || item.tags?.includes("software");
     if (type === "videos") return item.mediaType === "video" || item.type === "lectures";
     return item.type === type;
@@ -274,6 +291,56 @@ function renderCollection(type, root) {
     .filter((item) => `${text(item.title)} ${text(item.summary)}`.toLowerCase().includes(query));
 
   renderPagedItems(root, items);
+}
+
+function renderCourseDetail(root, item) {
+  const intro = (text(item.body) || []).map(renderBodySegment).join("");
+  const playlist = (item.playlist || []).map((lesson, index) => `
+    <article class="playlist-item${index === 0 ? " is-active" : ""}">
+      <span>${String(index + 1).padStart(2, "0")}</span>
+      <div>
+        <h3>${text(lesson.title)}</h3>
+        <p>${text(lesson.summary)}</p>
+      </div>
+      <button class="playlist-select" type="button">${currentLang === "ar" ? "اختيار" : "Select"}</button>
+    </article>
+  `).join("");
+  const firstLesson = item.playlist?.[0];
+  const codeLab = item.codeLab ? `
+    <section class="code-lab" data-code-lab="${item.codeLab.preview ? "preview" : "plain"}">
+      <div class="code-lab-head">
+        <div>
+          <p class="eyebrow">${ui[currentLang].practice}</p>
+          <h2>${text(item.codeLab.title)}</h2>
+        </div>
+        ${item.codeLab.preview ? `<button class="button primary" type="button" data-run-code>${ui[currentLang].runCode}</button>` : ""}
+      </div>
+      <p>${ui[currentLang].codeHint}</p>
+      <textarea class="code-editor" spellcheck="false">${text(item.codeLab.initialCode)}</textarea>
+      ${item.codeLab.preview ? `<iframe class="code-preview" title="${text(item.codeLab.title)}"></iframe>` : `<pre class="code-output"><code>${text(item.codeLab.note)}</code></pre>`}
+    </section>
+  ` : "";
+
+  root.innerHTML = `
+    <section class="page-hero course-hero">
+      <p class="eyebrow">${ui[currentLang].courses}</p>
+      <h1>${text(item.title)}</h1>
+      <p class="lead">${text(item.summary)}</p>
+      <div class="card-meta detail-meta"><span>${item.date}</span><span>${item.duration || ""}</span><span>${item.playlist?.length || 0} ${ui[currentLang].lessons}</span></div>
+    </section>
+    <article class="prose detail-body course-detail">
+      ${intro}
+      ${codeLab}
+      <section class="playlist-section">
+        <h2>${ui[currentLang].playlist}</h2>
+        ${firstLesson ? `<div class="current-lesson"><strong>${text(firstLesson.title)}</strong><p>${text(firstLesson.summary)}</p></div>` : ""}
+        <div class="playlist-grid">${playlist}</div>
+      </section>
+    </article>
+  `;
+  document.title = `${text(item.title)} | Abdalla Academy`;
+  setupCodeLabs(root);
+  setupPlaylist(root);
 }
 
 function renderLatest(root) {
@@ -312,6 +379,10 @@ function renderDetail(root) {
   const item = content.find((entry) => entry.id === id);
   if (!item) {
     root.innerHTML = `<section class="page-hero"><h1>${ui[currentLang].notFound}</h1><a class="button secondary" href="index.html">${ui[currentLang].back}</a></section>`;
+    return;
+  }
+  if (item.type === "course") {
+    renderCourseDetail(root, item);
     return;
   }
 
@@ -380,7 +451,7 @@ function renderStats() {
   document.querySelectorAll("[data-count]").forEach((node) => {
     const type = node.getAttribute("data-count");
     const count = content.filter((item) => {
-      if (type === "courses") return Boolean(item.course);
+      if (type === "courses") return item.type === "course";
       if (type === "software") return item.category === "software" || item.tags?.includes("software");
       if (type === "videos") return item.mediaType === "video" || item.type === "lectures";
       return item.type === type;
@@ -548,5 +619,33 @@ document.addEventListener("click", (event) => {
   document.addEventListener("keydown", onKeydown);
   modal.querySelector(".image-lightbox-close").focus();
 });
+
+function setupCodeLabs(scope = document) {
+  scope.querySelectorAll(".code-lab").forEach((lab) => {
+    const editor = lab.querySelector(".code-editor");
+    const preview = lab.querySelector(".code-preview");
+    const run = () => {
+      if (!editor || !preview) return;
+      preview.srcdoc = editor.value;
+    };
+    lab.querySelector("[data-run-code]")?.addEventListener("click", run);
+    editor?.addEventListener("input", run);
+    if (preview) run();
+  });
+}
+
+function setupPlaylist(scope = document) {
+  const current = scope.querySelector(".current-lesson");
+  scope.querySelectorAll(".playlist-item").forEach((item) => {
+    item.querySelector(".playlist-select")?.addEventListener("click", () => {
+      scope.querySelectorAll(".playlist-item").forEach((node) => node.classList.remove("is-active"));
+      item.classList.add("is-active");
+      if (current) {
+        current.querySelector("strong").textContent = item.querySelector("h3")?.textContent || "";
+        current.querySelector("p").textContent = item.querySelector("p")?.textContent || "";
+      }
+    });
+  });
+}
 
 setLanguage(currentLang);

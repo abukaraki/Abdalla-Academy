@@ -1,6 +1,1266 @@
 window.SITE_CONTENT = {
   "items": [
     {
+      "id": "course-php-basics",
+      "type": "course",
+      "date": "2026-05-23",
+      "duration": "20 lessons",
+      "level": "Beginner",
+      "category": "courses",
+      "mediaType": "article",
+      "thumbnail": "assets/logo.png",
+      "icon": "assets/logo.png",
+      "tags": [
+        "course",
+        "php"
+      ],
+      "title": {
+        "ar": "دورة أساسيات PHP الكاملة",
+        "en": "Complete PHP Basics Course"
+      },
+      "summary": {
+        "ar": "دورة PHP من الصفر: السيرفر المحلي، المتغيرات، النماذج، الجلسات، الاتصال بقاعدة البيانات، وعمليات CRUD.",
+        "en": "A PHP course from zero: local server, variables, forms, sessions, database connection, and CRUD operations."
+      },
+      "body": {
+        "ar": [
+          "PHP لغة تعمل على السيرفر وتستخدم لبناء صفحات ديناميكية تتصل بقواعد البيانات وتتعامل مع النماذج والجلسات.",
+          "هذه الدورة مرتبطة بدروس XAMPP وphpMyAdmin، لأن PHP تحتاج سيرفر محلي وقاعدة بيانات حتى تفهم الصورة كاملة.",
+          "<section class=\"lesson-section\"><h2>مخرجات الدورة</h2><ul class=\"lesson-bullets\"><li>تشغيل PHP على XAMPP.</li><li>قراءة النماذج وإرسال البيانات.</li><li>الاتصال بقاعدة MySQL.</li><li>بناء CRUD بسيط وآمن.</li></ul></section>"
+        ],
+        "en": [
+          "PHP is a server-side language used to build dynamic pages that connect to databases and handle forms and sessions.",
+          "This course connects with the XAMPP and phpMyAdmin lessons because PHP needs a local server and a database to complete the picture.",
+          "<section class=\"lesson-section\"><h2>Course outcomes</h2><ul class=\"lesson-bullets\"><li>Run PHP on XAMPP.</li><li>Read forms and submit data.</li><li>Connect to MySQL.</li><li>Build simple and safe CRUD.</li></ul></section>"
+        ]
+      },
+      "playlist": [
+        {
+          "title": {
+            "ar": "1. ما هي PHP؟",
+            "en": "1. What is PHP?"
+          },
+          "summary": {
+            "ar": "فهم لغة السيرفر.",
+            "en": "Understand server-side language."
+          }
+        },
+        {
+          "title": {
+            "ar": "2. تشغيل PHP على XAMPP",
+            "en": "2. Running PHP on XAMPP"
+          },
+          "summary": {
+            "ar": "htdocs وlocalhost.",
+            "en": "htdocs and localhost."
+          }
+        },
+        {
+          "title": {
+            "ar": "3. الصيغة الأساسية",
+            "en": "3. Basic syntax"
+          },
+          "summary": {
+            "ar": "فتح وإغلاق PHP.",
+            "en": "Opening and closing PHP."
+          }
+        },
+        {
+          "title": {
+            "ar": "4. المتغيرات",
+            "en": "4. Variables"
+          },
+          "summary": {
+            "ar": "تخزين البيانات.",
+            "en": "Store data."
+          }
+        },
+        {
+          "title": {
+            "ar": "5. أنواع البيانات",
+            "en": "5. Data types"
+          },
+          "summary": {
+            "ar": "strings وnumbers وbooleans.",
+            "en": "strings, numbers, and booleans."
+          }
+        },
+        {
+          "title": {
+            "ar": "6. الشروط",
+            "en": "6. Conditions"
+          },
+          "summary": {
+            "ar": "if وelse.",
+            "en": "if and else."
+          }
+        },
+        {
+          "title": {
+            "ar": "7. الحلقات",
+            "en": "7. Loops"
+          },
+          "summary": {
+            "ar": "for وwhile.",
+            "en": "for and while."
+          }
+        },
+        {
+          "title": {
+            "ar": "8. الدوال",
+            "en": "8. Functions"
+          },
+          "summary": {
+            "ar": "تنظيم المنطق.",
+            "en": "Organize logic."
+          }
+        },
+        {
+          "title": {
+            "ar": "9. المصفوفات",
+            "en": "9. Arrays"
+          },
+          "summary": {
+            "ar": "indexed وassociative.",
+            "en": "indexed and associative."
+          }
+        },
+        {
+          "title": {
+            "ar": "10. النماذج",
+            "en": "10. Forms"
+          },
+          "summary": {
+            "ar": "GET وPOST.",
+            "en": "GET and POST."
+          }
+        },
+        {
+          "title": {
+            "ar": "11. التحقق من المدخلات",
+            "en": "11. Input validation"
+          },
+          "summary": {
+            "ar": "تنظيف البيانات.",
+            "en": "Clean data."
+          }
+        },
+        {
+          "title": {
+            "ar": "12. الجلسات",
+            "en": "12. Sessions"
+          },
+          "summary": {
+            "ar": "حفظ حالة المستخدم.",
+            "en": "Keep user state."
+          }
+        },
+        {
+          "title": {
+            "ar": "13. الكوكيز",
+            "en": "13. Cookies"
+          },
+          "summary": {
+            "ar": "حفظ بيانات بسيطة.",
+            "en": "Store simple data."
+          }
+        },
+        {
+          "title": {
+            "ar": "14. الاتصال بقاعدة البيانات",
+            "en": "14. Database connection"
+          },
+          "summary": {
+            "ar": "PDO وmysqli.",
+            "en": "PDO and mysqli."
+          }
+        },
+        {
+          "title": {
+            "ar": "15. قراءة البيانات",
+            "en": "15. Reading data"
+          },
+          "summary": {
+            "ar": "SELECT من PHP.",
+            "en": "SELECT from PHP."
+          }
+        },
+        {
+          "title": {
+            "ar": "16. إضافة البيانات",
+            "en": "16. Adding data"
+          },
+          "summary": {
+            "ar": "INSERT من النموذج.",
+            "en": "INSERT from a form."
+          }
+        },
+        {
+          "title": {
+            "ar": "17. تعديل البيانات",
+            "en": "17. Updating data"
+          },
+          "summary": {
+            "ar": "UPDATE آمن.",
+            "en": "Safe UPDATE."
+          }
+        },
+        {
+          "title": {
+            "ar": "18. حذف البيانات",
+            "en": "18. Deleting data"
+          },
+          "summary": {
+            "ar": "DELETE بشرط.",
+            "en": "DELETE with condition."
+          }
+        },
+        {
+          "title": {
+            "ar": "19. الأمان الأساسي",
+            "en": "19. Basic security"
+          },
+          "summary": {
+            "ar": "prepared statements.",
+            "en": "prepared statements."
+          }
+        },
+        {
+          "title": {
+            "ar": "20. مشروع PHP",
+            "en": "20. PHP project"
+          },
+          "summary": {
+            "ar": "نظام مقالات بسيط.",
+            "en": "Simple articles system."
+          }
+        }
+      ],
+      "codeLab": {
+        "preview": false,
+        "title": {
+          "ar": "مساحة كتابة PHP",
+          "en": "PHP Writing Space"
+        },
+        "initialCode": {
+          "ar": "<?php\n$name = \"Abdalla\";\necho \"Hello \" . $name;\n?>",
+          "en": "<?php\n$name = \"Abdalla\";\necho \"Hello \" . $name;\n?>"
+        },
+        "note": {
+          "ar": "PHP يحتاج سيرفر مثل XAMPP. اكتب الكود هنا ثم ضعه داخل htdocs وشغله من localhost.",
+          "en": "PHP needs a server such as XAMPP. Write the code here, then place it inside htdocs and run it from localhost."
+        }
+      }
+    },
+    {
+      "id": "course-mysql-basics",
+      "type": "course",
+      "date": "2026-05-23",
+      "duration": "20 lessons",
+      "level": "Beginner",
+      "category": "courses",
+      "mediaType": "article",
+      "thumbnail": "assets/logo.png",
+      "icon": "assets/logo.png",
+      "tags": [
+        "course",
+        "mysql"
+      ],
+      "title": {
+        "ar": "دورة أساسيات MySQL الكاملة",
+        "en": "Complete MySQL Basics Course"
+      },
+      "summary": {
+        "ar": "دورة قواعد بيانات من الصفر: الجداول، العلاقات، SELECT، INSERT، UPDATE، DELETE، JOIN، الفهارس، والنسخ الاحتياطي.",
+        "en": "A database course from zero: tables, relationships, SELECT, INSERT, UPDATE, DELETE, JOIN, indexes, and backup."
+      },
+      "body": {
+        "ar": [
+          "MySQL هو نظام إدارة قواعد بيانات يستخدم لتخزين البيانات المنظمة واسترجاعها وتعديلها. هذه الدورة تربط بين التفكير بالجداول والعلاقات وبين أوامر SQL العملية.",
+          "تعلم SQL مهم لأي مطور ويب، لأن صفحات PHP أو أي backend تحتاج إلى قراءة البيانات وإضافتها وتحديثها وحذفها بأمان.",
+          "<section class=\"lesson-section\"><h2>مخرجات الدورة</h2><ul class=\"lesson-bullets\"><li>تصميم جداول صحيحة.</li><li>كتابة أوامر CRUD.</li><li>فهم العلاقات وJOIN.</li><li>تحسين البحث بالفهارس والنسخ الاحتياطي.</li></ul></section>"
+        ],
+        "en": [
+          "MySQL is a database management system used to store, retrieve, and modify structured data. This course connects table and relationship thinking with practical SQL commands.",
+          "Learning SQL is essential for any web developer because PHP pages or any backend need to read, add, update, and delete data safely.",
+          "<section class=\"lesson-section\"><h2>Course outcomes</h2><ul class=\"lesson-bullets\"><li>Design correct tables.</li><li>Write CRUD commands.</li><li>Understand relationships and JOIN.</li><li>Improve search with indexes and backups.</li></ul></section>"
+        ]
+      },
+      "playlist": [
+        {
+          "title": {
+            "ar": "1. ما هي قاعدة البيانات؟",
+            "en": "1. What is a database?"
+          },
+          "summary": {
+            "ar": "فهم البيانات المنظمة.",
+            "en": "Understand structured data."
+          }
+        },
+        {
+          "title": {
+            "ar": "2. الجداول والصفوف والأعمدة",
+            "en": "2. Tables, rows, and columns"
+          },
+          "summary": {
+            "ar": "الفرق بين structure وdata.",
+            "en": "Difference between structure and data."
+          }
+        },
+        {
+          "title": {
+            "ar": "3. أنواع البيانات",
+            "en": "3. Data types"
+          },
+          "summary": {
+            "ar": "INT وVARCHAR وDATE.",
+            "en": "INT, VARCHAR, and DATE."
+          }
+        },
+        {
+          "title": {
+            "ar": "4. إنشاء قاعدة بيانات",
+            "en": "4. Creating a database"
+          },
+          "summary": {
+            "ar": "CREATE DATABASE والترميز.",
+            "en": "CREATE DATABASE and collation."
+          }
+        },
+        {
+          "title": {
+            "ar": "5. إنشاء جدول",
+            "en": "5. Creating a table"
+          },
+          "summary": {
+            "ar": "CREATE TABLE ومفاتيح البداية.",
+            "en": "CREATE TABLE and first keys."
+          }
+        },
+        {
+          "title": {
+            "ar": "6. Primary Key",
+            "en": "6. Primary Key"
+          },
+          "summary": {
+            "ar": "تمييز كل صف بشكل فريد.",
+            "en": "Uniquely identify each row."
+          }
+        },
+        {
+          "title": {
+            "ar": "7. INSERT",
+            "en": "7. INSERT"
+          },
+          "summary": {
+            "ar": "إضافة بيانات جديدة.",
+            "en": "Add new data."
+          }
+        },
+        {
+          "title": {
+            "ar": "8. SELECT",
+            "en": "8. SELECT"
+          },
+          "summary": {
+            "ar": "قراءة البيانات.",
+            "en": "Read data."
+          }
+        },
+        {
+          "title": {
+            "ar": "9. WHERE",
+            "en": "9. WHERE"
+          },
+          "summary": {
+            "ar": "تصفية النتائج.",
+            "en": "Filter results."
+          }
+        },
+        {
+          "title": {
+            "ar": "10. ORDER BY وLIMIT",
+            "en": "10. ORDER BY and LIMIT"
+          },
+          "summary": {
+            "ar": "ترتيب وتقليل النتائج.",
+            "en": "Sort and limit results."
+          }
+        },
+        {
+          "title": {
+            "ar": "11. UPDATE",
+            "en": "11. UPDATE"
+          },
+          "summary": {
+            "ar": "تعديل البيانات بشرط.",
+            "en": "Update data with a condition."
+          }
+        },
+        {
+          "title": {
+            "ar": "12. DELETE",
+            "en": "12. DELETE"
+          },
+          "summary": {
+            "ar": "حذف آمن باستخدام WHERE.",
+            "en": "Safe delete with WHERE."
+          }
+        },
+        {
+          "title": {
+            "ar": "13. العلاقات",
+            "en": "13. Relationships"
+          },
+          "summary": {
+            "ar": "واحد إلى متعدد.",
+            "en": "One to many."
+          }
+        },
+        {
+          "title": {
+            "ar": "14. Foreign Key",
+            "en": "14. Foreign Key"
+          },
+          "summary": {
+            "ar": "ربط الجداول وحماية البيانات.",
+            "en": "Connect tables and protect data."
+          }
+        },
+        {
+          "title": {
+            "ar": "15. JOIN",
+            "en": "15. JOIN"
+          },
+          "summary": {
+            "ar": "قراءة بيانات من أكثر من جدول.",
+            "en": "Read data from multiple tables."
+          }
+        },
+        {
+          "title": {
+            "ar": "16. GROUP BY",
+            "en": "16. GROUP BY"
+          },
+          "summary": {
+            "ar": "تجميع النتائج.",
+            "en": "Group results."
+          }
+        },
+        {
+          "title": {
+            "ar": "17. الدوال التجميعية",
+            "en": "17. Aggregate functions"
+          },
+          "summary": {
+            "ar": "COUNT وSUM وAVG.",
+            "en": "COUNT, SUM, and AVG."
+          }
+        },
+        {
+          "title": {
+            "ar": "18. الفهارس",
+            "en": "18. Indexes"
+          },
+          "summary": {
+            "ar": "تحسين سرعة البحث.",
+            "en": "Improve search speed."
+          }
+        },
+        {
+          "title": {
+            "ar": "19. Export وImport",
+            "en": "19. Export and Import"
+          },
+          "summary": {
+            "ar": "نسخ احتياطي واسترجاع.",
+            "en": "Backup and restore."
+          }
+        },
+        {
+          "title": {
+            "ar": "20. مشروع قاعدة بيانات",
+            "en": "20. Database project"
+          },
+          "summary": {
+            "ar": "تصميم قاعدة لنظام مقالات.",
+            "en": "Design a database for an articles system."
+          }
+        }
+      ],
+      "codeLab": {
+        "preview": false,
+        "title": {
+          "ar": "مساحة كتابة SQL",
+          "en": "SQL Writing Space"
+        },
+        "initialCode": {
+          "ar": "SELECT id, name, email\nFROM users\nWHERE id = 1;",
+          "en": "SELECT id, name, email\nFROM users\nWHERE id = 1;"
+        },
+        "note": {
+          "ar": "SQL يحتاج قاعدة بيانات لتشغيله. اكتب الاستعلام هنا ثم نفذه داخل phpMyAdmin أو MySQL Workbench.",
+          "en": "SQL needs a database to run. Write the query here, then execute it in phpMyAdmin or MySQL Workbench."
+        }
+      }
+    },
+    {
+      "id": "course-js-basics",
+      "type": "course",
+      "date": "2026-05-23",
+      "duration": "20 lessons",
+      "level": "Beginner",
+      "category": "courses",
+      "mediaType": "article",
+      "thumbnail": "assets/logo.png",
+      "icon": "assets/logo.png",
+      "tags": [
+        "course",
+        "js"
+      ],
+      "title": {
+        "ar": "دورة أساسيات JavaScript الكاملة",
+        "en": "Complete JavaScript Basics Course"
+      },
+      "summary": {
+        "ar": "دورة تفاعلية تغطي أساسيات JavaScript، التعامل مع DOM، الأحداث، المصفوفات، الكائنات، وكتابة منطق صفحات الويب.",
+        "en": "An interactive course covering JavaScript basics, DOM manipulation, events, arrays, objects, and writing web page logic."
+      },
+      "body": {
+        "ar": [
+          "JavaScript تضيف التفاعل إلى صفحات الويب. في هذه الدورة ستتعلم كيف تقرأ عناصر الصفحة، تستجيب للنقر والكتابة، وتغيّر المحتوى بناء على منطق واضح.",
+          "ركز على كتابة كود صغير ثم اختبره مباشرة في المختبر. الهدف أن تفهم لماذا حدث التغيير وليس فقط أن تنسخ الكود.",
+          "<section class=\"lesson-section\"><h2>مخرجات الدورة</h2><ul class=\"lesson-bullets\"><li>فهم المتغيرات والدوال والشروط والحلقات.</li><li>التعامل مع DOM والأحداث.</li><li>بناء تفاعلات بسيطة داخل الصفحة.</li><li>فهم المصفوفات والكائنات وJSON.</li></ul></section>"
+        ],
+        "en": [
+          "JavaScript adds interaction to web pages. In this course, you will learn how to read page elements, respond to clicks and typing, and change content based on clear logic.",
+          "Focus on writing small code and testing it directly in the lab. The goal is to understand why the change happened, not only to copy code.",
+          "<section class=\"lesson-section\"><h2>Course outcomes</h2><ul class=\"lesson-bullets\"><li>Understand variables, functions, conditions, and loops.</li><li>Work with the DOM and events.</li><li>Build simple page interactions.</li><li>Understand arrays, objects, and JSON.</li></ul></section>"
+        ]
+      },
+      "playlist": [
+        {
+          "title": {
+            "ar": "1. ما هي JavaScript؟",
+            "en": "1. What is JavaScript?"
+          },
+          "summary": {
+            "ar": "فهم دور JS في الويب.",
+            "en": "Understand JS role on the web."
+          }
+        },
+        {
+          "title": {
+            "ar": "2. ربط JavaScript بالصفحة",
+            "en": "2. Connecting JavaScript to a page"
+          },
+          "summary": {
+            "ar": "script داخلي وخارجي.",
+            "en": "Internal and external script."
+          }
+        },
+        {
+          "title": {
+            "ar": "3. المتغيرات let وconst",
+            "en": "3. let and const variables"
+          },
+          "summary": {
+            "ar": "تخزين القيم بطريقة صحيحة.",
+            "en": "Store values correctly."
+          }
+        },
+        {
+          "title": {
+            "ar": "4. أنواع البيانات",
+            "en": "4. Data types"
+          },
+          "summary": {
+            "ar": "النصوص والأرقام والمنطق.",
+            "en": "Strings, numbers, and booleans."
+          }
+        },
+        {
+          "title": {
+            "ar": "5. operators",
+            "en": "5. Operators"
+          },
+          "summary": {
+            "ar": "العمليات الحسابية والمنطقية.",
+            "en": "Arithmetic and logical operations."
+          }
+        },
+        {
+          "title": {
+            "ar": "6. الشروط",
+            "en": "6. Conditions"
+          },
+          "summary": {
+            "ar": "if وelse وcomparison.",
+            "en": "if, else, and comparisons."
+          }
+        },
+        {
+          "title": {
+            "ar": "7. الحلقات",
+            "en": "7. Loops"
+          },
+          "summary": {
+            "ar": "for وwhile.",
+            "en": "for and while."
+          }
+        },
+        {
+          "title": {
+            "ar": "8. الدوال",
+            "en": "8. Functions"
+          },
+          "summary": {
+            "ar": "تنظيم الكود في وظائف.",
+            "en": "Organize code into functions."
+          }
+        },
+        {
+          "title": {
+            "ar": "9. المصفوفات",
+            "en": "9. Arrays"
+          },
+          "summary": {
+            "ar": "تخزين قوائم البيانات.",
+            "en": "Store lists of data."
+          }
+        },
+        {
+          "title": {
+            "ar": "10. دوال المصفوفات",
+            "en": "10. Array methods"
+          },
+          "summary": {
+            "ar": "map وfilter وforEach.",
+            "en": "map, filter, and forEach."
+          }
+        },
+        {
+          "title": {
+            "ar": "11. الكائنات",
+            "en": "11. Objects"
+          },
+          "summary": {
+            "ar": "تمثيل بيانات مترابطة.",
+            "en": "Represent related data."
+          }
+        },
+        {
+          "title": {
+            "ar": "12. DOM",
+            "en": "12. DOM"
+          },
+          "summary": {
+            "ar": "قراءة عناصر HTML.",
+            "en": "Read HTML elements."
+          }
+        },
+        {
+          "title": {
+            "ar": "13. تعديل المحتوى",
+            "en": "13. Changing content"
+          },
+          "summary": {
+            "ar": "textContent وinnerHTML بحذر.",
+            "en": "textContent and careful innerHTML."
+          }
+        },
+        {
+          "title": {
+            "ar": "14. الأحداث",
+            "en": "14. Events"
+          },
+          "summary": {
+            "ar": "click وinput وsubmit.",
+            "en": "click, input, and submit."
+          }
+        },
+        {
+          "title": {
+            "ar": "15. النماذج والتحقق",
+            "en": "15. Forms and validation"
+          },
+          "summary": {
+            "ar": "قراءة المدخلات وفحصها.",
+            "en": "Read and validate inputs."
+          }
+        },
+        {
+          "title": {
+            "ar": "16. التعامل مع CSS classes",
+            "en": "16. Working with CSS classes"
+          },
+          "summary": {
+            "ar": "classList وtoggle.",
+            "en": "classList and toggle."
+          }
+        },
+        {
+          "title": {
+            "ar": "17. JSON",
+            "en": "17. JSON"
+          },
+          "summary": {
+            "ar": "فهم تبادل البيانات.",
+            "en": "Understand data exchange."
+          }
+        },
+        {
+          "title": {
+            "ar": "18. localStorage",
+            "en": "18. localStorage"
+          },
+          "summary": {
+            "ar": "حفظ بيانات بسيطة في المتصفح.",
+            "en": "Save simple data in the browser."
+          }
+        },
+        {
+          "title": {
+            "ar": "19. تصحيح الأخطاء",
+            "en": "19. Debugging"
+          },
+          "summary": {
+            "ar": "استخدام Console وDevTools.",
+            "en": "Use Console and DevTools."
+          }
+        },
+        {
+          "title": {
+            "ar": "20. مشروع JavaScript",
+            "en": "20. JavaScript project"
+          },
+          "summary": {
+            "ar": "بناء قائمة مهام بسيطة.",
+            "en": "Build a simple todo list."
+          }
+        }
+      ],
+      "codeLab": {
+        "preview": true,
+        "title": {
+          "ar": "مختبر JavaScript",
+          "en": "JavaScript Lab"
+        },
+        "initialCode": {
+          "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n  <body>\n    <h1 id=\"title\">JavaScript</h1>\n    <button onclick=\"changeTitle()\">اضغط هنا</button>\n    <script>\n      function changeTitle() {\n        document.getElementById(\"title\").textContent = \"تم تشغيل JavaScript\";\n      }\n    </script>\n  </body>\n</html>",
+          "en": "<!doctype html>\n<html lang=\"en\">\n  <body>\n    <h1 id=\"title\">JavaScript</h1>\n    <button onclick=\"changeTitle()\">Click me</button>\n    <script>\n      function changeTitle() {\n        document.getElementById(\"title\").textContent = \"JavaScript is running\";\n      }\n    </script>\n  </body>\n</html>"
+        },
+        "note": {
+          "ar": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "course-cpp-basics",
+      "type": "course",
+      "date": "2026-05-23",
+      "duration": "20 lessons",
+      "level": "Beginner",
+      "category": "courses",
+      "mediaType": "article",
+      "thumbnail": "assets/logo.png",
+      "icon": "assets/logo.png",
+      "tags": [
+        "course",
+        "cpp"
+      ],
+      "title": {
+        "ar": "دورة أساسيات C++ الكاملة",
+        "en": "Complete C++ Basics Course"
+      },
+      "summary": {
+        "ar": "مسار تأسيسي في C++ يغطي طريقة التفكير البرمجي، المتغيرات، الشروط، الحلقات، الدوال، المصفوفات، المؤشرات، والبرمجة الكائنية.",
+        "en": "A foundation track in C++ covering programming thinking, variables, conditions, loops, functions, arrays, pointers, and object-oriented programming."
+      },
+      "body": {
+        "ar": [
+          "دورة C++ تركز على بناء أساس قوي في التفكير البرمجي، لأن اللغة تكشف تفاصيل مهمة مثل نوع البيانات والذاكرة والدوال وطريقة تنظيم البرنامج.",
+          "ابدأ بالمفاهيم الصغيرة ثم اربطها بمشاريع تدريبية. لا تنتقل إلى المؤشرات أو الكائنات قبل فهم المتغيرات والشروط والحلقات والدوال.",
+          "<section class=\"lesson-section\"><h2>مخرجات الدورة</h2><ul class=\"lesson-bullets\"><li>كتابة برامج console صحيحة.</li><li>فهم المتغيرات وأنواع البيانات والتحكم بالتدفق.</li><li>استخدام الدوال والمصفوفات والمؤشرات.</li><li>بناء classes بسيطة وفهم أساسيات OOP.</li></ul></section>"
+        ],
+        "en": [
+          "The C++ course focuses on building a strong programming foundation because the language exposes important details such as data types, memory, functions, and program organization.",
+          "Start with small concepts, then connect them to training projects. Do not move to pointers or objects before understanding variables, conditions, loops, and functions.",
+          "<section class=\"lesson-section\"><h2>Course outcomes</h2><ul class=\"lesson-bullets\"><li>Write correct console programs.</li><li>Understand variables, data types, and flow control.</li><li>Use functions, arrays, and pointers.</li><li>Build simple classes and understand OOP basics.</li></ul></section>"
+        ]
+      },
+      "playlist": [
+        {
+          "title": {
+            "ar": "1. ما هي C++ ومتى نستخدمها؟",
+            "en": "1. What is C++ and when is it used?"
+          },
+          "summary": {
+            "ar": "فهم طبيعة اللغة واستخداماتها في الأنظمة والألعاب والخوارزميات.",
+            "en": "Understand the language and its use in systems, games, and algorithms."
+          }
+        },
+        {
+          "title": {
+            "ar": "2. تجهيز بيئة العمل",
+            "en": "2. Setting up the environment"
+          },
+          "summary": {
+            "ar": "تنصيب compiler واختبار أول برنامج.",
+            "en": "Install a compiler and test the first program."
+          }
+        },
+        {
+          "title": {
+            "ar": "3. هيكل برنامج C++",
+            "en": "3. C++ program structure"
+          },
+          "summary": {
+            "ar": "شرح include وmain وreturn.",
+            "en": "Explain include, main, and return."
+          }
+        },
+        {
+          "title": {
+            "ar": "4. الإخراج والإدخال",
+            "en": "4. Input and output"
+          },
+          "summary": {
+            "ar": "استخدام cout وcin للتفاعل مع المستخدم.",
+            "en": "Use cout and cin to interact with users."
+          }
+        },
+        {
+          "title": {
+            "ar": "5. المتغيرات وأنواع البيانات",
+            "en": "5. Variables and data types"
+          },
+          "summary": {
+            "ar": "int وdouble وchar وbool وstring.",
+            "en": "int, double, char, bool, and string."
+          }
+        },
+        {
+          "title": {
+            "ar": "6. العمليات الحسابية",
+            "en": "6. Arithmetic operations"
+          },
+          "summary": {
+            "ar": "الجمع والطرح والقسمة وباقي القسمة.",
+            "en": "Addition, subtraction, division, and modulo."
+          }
+        },
+        {
+          "title": {
+            "ar": "7. الشروط if وelse",
+            "en": "7. if and else conditions"
+          },
+          "summary": {
+            "ar": "تنفيذ قرارات داخل البرنامج.",
+            "en": "Make decisions inside the program."
+          }
+        },
+        {
+          "title": {
+            "ar": "8. switch",
+            "en": "8. switch statements"
+          },
+          "summary": {
+            "ar": "اختيار حالة من عدة حالات.",
+            "en": "Choose one case from many."
+          }
+        },
+        {
+          "title": {
+            "ar": "9. الحلقات for",
+            "en": "9. for loops"
+          },
+          "summary": {
+            "ar": "تكرار الأوامر بعدد معروف.",
+            "en": "Repeat commands a known number of times."
+          }
+        },
+        {
+          "title": {
+            "ar": "10. while وdo while",
+            "en": "10. while and do while"
+          },
+          "summary": {
+            "ar": "التكرار حسب شرط.",
+            "en": "Repeat based on a condition."
+          }
+        },
+        {
+          "title": {
+            "ar": "11. الدوال",
+            "en": "11. Functions"
+          },
+          "summary": {
+            "ar": "تقسيم البرنامج إلى أجزاء قابلة لإعادة الاستخدام.",
+            "en": "Split programs into reusable parts."
+          }
+        },
+        {
+          "title": {
+            "ar": "12. النطاق والقيم الراجعة",
+            "en": "12. Scope and return values"
+          },
+          "summary": {
+            "ar": "فهم مكان حياة المتغيرات وما ترجع الدالة.",
+            "en": "Understand variable scope and function return values."
+          }
+        },
+        {
+          "title": {
+            "ar": "13. المصفوفات",
+            "en": "13. Arrays"
+          },
+          "summary": {
+            "ar": "تخزين عدة قيم من نفس النوع.",
+            "en": "Store multiple values of the same type."
+          }
+        },
+        {
+          "title": {
+            "ar": "14. السلاسل النصية",
+            "en": "14. Strings"
+          },
+          "summary": {
+            "ar": "التعامل مع النصوص والعمليات عليها.",
+            "en": "Work with text and string operations."
+          }
+        },
+        {
+          "title": {
+            "ar": "15. المراجع والمؤشرات",
+            "en": "15. References and pointers"
+          },
+          "summary": {
+            "ar": "مدخل آمن لفهم العناوين والذاكرة.",
+            "en": "A safe introduction to addresses and memory."
+          }
+        },
+        {
+          "title": {
+            "ar": "16. struct",
+            "en": "16. Structs"
+          },
+          "summary": {
+            "ar": "تجميع بيانات مترابطة في نوع واحد.",
+            "en": "Group related data in one type."
+          }
+        },
+        {
+          "title": {
+            "ar": "17. classes وobjects",
+            "en": "17. Classes and objects"
+          },
+          "summary": {
+            "ar": "بداية البرمجة الكائنية.",
+            "en": "Start object-oriented programming."
+          }
+        },
+        {
+          "title": {
+            "ar": "18. constructors",
+            "en": "18. Constructors"
+          },
+          "summary": {
+            "ar": "تهيئة الكائنات عند إنشائها.",
+            "en": "Initialize objects when created."
+          }
+        },
+        {
+          "title": {
+            "ar": "19. قراءة الأخطاء",
+            "en": "19. Reading errors"
+          },
+          "summary": {
+            "ar": "فهم رسائل compiler وتصحيحها.",
+            "en": "Understand compiler messages and fix them."
+          }
+        },
+        {
+          "title": {
+            "ar": "20. مشروع C++ مصغر",
+            "en": "20. Mini C++ project"
+          },
+          "summary": {
+            "ar": "بناء برنامج إدارة درجات بسيط.",
+            "en": "Build a simple grade management program."
+          }
+        }
+      ],
+      "codeLab": {
+        "preview": false,
+        "title": {
+          "ar": "مساحة كتابة C++",
+          "en": "C++ Writing Space"
+        },
+        "initialCode": {
+          "ar": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello C++\" << endl;\n    return 0;\n}",
+          "en": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello C++\" << endl;\n    return 0;\n}"
+        },
+        "note": {
+          "ar": "C++ لا يعمل مباشرة داخل المتصفح في هذا الموقع. استخدم هذه المساحة للكتابة، ثم شغل الكود في Code::Blocks أو Visual Studio أو compiler محلي.",
+          "en": "C++ does not run directly in this browser page. Use this space for writing, then run the code in Code::Blocks, Visual Studio, or a local compiler."
+        }
+      }
+    },
+    {
+      "id": "course-html-basics",
+      "type": "course",
+      "date": "2026-05-23",
+      "duration": "20 lessons",
+      "level": "Beginner",
+      "category": "courses",
+      "mediaType": "article",
+      "thumbnail": "assets/logo.png",
+      "icon": "assets/logo.png",
+      "tags": [
+        "course",
+        "html"
+      ],
+      "title": {
+        "ar": "دورة أساسيات HTML الكاملة",
+        "en": "Complete HTML Basics Course"
+      },
+      "summary": {
+        "ar": "مسار كامل يبدأ من معنى HTML وبنية الصفحة، ثم النصوص، الروابط، الصور، الجداول، النماذج، الدلالات، SEO، وإتاحة الوصول، مع محرر كود تفاعلي داخل الصفحة.",
+        "en": "A complete path from HTML meaning and page structure to text, links, images, tables, forms, semantics, SEO, and accessibility, with an interactive code editor on the page."
+      },
+      "body": {
+        "ar": [
+          "هذه الدورة مخصصة لمن يبدأ من الصفر. الهدف ليس حفظ الوسوم فقط، بل فهم كيف يقرأ المتصفح ملف HTML وكيف تتحول العناصر إلى صفحة منظمة يمكن لمحركات البحث وقارئات الشاشة فهمها.",
+          "كل محاضرة في القائمة تعالج جزءا واحدا بوضوح: المفهوم، الاستخدام الصحيح، الأخطاء الشائعة، وتمرين بسيط. استخدم مختبر الكود لتجربة العناصر مباشرة.",
+          "<section class=\"lesson-section\"><h2>مخرجات الدورة</h2><ul class=\"lesson-bullets\"><li>بناء صفحة HTML صحيحة من البداية.</li><li>كتابة نصوص وروابط وصور وجداول ونماذج.</li><li>استخدام عناصر semantic مثل header وmain وsection وfooter.</li><li>تحسين الصفحة لمحركات البحث وإتاحة الوصول.</li></ul></section>"
+        ],
+        "en": [
+          "This course is designed for learners starting from zero. The goal is not only to memorize tags, but to understand how the browser reads HTML and how elements become a structured page that search engines and screen readers can understand.",
+          "Each lesson focuses on one clear part: the concept, correct usage, common mistakes, and a simple exercise. Use the code lab to test elements directly.",
+          "<section class=\"lesson-section\"><h2>Course outcomes</h2><ul class=\"lesson-bullets\"><li>Build a valid HTML page from scratch.</li><li>Write text, links, images, tables, and forms.</li><li>Use semantic elements such as header, main, section, and footer.</li><li>Improve pages for search engines and accessibility.</li></ul></section>"
+        ]
+      },
+      "playlist": [
+        {
+          "title": {
+            "ar": "1. ما هي HTML وكيف يعمل المتصفح؟",
+            "en": "1. What is HTML and how does the browser work?"
+          },
+          "summary": {
+            "ar": "فهم دور HTML في بناء هيكل الصفحة وعلاقتها بالمتصفح.",
+            "en": "Understand HTML's role in page structure and its relationship with the browser."
+          }
+        },
+        {
+          "title": {
+            "ar": "2. إعداد أول ملف HTML",
+            "en": "2. Setting up the first HTML file"
+          },
+          "summary": {
+            "ar": "إنشاء ملف index.html وتشغيله محليا بطريقة صحيحة.",
+            "en": "Create an index.html file and run it locally correctly."
+          }
+        },
+        {
+          "title": {
+            "ar": "3. بنية الصفحة: html وhead وbody",
+            "en": "3. Page structure: html, head, and body"
+          },
+          "summary": {
+            "ar": "معرفة مكان المعلومات غير المرئية ومكان المحتوى الظاهر.",
+            "en": "Know where metadata lives and where visible content belongs."
+          }
+        },
+        {
+          "title": {
+            "ar": "4. العناوين والفقرات",
+            "en": "4. Headings and paragraphs"
+          },
+          "summary": {
+            "ar": "استخدام h1 إلى h6 وp لبناء تسلسل واضح.",
+            "en": "Use h1 through h6 and p to create a clear hierarchy."
+          }
+        },
+        {
+          "title": {
+            "ar": "5. تنسيق النصوص الأساسية",
+            "en": "5. Basic text formatting"
+          },
+          "summary": {
+            "ar": "استخدام strong وem وbr وhr بدون إساءة استخدامها.",
+            "en": "Use strong, em, br, and hr without misusing them."
+          }
+        },
+        {
+          "title": {
+            "ar": "6. الروابط والمسارات",
+            "en": "6. Links and paths"
+          },
+          "summary": {
+            "ar": "الفرق بين الروابط الداخلية والخارجية والمسارات النسبية.",
+            "en": "Difference between internal, external, and relative links."
+          }
+        },
+        {
+          "title": {
+            "ar": "7. الصور وalt",
+            "en": "7. Images and alt text"
+          },
+          "summary": {
+            "ar": "إضافة الصور مع وصف بديل مفيد لإتاحة الوصول وSEO.",
+            "en": "Add images with meaningful alt text for accessibility and SEO."
+          }
+        },
+        {
+          "title": {
+            "ar": "8. القوائم المرتبة وغير المرتبة",
+            "en": "8. Ordered and unordered lists"
+          },
+          "summary": {
+            "ar": "بناء قوائم خطوات وقوائم عناصر بطريقة صحيحة.",
+            "en": "Build step lists and item lists correctly."
+          }
+        },
+        {
+          "title": {
+            "ar": "9. الجداول",
+            "en": "9. Tables"
+          },
+          "summary": {
+            "ar": "استخدام table وthead وtbody لعرض البيانات المجدولة.",
+            "en": "Use table, thead, and tbody for tabular data."
+          }
+        },
+        {
+          "title": {
+            "ar": "10. النماذج: form وinput",
+            "en": "10. Forms: form and input"
+          },
+          "summary": {
+            "ar": "بناء نموذج إدخال بسيط وفهم name وtype.",
+            "en": "Build a simple form and understand name and type."
+          }
+        },
+        {
+          "title": {
+            "ar": "11. أنواع input المهمة",
+            "en": "11. Important input types"
+          },
+          "summary": {
+            "ar": "تطبيق email وpassword وnumber وdate وcheckbox.",
+            "en": "Practice email, password, number, date, and checkbox inputs."
+          }
+        },
+        {
+          "title": {
+            "ar": "12. الأزرار وselect وtextarea",
+            "en": "12. Buttons, select, and textarea"
+          },
+          "summary": {
+            "ar": "إكمال عناصر النماذج المطلوبة في صفحات التسجيل والتواصل.",
+            "en": "Complete form controls needed for registration and contact pages."
+          }
+        },
+        {
+          "title": {
+            "ar": "13. العناصر الدلالية",
+            "en": "13. Semantic elements"
+          },
+          "summary": {
+            "ar": "استخدام header وnav وmain وarticle وfooter.",
+            "en": "Use header, nav, main, article, and footer."
+          }
+        },
+        {
+          "title": {
+            "ar": "14. HTML وإتاحة الوصول",
+            "en": "14. HTML and accessibility"
+          },
+          "summary": {
+            "ar": "كتابة labels وalt وتسلسل عناوين يساعد جميع المستخدمين.",
+            "en": "Write labels, alt text, and heading order that help all users."
+          }
+        },
+        {
+          "title": {
+            "ar": "15. HTML وSEO",
+            "en": "15. HTML and SEO"
+          },
+          "summary": {
+            "ar": "استخدام title وdescription والعناوين لتحسين الفهرسة.",
+            "en": "Use title, description, and headings to improve indexing."
+          }
+        },
+        {
+          "title": {
+            "ar": "16. إضافة ملفات CSS وJS",
+            "en": "16. Adding CSS and JS files"
+          },
+          "summary": {
+            "ar": "ربط ملفات خارجية بالصفحة بطريقة منظمة.",
+            "en": "Connect external files to the page in an organized way."
+          }
+        },
+        {
+          "title": {
+            "ar": "17. الأخطاء الشائعة",
+            "en": "17. Common mistakes"
+          },
+          "summary": {
+            "ar": "معالجة الوسوم غير المغلقة والتداخل غير الصحيح.",
+            "en": "Fix unclosed tags and incorrect nesting."
+          }
+        },
+        {
+          "title": {
+            "ar": "18. بناء صفحة شخصية",
+            "en": "18. Building a personal page"
+          },
+          "summary": {
+            "ar": "تجميع ما سبق في صفحة تعريف بسيطة.",
+            "en": "Combine previous concepts into a simple profile page."
+          }
+        },
+        {
+          "title": {
+            "ar": "19. بناء صفحة درس",
+            "en": "19. Building a lesson page"
+          },
+          "summary": {
+            "ar": "إنشاء صفحة تعليمية فيها عناوين وفقرات وصور وقائمة.",
+            "en": "Create an educational page with headings, paragraphs, images, and lists."
+          }
+        },
+        {
+          "title": {
+            "ar": "20. مشروع نهاية دورة HTML",
+            "en": "20. HTML final project"
+          },
+          "summary": {
+            "ar": "تنفيذ صفحة كاملة قابلة للنشر ومناسبة للتطوير لاحقا.",
+            "en": "Build a complete page ready for publishing and future improvement."
+          }
+        }
+      ],
+      "codeLab": {
+        "preview": true,
+        "title": {
+          "ar": "مختبر HTML تفاعلي",
+          "en": "Interactive HTML Lab"
+        },
+        "initialCode": {
+          "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>صفحتي الأولى</title>\n  </head>\n  <body>\n    <h1>مرحبا في دورة HTML</h1>\n    <p>اكتب عناصر HTML وشاهد النتيجة هنا.</p>\n    <a href=\"https://developer.mozilla.org/\">مصدر تعليمي</a>\n  </body>\n</html>",
+          "en": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>My First Page</title>\n  </head>\n  <body>\n    <h1>Welcome to HTML</h1>\n    <p>Write HTML elements and preview the result here.</p>\n    <a href=\"https://developer.mozilla.org/\">Learning source</a>\n  </body>\n</html>"
+        },
+        "note": {
+          "ar": "",
+          "en": ""
+        }
+      }
+    },
+    {
       "id": "php-xampp-install-windows",
       "type": "software",
       "date": "2026-05-23",
