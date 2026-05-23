@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Abdalla Academy | منصة تعليمية للبرمجة والتقنية</title>
-    <meta name="description" content="Abdalla Academy منصة تعليمية عربية وإنجليزية تقدم دورات ومحاضرات ومقالات وفيديوهات ومواد تقنية في البرمجة وتطوير الويب.">
+    <meta name="description" content="منصة Abdalla Academy تقدم دورات ومحاضرات ومقالات وفيديوهات ومواد تقنية في البرمجة وتطوير الويب باللغتين العربية والإنجليزية.">
     <meta name="author" content="Abdalla Abukaraki">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Abdalla Academy">
-    <meta property="og:description" content="دورات، محاضرات، مقالات، فيديوهات ومواد تعليمية في البرمجة والتقنية.">
+    <meta property="og:description" content="دورات، برامج، محاضرات، مقالات، فيديوهات ومواد تعليمية في البرمجة والتقنية.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://abukaraki.github.io/Abdalla-Academy/assets/logo.png">
     <link rel="canonical" href="https://abukaraki.github.io/Abdalla-Academy/">
@@ -55,33 +55,60 @@
       </nav>
     </header>
 
-    <main id="main">
-      <section class="hero platform-hero">
-        <div class="hero-copy">
-          <p class="eyebrow" data-text="heroEyebrow">Abdalla Academy</p>
-          <h1 data-text="heroTitle">منصة تعليمية للبرمجة والتقنية</h1>
+    <main id="main" class="academy-home">
+      <section class="home-shell">
+        <div class="home-intro">
+          <p class="eyebrow lang-ar">Abdalla Academy</p>
+          <p class="eyebrow lang-en">Abdalla Academy</p>
+          <h1 class="lang-ar">تعلم البرمجة والتقنية من محتوى واضح ومنظم</h1>
+          <h1 class="lang-en">Learn Programming and Technology Through Clear Lessons</h1>
           <form class="hero-search" action="search.html">
             <input class="search-input" type="search" name="q" placeholder="XAMPP, PHP, HTML">
             <button class="button primary" type="submit" data-text="search">البحث</button>
           </form>
         </div>
+
+        <a class="featured-lesson" href="content.html?id=php-xampp-install-windows">
+          <img src="assets/images/xampp/xampp-setup-welcome.webp" alt="XAMPP setup on Windows" loading="lazy">
+          <span class="featured-badge lang-ar">درس مميز</span>
+          <span class="featured-badge lang-en">Featured Lesson</span>
+          <strong class="lang-ar">تنزيل وتثبيت XAMPP على ويندوز</strong>
+          <strong class="lang-en">Download and Install XAMPP on Windows</strong>
+        </a>
       </section>
 
-      <section class="section category-tabs" aria-label="Platform sections">
-        <a href="courses.html"><span data-text="courses">الدورات</span></a>
-        <a href="software.html"><span data-text="software">البرامج</span></a>
-        <a href="lectures.html"><span data-text="lectures">المحاضرات</span></a>
-        <a href="articles.html"><span data-text="articles">المقالات</span></a>
-        <a href="videos.html"><span data-text="videos">الفيديوهات</span></a>
-        <a href="materials.html"><span data-text="materials">المواد</span></a>
+      <section class="home-categories" aria-label="Platform sections">
+        <a href="courses.html"><small>01</small><span data-text="courses">الدورات</span></a>
+        <a href="software.html"><small>02</small><span data-text="software">البرامج</span></a>
+        <a href="lectures.html"><small>03</small><span data-text="lectures">المحاضرات</span></a>
+        <a href="articles.html"><small>04</small><span data-text="articles">المقالات</span></a>
+        <a href="videos.html"><small>05</small><span data-text="videos">الفيديوهات</span></a>
+        <a href="materials.html"><small>06</small><span data-text="materials">المواد</span></a>
       </section>
 
-      <section class="section content-showcase">
-        <div class="section-heading">
-          <p class="eyebrow" data-text="latestEyebrow">الأحدث</p>
-          <h2 data-text="latestTitle">آخر الدروس والمواد</h2>
+      <section class="home-board">
+        <div class="board-head">
+          <div>
+            <p class="eyebrow lang-ar">آخر الإضافات</p>
+            <p class="eyebrow lang-en">Latest Updates</p>
+            <h2 class="lang-ar">محتوى تعليمي جديد</h2>
+            <h2 class="lang-en">New Learning Content</h2>
+          </div>
+          <a class="button secondary" href="search.html" data-text="search">البحث</a>
         </div>
         <div class="content-grid showcase-grid" data-render="latest"></div>
+      </section>
+
+      <section class="home-board compact-board">
+        <div class="board-head">
+          <div>
+            <p class="eyebrow lang-ar">برامج وأدوات</p>
+            <p class="eyebrow lang-en">Software and Tools</p>
+            <h2 data-text="software">البرامج</h2>
+          </div>
+          <a class="button secondary" href="software.html" data-text="software">البرامج</a>
+        </div>
+        <div class="content-grid showcase-grid" data-render="software"></div>
       </section>
     </main>
 
