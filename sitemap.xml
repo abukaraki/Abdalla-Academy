@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://username.github.io/site-name/</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/lectures.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/articles.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/blog.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/materials.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/programming.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/about.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/contact.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/privacy.html</loc><lastmod>2026-05-23</lastmod></url>
-  <url><loc>https://username.github.io/site-name/terms.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/courses.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/software.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/lectures.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/articles.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/videos.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/materials.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/blog.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/search.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/contact.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/privacy.html</loc><lastmod>2026-05-23</lastmod></url>
+  <url><loc>https://abukaraki.github.io/Abdalla-Academy/terms.html</loc><lastmod>2026-05-23</lastmod></url>
 </urlset>

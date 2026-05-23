@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://username.github.io/site-name/sitemap.xml
+Sitemap: https://abukaraki.github.io/Abdalla-Academy/sitemap.xml

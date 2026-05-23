@@ -4,8 +4,11 @@ const ui = {
     brandSub: "Learn • Grow • Succeed",
     menu: "القائمة",
     home: "الرئيسية",
+    courses: "الدورات",
+    software: "البرامج",
     lectures: "المحاضرات",
     articles: "المقالات",
+    videos: "الفيديوهات",
     blog: "المدونة",
     materials: "المواد",
     programming: "البرمجة",
@@ -14,21 +17,21 @@ const ui = {
     contact: "تواصل",
     privacy: "سياسة الخصوصية",
     terms: "الشروط",
-    heroEyebrow: "Abdalla Abu Karaki",
-    heroTitle: "Learn. Grow. Succeed.",
+    heroEyebrow: "Abdalla Academy",
+    heroTitle: "منصة تعليمية للبرمجة والتقنية",
     heroLead: "",
     startLearning: "ابدأ بالمحاضرات",
     exploreProgramming: "استكشف البرمجة",
     cmsText: "محاضرات ومقالات ومواد جديدة تظهر داخل الأقسام المخصصة لها بطريقة مرتبة وسهلة التصفح.",
-    sectionsEyebrow: "أقسام المنصة",
-    sectionsTitle: "الأقسام",
+    sectionsEyebrow: "الأقسام",
+    sectionsTitle: "تصفح المحتوى",
     lecturesDesc: "فيديوهات تعليمية منظمة مع وصف واضح، مستوى الدرس، ومدة المشاهدة.",
     articlesDesc: "مقالات منظمة وواضحة، مبنية على محتوى أصلي ومفيد للمتعلمين.",
     blogDesc: "تحديثات قصيرة وتجارب وملاحظات أسبوعية تساعد المتعلم على المتابعة والاستمرار.",
     materialsDesc: "ملفات PDF وروابط أدوات ومراجع قابلة للتحميل مع وصف يوضح فائدتها.",
     programmingDesc: "مسارات مبسطة في HTML وCSS وJavaScript ومشاريع تدريبية للمبتدئين.",
-    latestEyebrow: "أحدث المحتوى",
-    latestTitle: "الأحدث",
+    latestEyebrow: "الأحدث",
+    latestTitle: "آخر الدروس والمواد",
     adsenseTitle: "مصمم ليكون واضحا ومناسبا للمراجعة.",
     adsenseText: "المنصة تتجنب الصفحات الفارغة، الإعلانات المضللة، النوافذ المزعجة، والمحتوى المنسوخ. قبل التقديم، أضف محتوى أصليا أكثر واستبدل بيانات التواصل والرابط الرسمي.",
     footerText: "",
@@ -55,8 +58,11 @@ const ui = {
     brandSub: "Learn • Grow • Succeed",
     menu: "Menu",
     home: "Home",
+    courses: "Courses",
+    software: "Software",
     lectures: "Lectures",
     articles: "Articles",
+    videos: "Videos",
     blog: "Blog",
     materials: "Materials",
     programming: "Programming",
@@ -65,21 +71,21 @@ const ui = {
     contact: "Contact",
     privacy: "Privacy Policy",
     terms: "Terms",
-    heroEyebrow: "Abdalla Abu Karaki",
-    heroTitle: "Learn. Grow. Succeed.",
+    heroEyebrow: "Abdalla Academy",
+    heroTitle: "Educational Platform for Programming and Technology",
     heroLead: "",
     startLearning: "Start With Lectures",
     exploreProgramming: "Explore Programming",
     cmsText: "New lectures, articles, and materials appear inside their sections in a structured and easy-to-browse way.",
-    sectionsEyebrow: "Platform sections",
-    sectionsTitle: "Everything is organized by content type.",
+    sectionsEyebrow: "Sections",
+    sectionsTitle: "Browse Content",
     lecturesDesc: "Organized educational videos with clear descriptions, lesson level, and viewing time.",
     articlesDesc: "Structured, useful articles built around original educational content.",
     blogDesc: "Short updates, experiments, and weekly notes that keep the platform active.",
     materialsDesc: "PDF files, tool links, and downloadable references with clear descriptions.",
     programmingDesc: "Simple HTML, CSS, and JavaScript tracks with practical projects for beginners.",
-    latestEyebrow: "Latest content",
-    latestTitle: "Latest",
+    latestEyebrow: "Latest",
+    latestTitle: "Latest Lessons and Materials",
     adsenseTitle: "Designed to be clear and review-friendly.",
     adsenseText: "The platform avoids empty pages, misleading ads, intrusive popups, and copied content. Before applying, add more original content and replace the official contact details and URL.",
     footerText: "",
@@ -145,7 +151,7 @@ function setLanguage(lang) {
   });
 
   document.querySelectorAll(".page-hero .lead").forEach((node) => {
-    if (!node.closest(".privacy-page") && !node.closest(".terms-page")) {
+    if (!node.closest(".privacy-page") && !node.closest(".terms-page") && !node.closest(".contact-page")) {
       node.remove();
     }
   });
@@ -162,18 +168,20 @@ function cardAction(item) {
 function makeCard(item) {
   const article = document.createElement("article");
   article.className = "content-card";
+  const image = item.thumbnail || item.images?.[0]?.src || item.icon || "";
+  const media = image ? `<a class="content-media" href="content.html?id=${encodeURIComponent(item.id)}"><img src="${image}" alt="${text(item.title)}" loading="lazy"></a>` : "";
   const icon = item.icon ? `<img class="content-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   const course = item.course ? `<span>${text(item.course)}</span>` : "";
   article.innerHTML = `
-    ${icon}
+    ${media}
     <div class="card-meta">
+      ${icon}
       ${course}
       <span>${item.date}</span>
       <span>${item.duration || ""}</span>
       <span>${item.level || ""}</span>
     </div>
-    <h2>${text(item.title)}</h2>
-    <p>${text(item.summary)}</p>
+    <h2><a href="content.html?id=${encodeURIComponent(item.id)}">${text(item.title)}</a></h2>
     <a class="button small" href="content.html?id=${encodeURIComponent(item.id)}">${cardAction(item)}</a>
   `;
   return article;
@@ -248,8 +256,14 @@ function renderPagedItems(root, items) {
 function renderCollection(type, root) {
   const search = document.querySelector("[data-search]");
   const query = (search?.value || "").trim().toLowerCase();
+  const byType = (item) => {
+    if (type === "courses") return Boolean(item.course);
+    if (type === "software") return item.category === "software" || item.tags?.includes("software");
+    if (type === "videos") return item.mediaType === "video" || item.type === "lectures";
+    return item.type === type;
+  };
   const items = content
-    .filter((item) => item.type === type)
+    .filter(byType)
     .filter((item) => `${text(item.title)} ${text(item.summary)}`.toLowerCase().includes(query));
 
   renderPagedItems(root, items);
@@ -363,7 +377,7 @@ function injectJsonLd(id, data) {
 
 function updateStructuredData() {
   const page = document.body.getAttribute("data-page") || window.location.pathname.split("/").pop().replace(".html", "") || "home";
-  const base = "https://username.github.io/site-name/";
+  const base = "https://abukaraki.github.io/Abdalla-Academy/";
   const pageName = document.title.replace(" | Abdalla Academy", "");
 
   injectJsonLd("breadcrumbs", {

@@ -19,7 +19,10 @@ window.SITE_CONTENT = {
         en: "A practical lesson showing where to download XAMPP and how to set up a local PHP, Apache, and MariaDB environment."
       },
       mediaType: "article",
+      category: "software",
+      tags: ["software", "xampp", "php", "windows"],
       icon: "assets/images/xampp/xampp-logo.png",
+      thumbnail: "assets/images/xampp/xampp-setup-welcome.webp",
       sourceUrl: "https://www.apachefriends.org/download.html",
       downloadUrl: "https://www.apachefriends.org/download.html",
       images: [
