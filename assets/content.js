@@ -1,6 +1,44 @@
 window.SITE_CONTENT = {
   items: [
     {
+      id: "php-xampp-install-windows",
+      type: "lectures",
+      date: "2026-05-23",
+      duration: "15 min",
+      level: "PHP Basics",
+      course: {
+        ar: "دورة PHP",
+        en: "PHP Course"
+      },
+      title: {
+        ar: "تنزيل وتثبيت XAMPP على ويندوز",
+        en: "Download and Install XAMPP on Windows"
+      },
+      summary: {
+        ar: "درس عملي يشرح من أين نحمل XAMPP، وكيف نثبت البيئة المحلية لتشغيل PHP وApache وMariaDB.",
+        en: "A practical lesson showing where to download XAMPP and how to set up a local PHP, Apache, and MariaDB environment."
+      },
+      mediaType: "article",
+      icon: "assets/icons/xampp.svg",
+      sourceUrl: "https://www.apachefriends.org/download.html",
+      body: {
+        ar: [
+          "نبدأ من الموقع الرسمي Apache Friends حتى نتجنب النسخ غير الموثوقة.",
+          "اختر نسخة Windows المناسبة، ثم حمل ملف التثبيت وشغله كأي برنامج عادي.",
+          "أثناء التثبيت يكفي اختيار المكونات الأساسية لتعلم PHP: Apache وPHP وMariaDB وphpMyAdmin.",
+          "بعد انتهاء التثبيت افتح XAMPP Control Panel وشغل Apache وMySQL.",
+          "للتجربة، افتح المتصفح واكتب localhost. إذا ظهرت صفحة XAMPP فهذا يعني أن البيئة تعمل."
+        ],
+        en: [
+          "Start from the official Apache Friends website to avoid untrusted downloads.",
+          "Choose the suitable Windows version, download the installer, and run it like a normal application.",
+          "For learning PHP, the essential components are Apache, PHP, MariaDB, and phpMyAdmin.",
+          "After installation, open the XAMPP Control Panel and start Apache and MySQL.",
+          "To test it, open the browser and visit localhost. If the XAMPP page appears, the environment is working."
+        ]
+      }
+    },
+    {
       id: "intro-web-platform",
       type: "lectures",
       date: "2026-05-23",

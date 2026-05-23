@@ -164,8 +164,12 @@ function cardAction(item) {
 function makeCard(item) {
   const article = document.createElement("article");
   article.className = "content-card";
+  const icon = item.icon ? `<img class="content-icon" src="${item.icon}" alt="" loading="lazy">` : "";
+  const course = item.course ? `<span>${text(item.course)}</span>` : "";
   article.innerHTML = `
+    ${icon}
     <div class="card-meta">
+      ${course}
       <span>${item.date}</span>
       <span>${item.duration || ""}</span>
       <span>${item.level || ""}</span>
@@ -293,7 +297,7 @@ function renderDetail(root) {
   }
 
   const body = (text(item.body) || []).map((paragraph) => `<p>${paragraph}</p>`).join("");
-  let media = "";
+  let media = item.icon ? `<img class="detail-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   if (item.mediaType === "video" && item.video) {
     const isExternal = /^https?:/.test(item.video);
     media = isExternal
@@ -301,7 +305,10 @@ function renderDetail(root) {
       : `<video class="video-player" controls preload="metadata"><source src="${item.video}" type="video/mp4"></video>`;
   }
   if (item.mediaType === "download" && item.file) {
-    media = `<a class="button primary" href="${item.file}">${ui[currentLang].download}</a>`;
+    media += `<a class="button primary" href="${item.file}">${ui[currentLang].download}</a>`;
+  }
+  if (item.sourceUrl) {
+    media += `<p><a href="${item.sourceUrl}" rel="noopener" target="_blank">Apache Friends XAMPP</a></p>`;
   }
 
   root.innerHTML = `

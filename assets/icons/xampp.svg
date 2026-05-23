@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">XAMPP lesson icon</title>
+  <desc id="desc">Orange application icon for a XAMPP installation lesson.</desc>
+  <rect x="14" y="14" width="132" height="132" rx="28" fill="#fb7f22"/>
+  <rect x="34" y="34" width="92" height="92" rx="18" fill="#fff3e8" opacity=".96"/>
+  <path d="M52 55 108 105M108 55 52 105" stroke="#fb7f22" stroke-width="14" stroke-linecap="round"/>
+  <path d="M62 80h36" stroke="#082f57" stroke-width="10" stroke-linecap="round"/>
+</svg>

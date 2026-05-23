@@ -539,6 +539,13 @@ a {
   gap: 0.55rem;
 }
 
+.content-icon {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
 .content-detail {
   max-width: 940px;
 }
@@ -553,6 +560,14 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.25rem;
+}
+
+.detail-icon {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
 }
 
 .prose p,
