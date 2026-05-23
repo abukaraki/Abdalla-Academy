@@ -308,7 +308,9 @@ function renderDetail(root) {
     return;
   }
 
-  const body = (text(item.body) || []).map((paragraph) => `<p>${paragraph}</p>`).join("");
+  const paragraphs = text(item.body) || [];
+  const intro = paragraphs.slice(0, 3).map((paragraph) => `<p>${paragraph}</p>`).join("");
+  const body = paragraphs.slice(3).map((paragraph) => `<p>${paragraph}</p>`).join("");
   let media = item.icon ? `<img class="detail-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   if (item.mediaType === "video" && item.video) {
     const isExternal = /^https?:/.test(item.video);
@@ -359,6 +361,7 @@ function renderDetail(root) {
       <div class="card-meta detail-meta"><span>${item.date}</span><span>${item.duration || ""}</span><span>${item.level || ""}</span></div>
     </section>
     <article class="prose detail-body">
+      ${intro}
       ${media}
       ${body}
     </article>

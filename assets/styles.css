@@ -808,19 +808,24 @@ html[lang="en"] .lang-ar {
 
 .lesson-gallery {
   display: grid;
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+  counter-reset: lessonStep;
 }
 
 .lesson-gallery figure {
+  position: relative;
+  counter-increment: lessonStep;
   margin: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  overflow: hidden;
+  overflow: visible;
   background: var(--surface);
   display: grid;
-  grid-template-columns: minmax(180px, 340px) minmax(0, 1fr);
-  align-items: stretch;
+  grid-template-columns: minmax(145px, 230px) minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: center;
+  padding: 0.8rem;
   opacity: 0;
   transform: translateY(18px);
   animation: galleryReveal 560ms ease forwards;
@@ -828,11 +833,29 @@ html[lang="en"] .lang-ar {
   box-shadow: 0 12px 30px rgba(4, 33, 63, 0.06);
 }
 
+.lesson-gallery figure::before {
+  content: counter(lessonStep, decimal-leading-zero);
+  position: absolute;
+  top: -0.62rem;
+  inset-inline-start: 0.8rem;
+  display: grid;
+  place-items: center;
+  min-width: 2.15rem;
+  height: 1.55rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(4, 33, 63, 0.2);
+}
+
 .lesson-gallery img {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 230px;
+  max-height: 155px;
   object-fit: contain;
   transition: transform 380ms ease;
 }
@@ -841,11 +864,13 @@ html[lang="en"] .lang-ar {
   position: relative;
   overflow: hidden;
   background: #eef2f6;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
 .image-zoom {
   width: 100%;
-  min-height: 100%;
+  min-height: 150px;
   padding: 0;
   border: 0;
   cursor: zoom-in;
@@ -873,13 +898,16 @@ html[lang="en"] .lang-ar {
 
 .annotation-list {
   margin: 0;
-  padding: 0 1.25rem 1rem;
+  padding: 0.65rem 0.75rem;
   color: #334155;
+  border: 1px solid rgba(189, 138, 47, 0.24);
+  border-radius: calc(var(--radius) - 2px);
+  background: #fffaf0;
 }
 
 html[dir="rtl"] .annotation-list {
-  padding-right: 1.25rem;
-  padding-left: 1rem;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
 }
 
 .annotation-list li + li {
@@ -900,16 +928,16 @@ html[dir="rtl"] .annotation-list {
 
 .annotation-description {
   margin: 0;
-  padding: 0 0.9rem 0.85rem;
+  padding: 0;
   color: #263748;
   font-size: 0.95rem;
   line-height: 1.85;
 }
 
 .lesson-gallery figcaption {
-  padding: 0.75rem 0.9rem;
-  color: var(--muted);
-  font-size: 0.92rem;
+  padding: 0;
+  color: var(--ink);
+  font-size: 1rem;
   font-weight: 800;
 }
 
@@ -917,6 +945,7 @@ html[dir="rtl"] .annotation-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 0.55rem;
   min-width: 0;
 }
 
@@ -1199,7 +1228,7 @@ html[dir="rtl"] .annotation-list {
   }
 
   .lesson-gallery img {
-    max-height: 270px;
+    max-height: 220px;
   }
 }
 
