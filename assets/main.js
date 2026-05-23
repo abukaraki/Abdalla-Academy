@@ -320,22 +320,25 @@ function renderDetail(root) {
     media += `<a class="button primary" href="${item.file}">${ui[currentLang].download}</a>`;
   }
   if (item.sourceUrl) {
-    media += `<p><a href="${item.sourceUrl}" rel="noopener" target="_blank">Apache Friends XAMPP</a></p>`;
+    media += `<p><a href="${item.sourceUrl}" rel="noopener" target="_blank">${currentLang === "ar" ? "المصدر الرسمي" : "Official source"}</a></p>`;
   }
   if (item.downloadUrl) {
     media += `<p><a class="button primary" href="${item.downloadUrl}" rel="noopener" target="_blank">${currentLang === "ar" ? "تحميل XAMPP من الموقع الرسمي" : "Download XAMPP from the official site"}</a></p>`;
   }
   if (item.images?.length) {
-    media += `<div class="lesson-gallery">${item.images.map((image) => `
-      <figure>
-        <div class="annotated-image">
+    media += `<div class="lesson-gallery">${item.images.map((image, imageIndex) => `
+      <figure style="--delay:${Math.min(imageIndex, 14) * 55}ms">
+        <button class="annotated-image image-zoom" type="button" aria-label="${currentLang === "ar" ? "تكبير الصورة" : "Enlarge image"}">
           <img src="${image.src}" alt="${text(image.caption)}" loading="lazy">
           ${(image.annotations || []).map((annotation, index) => `
             <span class="annotation-box" style="left:${annotation.x}%;top:${annotation.y}%;width:${annotation.w}%;height:${annotation.h}%;">${index + 1}</span>
           `).join("")}
+        </button>
+        <div class="annotation-copy">
+          <figcaption>${text(image.caption)}</figcaption>
+          ${image.description ? `<p class="annotation-description">${text(image.description)}</p>` : ""}
+          ${image.annotations?.length ? `<ol class="annotation-list">${image.annotations.map((annotation, index) => `<li><strong>${index + 1}</strong> ${text(annotation.label)}</li>`).join("")}</ol>` : ""}
         </div>
-        <figcaption>${text(image.caption)}</figcaption>
-        ${image.annotations?.length ? `<ol class="annotation-list">${image.annotations.map((annotation, index) => `<li><strong>${index + 1}</strong> ${text(annotation.label)}</li>`).join("")}</ol>` : ""}
       </figure>
     `).join("")}</div>`;
   }
@@ -495,6 +498,45 @@ document.querySelectorAll("[data-search]").forEach((input) => {
     }
     renderAll();
   });
+});
+
+document.addEventListener("click", (event) => {
+  const trigger = event.target.closest(".image-zoom");
+  if (!trigger) return;
+
+  const figure = trigger.closest("figure");
+  const modal = document.createElement("div");
+  modal.className = "image-lightbox";
+  modal.innerHTML = `
+    <div class="image-lightbox-panel" role="dialog" aria-modal="true" aria-label="${currentLang === "ar" ? "عرض الصورة" : "Image preview"}">
+      <button class="image-lightbox-close" type="button" aria-label="${currentLang === "ar" ? "إغلاق" : "Close"}">×</button>
+      <div class="image-lightbox-media"></div>
+      <p>${figure?.querySelector("figcaption")?.textContent || ""}</p>
+    </div>
+  `;
+  const media = modal.querySelector(".image-lightbox-media");
+  const clone = trigger.cloneNode(true);
+  clone.classList.remove("image-zoom");
+  clone.removeAttribute("aria-label");
+  clone.setAttribute("tabindex", "-1");
+  media.appendChild(clone);
+  document.body.appendChild(modal);
+  document.body.classList.add("has-lightbox");
+
+  const close = () => {
+    modal.remove();
+    document.body.classList.remove("has-lightbox");
+    document.removeEventListener("keydown", onKeydown);
+  };
+  const onKeydown = (keydownEvent) => {
+    if (keydownEvent.key === "Escape") close();
+  };
+
+  modal.addEventListener("click", (clickEvent) => {
+    if (clickEvent.target === modal || clickEvent.target.closest(".image-lightbox-close")) close();
+  });
+  document.addEventListener("keydown", onKeydown);
+  modal.querySelector(".image-lightbox-close").focus();
 });
 
 setLanguage(currentLang);

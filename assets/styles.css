@@ -818,16 +818,41 @@ html[lang="en"] .lang-ar {
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--surface);
+  display: grid;
+  grid-template-columns: minmax(180px, 340px) minmax(0, 1fr);
+  align-items: stretch;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: galleryReveal 560ms ease forwards;
+  animation-delay: var(--delay, 0ms);
+  box-shadow: 0 12px 30px rgba(4, 33, 63, 0.06);
 }
 
 .lesson-gallery img {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 230px;
+  object-fit: contain;
+  transition: transform 380ms ease;
 }
 
 .annotated-image {
   position: relative;
+  overflow: hidden;
+  background: #eef2f6;
+}
+
+.image-zoom {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
+}
+
+.lesson-gallery figure:hover img {
+  transform: scale(1.012);
 }
 
 .annotation-box {
@@ -843,11 +868,12 @@ html[lang="en"] .lang-ar {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
   box-shadow: 0 0 0 1px rgba(4, 33, 63, 0.35), 0 8px 22px rgba(4, 33, 63, 0.18);
   pointer-events: none;
+  animation: annotationPulse 1800ms ease-in-out infinite;
 }
 
 .annotation-list {
   margin: 0;
-  padding: 0.85rem 1.25rem 1rem;
+  padding: 0 1.25rem 1rem;
   color: #334155;
 }
 
@@ -872,10 +898,101 @@ html[dir="rtl"] .annotation-list {
   font-size: 0.78rem;
 }
 
+.annotation-description {
+  margin: 0;
+  padding: 0 0.9rem 0.85rem;
+  color: #263748;
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
 .lesson-gallery figcaption {
   padding: 0.75rem 0.9rem;
   color: var(--muted);
   font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.annotation-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(4, 18, 32, 0.76);
+  animation: galleryReveal 180ms ease forwards;
+}
+
+.image-lightbox-panel {
+  position: relative;
+  width: min(1120px, 96vw);
+  max-height: 92vh;
+  padding: 1rem;
+  overflow: auto;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+}
+
+.image-lightbox-media .annotated-image {
+  cursor: default;
+}
+
+.image-lightbox-media img {
+  width: 100%;
+  max-height: 74vh;
+  object-fit: contain;
+}
+
+.image-lightbox p {
+  margin: 0.75rem 0 0;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 0.65rem;
+  inset-inline-end: 0.65rem;
+  z-index: 2;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.has-lightbox {
+  overflow: hidden;
+}
+
+@keyframes galleryReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes annotationPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(4, 33, 63, 0.35), 0 8px 22px rgba(4, 33, 63, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(189, 138, 47, 0.22), 0 10px 28px rgba(4, 33, 63, 0.24);
+  }
 }
 
 .share-box {
@@ -1075,6 +1192,14 @@ html[dir="rtl"] .annotation-list {
   .content-grid,
   .topic-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lesson-gallery figure {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-gallery img {
+    max-height: 270px;
   }
 }
 
