@@ -1,0 +1,8 @@
+.git
+.git/**
+functions
+functions/**
+src
+src/**
+wrangler.jsonc
+.assetsignore

@@ -1,7 +1,7 @@
 const ui = {
   ar: {
     brandTitle: "Abdalla Academy",
-    brandSub: "Learn • Grow • Succeed",
+    brandSub: "HTML • PHP • C++ • JS",
     menu: "القائمة",
     home: "الرئيسية",
     courses: "الدورات",
@@ -12,6 +12,7 @@ const ui = {
     blog: "المدونة",
     materials: "المواد",
     programming: "البرمجة",
+    compiler: "Compiler",
     search: "البحث",
     about: "عن المنصة",
     contact: "تواصل",
@@ -62,11 +63,11 @@ const ui = {
     output: "النتيجة",
     issues: "الأخطاء والملاحظات",
     noIssues: "لا توجد أخطاء واضحة.",
-    compilerNote: "هذا فحص تدريبي داخل المتصفح، والتشغيل الحقيقي لهذه اللغة يحتاج البيئة المناسبة."
+    compilerNote: "شغل الكود مباشرة وشاهد النتيجة."
   },
   en: {
     brandTitle: "Abdalla Academy",
-    brandSub: "Learn • Grow • Succeed",
+    brandSub: "HTML • PHP • C++ • JS",
     menu: "Menu",
     home: "Home",
     courses: "Courses",
@@ -77,6 +78,7 @@ const ui = {
     blog: "Blog",
     materials: "Materials",
     programming: "Programming",
+    compiler: "Compiler",
     search: "Search",
     about: "About",
     contact: "Contact",
@@ -127,7 +129,7 @@ const ui = {
     output: "Output",
     issues: "Errors and Notes",
     noIssues: "No clear issues found.",
-    compilerNote: "This is a browser-based training check. Real execution for this language needs the proper environment."
+    compilerNote: "Run the code and read the output."
   }
 };
 
@@ -157,10 +159,11 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   if (languageButton) languageButton.textContent = lang === "ar" ? "EN" : "AR";
+  ensureNavigation();
   document.querySelectorAll(".brand-mark").forEach((node) => {
     const logo = document.createElement("img");
     logo.className = "brand-logo";
-    logo.src = "assets/logo.png";
+    logo.src = "assets/my-logo-transparent.png";
     logo.alt = "Abdalla Abu Karaki logo";
     logo.onerror = () => logo.remove();
     node.replaceWith(logo);
@@ -172,7 +175,7 @@ function setLanguage(lang) {
   });
 
   document.querySelectorAll(".brand small").forEach((node) => {
-    node.textContent = "Learn • Grow • Succeed";
+    node.textContent = ui[lang].brandSub;
   });
 
   document.querySelectorAll(".site-footer [data-text='footerText']").forEach((node) => {
@@ -186,6 +189,23 @@ function setLanguage(lang) {
   });
 
   renderAll();
+}
+
+function ensureNavigation() {
+  if (!menu) return;
+  const searchLink = menu.querySelector('a[href="search.html"]');
+  [
+    ["programming.html", "programming", "programming"],
+    ["compiler.html", "compiler", "compiler"]
+  ].forEach(([href, key, page]) => {
+    if (menu.querySelector(`a[href="${href}"]`)) return;
+    const link = document.createElement("a");
+    link.href = href;
+    link.dataset.text = key;
+    link.textContent = ui[currentLang][key];
+    if (document.body.getAttribute("data-page") === page) link.setAttribute("aria-current", "page");
+    menu.insertBefore(link, searchLink || null);
+  });
 }
 
 function cardAction(item) {
@@ -600,6 +620,11 @@ function renderAll() {
   });
   renderStats();
   updateStructuredData();
+  prepareRevealAnimations();
+  setupAdsenseSlots();
+  setupCompilerStudio();
+  setupScrollSystem();
+  setupTerminalMotion();
 }
 
 if (menuButton && menu) {
@@ -840,6 +865,398 @@ function setupPlaylist(scope = document) {
       }
     });
   });
+}
+
+let revealObserver;
+
+function prepareRevealAnimations() {
+  const nodes = document.querySelectorAll(".home-intro, .featured-lesson, .learning-signal article, .home-categories a, .home-board, .coding-paths, .content-card, .page-hero, .detail-body, .materials-guide article, .academy-hero-v2, .home-kpis article, .system-desktop, .section-grid-v2 a, .track-grid-v2 a, .adsense-section, .image-system-gallery, .image-grid-system a, .compiler-workbench, .compiler-notes article");
+  if (!("IntersectionObserver" in window)) {
+    nodes.forEach((node) => node.classList.add("is-visible"));
+    return;
+  }
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  }
+  nodes.forEach((node, index) => {
+    if (node.classList.contains("is-visible")) return;
+    node.setAttribute("data-animate", "");
+    node.style.transitionDelay = `${Math.min(index % 8, 7) * 45}ms`;
+    revealObserver.observe(node);
+  });
+}
+
+function setupAdsenseSlots() {
+  const client = document.querySelector('meta[name="google-adsense-account"]')?.content?.trim() || window.ACADEMY_ADSENSE_CLIENT || "";
+  const isConfigured = /^ca-pub-\d{10,}$/.test(client);
+  if (isConfigured && !document.querySelector('.ad-slot[data-auto="true"]')) {
+    const anchor = document.querySelector(".content-grid, .detail-body");
+    if (anchor) {
+      const slot = document.createElement("section");
+      slot.className = "ad-slot";
+      slot.dataset.auto = "true";
+      slot.dataset.adFormat = "auto";
+      slot.setAttribute("aria-label", "Advertisement");
+      anchor.insertAdjacentElement("afterend", slot);
+    }
+  }
+  document.querySelectorAll(".ad-slot").forEach((slot) => {
+    if (!isConfigured || slot.dataset.adsenseReady === "true") return;
+    slot.classList.add("is-ready");
+    slot.dataset.adsenseReady = "true";
+    slot.innerHTML = `<ins class="adsbygoogle" style="display:block" data-ad-client="${client}" data-ad-slot="${slot.dataset.adSlot || ""}" data-ad-format="${slot.dataset.adFormat || "auto"}" data-full-width-responsive="true"></ins>`;
+  });
+  if (!isConfigured || document.querySelector('script[data-adsense-loader="true"]')) return;
+  const script = document.createElement("script");
+  script.async = true;
+  script.crossOrigin = "anonymous";
+  script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`;
+  script.dataset.adsenseLoader = "true";
+  document.head.appendChild(script);
+  script.addEventListener("load", () => {
+    document.querySelectorAll(".adsbygoogle").forEach(() => {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (error) {
+        console.warn("AdSense slot could not be initialized.", error);
+      }
+    });
+  });
+}
+
+const compilerExamples = {
+  html: `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My First Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef6f3;
+        color: #10242f;
+        padding: 32px;
+      }
+
+      .card {
+        max-width: 520px;
+        padding: 24px;
+        border-radius: 8px;
+        background: white;
+        box-shadow: 0 18px 40px rgba(16, 36, 47, 0.12);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Hello Abdalla Academy</h1>
+      <p>HTML creates the structure of the page.</p>
+      <button onclick="alert('Great work!')">Click me</button>
+    </main>
+  </body>
+</html>`,
+  js: `<main>
+  <h1 id="title">JavaScript Lab</h1>
+  <button id="btn">Run Action</button>
+  <p id="result"></p>
+</main>
+
+<script>
+  const skills = ["HTML", "CSS", "JavaScript"];
+  console.log("Learning:", skills.join(" -> "));
+
+  document.getElementById("btn").addEventListener("click", () => {
+    document.getElementById("result").textContent = "You are building interaction!";
+  });
+</script>`,
+  php: `<?php
+$student = "Abdalla Academy";
+$tracks = ["HTML", "CSS", "JavaScript", "PHP"];
+
+echo "Welcome to " . $student . PHP_EOL;
+
+foreach ($tracks as $track) {
+    echo "Learning: " . $track . PHP_EOL;
+}
+?>`,
+  cpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<string> tracks = {"HTML", "CSS", "JavaScript", "C++"};
+
+    cout << "Abdalla Academy" << endl;
+    for (string track : tracks) {
+        cout << "Learning: " << track << endl;
+    }
+
+    return 0;
+}`
+};
+
+let compilerStudioInitialized = false;
+let compilerLanguage = "html";
+let scrollSystemReady = false;
+let terminalMotionReady = false;
+
+function setupCompilerStudio() {
+  const lab = document.querySelector("[data-compiler-lab]");
+  if (!lab) return;
+  const editor = lab.querySelector("[data-compiler-editor]");
+  const preview = lab.querySelector("[data-compiler-preview]");
+  const output = lab.querySelector("[data-compiler-output]");
+  const issues = lab.querySelector("[data-compiler-issues]");
+  const title = lab.querySelector("[data-compiler-title]");
+  const tabs = lab.querySelectorAll("[data-compiler-tab]");
+  const runButton = lab.querySelector("[data-run-compiler]");
+  const resetButton = lab.querySelector("[data-reset-compiler]");
+  if (!editor || !preview || !output || !issues) return;
+  if (lab.dataset.compilerReady === "true") {
+    runCompilerStudio();
+    return;
+  }
+  lab.dataset.compilerReady = "true";
+
+  const loadExample = (language, force = false) => {
+    const key = `academy-compiler-${language}`;
+    compilerLanguage = language;
+    tabs.forEach((tabNode) => tabNode.classList.toggle("is-active", tabNode.dataset.compilerTab === language));
+    if (title) title.textContent = language === "js" ? "JavaScript" : language.toUpperCase();
+    const saved = localStorage.getItem(key);
+    if (force || !saved) editor.value = compilerExamples[language];
+    else editor.value = saved;
+    runCompilerStudio();
+  };
+
+  const saveCurrent = () => {
+    localStorage.setItem(`academy-compiler-${compilerLanguage}`, editor.value);
+  };
+
+  tabs.forEach((tabNode) => {
+    tabNode.addEventListener("click", () => {
+      saveCurrent();
+      loadExample(tabNode.dataset.compilerTab || "html");
+    });
+  });
+  runButton?.addEventListener("click", () => {
+    saveCurrent();
+    runCompilerStudio();
+  });
+  resetButton?.addEventListener("click", () => {
+    localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
+    loadExample(compilerLanguage, true);
+  });
+  editor.addEventListener("input", () => {
+    saveCurrent();
+    if (compilerLanguage === "html" || compilerLanguage === "js") {
+      window.clearTimeout(editor.dataset.timer);
+      editor.dataset.timer = window.setTimeout(runCompilerStudio, 420);
+    }
+  });
+
+  if (!compilerStudioInitialized) {
+    window.addEventListener("message", (event) => {
+      if (event.data?.source !== "academy-studio") return;
+      const studioOutput = document.querySelector("[data-compiler-output]");
+      if (!studioOutput) return;
+      const previous = studioOutput.textContent.trim();
+      studioOutput.textContent = `${previous}${previous ? "\n" : ""}${event.data.kind.toUpperCase()}: ${event.data.message}`;
+    });
+    compilerStudioInitialized = true;
+  }
+
+  loadExample(compilerLanguage);
+}
+
+async function runCompilerStudio() {
+  const lab = document.querySelector("[data-compiler-lab]");
+  if (!lab) return;
+  const editor = lab.querySelector("[data-compiler-editor]");
+  const preview = lab.querySelector("[data-compiler-preview]");
+  const output = lab.querySelector("[data-compiler-output]");
+  const issues = lab.querySelector("[data-compiler-issues]");
+  if (!editor || !preview || !output || !issues) return;
+  const code = editor.value;
+  const report = analyzeStudioCode(compilerLanguage, code);
+  output.textContent = report.output;
+  issues.innerHTML = report.issues.length
+    ? report.issues.map((issue) => `<li class="${issue.type}"><strong>${issue.title}</strong><span>${issue.message}</span></li>`).join("")
+    : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? "الكود يبدو جاهزا للتجربة." : "The code looks ready to try."}</span></li>`;
+
+  if (compilerLanguage === "html") {
+    preview.srcdoc = code;
+    preview.hidden = false;
+    return;
+  }
+  if (compilerLanguage === "js") {
+    preview.srcdoc = buildStudioJsDocument(code);
+    preview.hidden = false;
+    return;
+  }
+  if (compilerLanguage === "php" || compilerLanguage === "cpp") {
+    preview.hidden = true;
+    preview.removeAttribute("srcdoc");
+    await runCloudCompiler(compilerLanguage, code, output, issues);
+    return;
+  }
+  preview.hidden = true;
+  preview.removeAttribute("srcdoc");
+}
+
+async function runCloudCompiler(language, code, output, issues) {
+  const endpoint = window.ACADEMY_COMPILER_ENDPOINT || "/api/compile";
+  const label = language === "php" ? "PHP" : "C++";
+  output.textContent = currentLang === "ar" ? `جاري تشغيل ${label}...` : `Running ${label}...`;
+  issues.innerHTML = "";
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ language, code })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || data.message || `HTTP ${response.status}`);
+    }
+    const stdout = data.stdout || data.output || data.run?.stdout || "";
+    const stderr = data.stderr || data.compile_output || data.run?.stderr || data.message || "";
+    output.textContent = [stdout, stderr].filter(Boolean).join("\n") || (currentLang === "ar" ? "تم التشغيل بدون مخرجات." : "Executed with no output.");
+    issues.innerHTML = stderr
+      ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات compiler" : "Compiler output"}</strong><span>${escapeHtml(stderr)}</span></li>`
+      : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? `تم تشغيل ${label}.` : `${label} executed.`}</span></li>`;
+  } catch (error) {
+    output.textContent = currentLang === "ar"
+      ? "تعذر تشغيل الكود الآن."
+      : "Could not run the code right now.";
+    issues.innerHTML = `<li class="error"><strong>API</strong><span>${escapeHtml(error.message)}</span></li>`;
+  }
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function buildStudioJsDocument(code) {
+  const bridge = `<script>
+    window.onerror = function(message, source, lineno) {
+      parent.postMessage({ source: "academy-studio", kind: "error", message: String(message) + (lineno ? " line " + lineno : "") }, "*");
+    };
+    ["log", "warn", "error"].forEach(function(method) {
+      var original = console[method];
+      console[method] = function() {
+        var text = Array.from(arguments).map(function(value) {
+          try { return typeof value === "object" ? JSON.stringify(value) : String(value); }
+          catch (error) { return String(value); }
+        }).join(" ");
+        parent.postMessage({ source: "academy-studio", kind: method, message: text }, "*");
+        original.apply(console, arguments);
+      };
+    });
+  <\/script>`;
+  if (/<html[\s>]/i.test(code)) return code.replace(/<head[^>]*>/i, (match) => `${match}${bridge}`);
+  return `<!doctype html><html><head><meta charset="utf-8">${bridge}<style>body{font-family:Arial,sans-serif;padding:28px;background:#f8fafc;color:#10242f}button{min-height:40px;border:0;border-radius:8px;padding:0 14px;background:#0f766e;color:white;font-weight:800}</style></head><body>${code}</body></html>`;
+}
+
+function analyzeStudioCode(language, code) {
+  const issues = [];
+  const add = (type, arTitle, enTitle, arMessage, enMessage) => {
+    issues.push({
+      type,
+      title: currentLang === "ar" ? arTitle : enTitle,
+      message: currentLang === "ar" ? arMessage : enMessage
+    });
+  };
+  const trimmed = code.trim();
+
+  if (language === "html") {
+    if (!/<!doctype html>/i.test(code)) add("warn", "DOCTYPE مفقود", "Missing DOCTYPE", "يفضل وضع <!doctype html> في بداية الصفحة.", "Add <!doctype html> at the top of the page.");
+    ["html", "head", "body"].forEach((tag) => {
+      if (!new RegExp(`<${tag}[\\s>]`, "i").test(code)) add("warn", `وسم ${tag} غير موجود`, `Missing ${tag} tag`, `وجود <${tag}> يجعل الصفحة أكثر وضوحا للمتصفح.`, `<${tag}> makes the page clearer for the browser.`);
+    });
+    return {
+      output: currentLang === "ar" ? "تم تشغيل HTML داخل المعاينة." : "HTML rendered in the preview.",
+      issues
+    };
+  }
+
+  if (language === "js") {
+    [balanceIssue(code, "{", "}", currentLang === "ar" ? "الأقواس المتعرجة" : "curly braces"), balanceIssue(code, "(", ")", currentLang === "ar" ? "الأقواس" : "parentheses")].filter(Boolean).forEach((issue) => issues.push(issue));
+    if (!/<script[\s>]/i.test(code) && /document\.|console\.|const |let |function /.test(code)) add("warn", "ملاحظة", "Note", "يمكنك كتابة JavaScript داخل <script> أو كتابة صفحة HTML كاملة.", "You can write JavaScript inside <script> or provide a full HTML page.");
+    return {
+      output: currentLang === "ar" ? "تم تشغيل JavaScript داخل المعاينة. رسائل console تظهر هنا." : "JavaScript ran in the preview. Console messages appear here.",
+      issues
+    };
+  }
+
+  if (language === "php") {
+    if (!/<\?php/.test(code)) add("error", "وسم PHP مفقود", "Missing PHP tag", "ابدأ كود PHP بـ <?php.", "Start PHP code with <?php.");
+    if (/\$_(GET|POST)/.test(code) && !/(htmlspecialchars|filter_input|filter_var)/.test(code)) add("warn", "تنظيف المدخلات", "Input sanitization", "عند استخدام GET أو POST أضف validation أو escaping.", "When using GET or POST, add validation or escaping.");
+    if (trimmed && !/[;}]\s*(\?>)?$/.test(trimmed)) add("warn", "نهاية السطر", "Line ending", "أغلب أوامر PHP تنتهي بفاصلة منقوطة ;", "Most PHP statements end with a semicolon ;");
+    return {
+      output: currentLang === "ar"
+        ? "PHP لا يعمل مباشرة على GitHub Pages. هذا المختبر يفحص الكود تعليميا، والتشغيل الحقيقي يحتاج سيرفر PHP أو API."
+        : "PHP cannot run directly on GitHub Pages. This lab checks the code educationally; real execution needs a PHP server or API.",
+      issues
+    };
+  }
+
+  if (language === "cpp") {
+    if (!/#include\s*<iostream>/.test(code)) add("error", "iostream غير موجود", "Missing iostream", "أضف #include <iostream> لاستخدام cout وcin.", "Add #include <iostream> to use cout and cin.");
+    if (!/int\s+main\s*\(/.test(code)) add("error", "main غير موجودة", "Missing main", "كل برنامج C++ يحتاج دالة int main().", "Every C++ program needs int main().");
+    [balanceIssue(code, "{", "}", currentLang === "ar" ? "الأقواس المتعرجة" : "curly braces"), balanceIssue(code, "(", ")", currentLang === "ar" ? "الأقواس" : "parentheses")].filter(Boolean).forEach((issue) => issues.push(issue));
+    return {
+      output: currentLang === "ar" ? "جاهز للإرسال إلى C++ API." : "Ready for the C++ API.",
+      issues
+    };
+  }
+
+  return { output: "", issues };
+}
+
+function setupScrollSystem() {
+  if (scrollSystemReady) return;
+  scrollSystemReady = true;
+  const update = () => {
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, window.scrollY / max));
+    document.body.style.setProperty("--scroll-progress", String(progress));
+    document.querySelectorAll(".code-window, .system-logo-card, .lesson-preview-card").forEach((node, index) => {
+      const rect = node.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const offset = (center - viewportCenter) / window.innerHeight;
+      node.style.setProperty("--scroll-y", `${offset * (index + 1) * -10}px`);
+      node.style.transform = `translateY(var(--scroll-y, 0px))`;
+    });
+  };
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
+function setupTerminalMotion() {
+  if (terminalMotionReady) return;
+  terminalMotionReady = true;
+  const commands = ["start", "open compiler", "run cpp", "load sections", "show images"];
+  let index = 0;
+  window.setInterval(() => {
+    document.querySelectorAll(".terminal-title strong").forEach((node) => {
+      index = (index + 1) % commands.length;
+      node.textContent = commands[index];
+    });
+  }, 1800);
 }
 
 setLanguage(currentLang);

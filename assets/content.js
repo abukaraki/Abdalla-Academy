@@ -8,8 +8,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/logo.png",
-      "icon": "assets/logo.png",
+      "thumbnail": "assets/my-logo-transparent.png",
+      "icon": "assets/my-logo-transparent.png",
       "tags": [
         "course",
         "php"
@@ -260,8 +260,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/logo.png",
-      "icon": "assets/logo.png",
+      "thumbnail": "assets/my-logo-transparent.png",
+      "icon": "assets/my-logo-transparent.png",
       "tags": [
         "course",
         "mysql"
@@ -512,8 +512,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/logo.png",
-      "icon": "assets/logo.png",
+      "thumbnail": "assets/my-logo-transparent.png",
+      "icon": "assets/my-logo-transparent.png",
       "tags": [
         "course",
         "js"
@@ -764,8 +764,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/logo.png",
-      "icon": "assets/logo.png",
+      "thumbnail": "assets/my-logo-transparent.png",
+      "icon": "assets/my-logo-transparent.png",
       "tags": [
         "course",
         "cpp"
@@ -1016,8 +1016,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/logo.png",
-      "icon": "assets/logo.png",
+      "thumbnail": "assets/my-logo-transparent.png",
+      "icon": "assets/my-logo-transparent.png",
       "tags": [
         "course",
         "html"
@@ -1341,7 +1341,6 @@ window.SITE_CONTENT = {
           "XAMPP ليس مجرد برنامج تثبيت؛ هو بيئة سيرفر محلي تساعدك على تشغيل مشروع PHP على جهازك كما لو أن جهازك يستقبل طلبات من متصفح حقيقي. بدل رفع كل تجربة إلى استضافة خارجية، تستطيع بناء المشروع واختباره محليا بسرعة وأمان.",
           "السيرفر في أبسط معنى هو برنامج يستقبل طلبا ويعيد نتيجة. عندما تكتب localhost في المتصفح، المتصفح يرسل طلبا إلى جهازك نفسه. Apache يستقبل الطلب، وإذا كان الملف PHP يمرره إلى PHP ليتم تنفيذه، ثم يعيد الناتج إلى المتصفح كصفحة HTML.",
           "الفائدة من السيرفر المحلي أنك تتعلم وتجرّب بدون تكلفة وبدون التأثير على موقع حقيقي. تستطيع اختبار النماذج، الاتصال بقاعدة البيانات، قراءة الأخطاء، وتعديل الملفات بسرعة. لهذا نستخدم XAMPP في بداية دورة PHP.",
-          "<section class=\"lesson-section\"><h2>ماذا يحدث عند فتح مشروع PHP؟</h2><ol class=\"lesson-steps\"><li>تكتب في المتصفح عنوانا مثل <strong>http://localhost/myproject</strong>.</li><li>المتصفح يرسل الطلب إلى Apache الموجود داخل XAMPP.</li><li>Apache يبحث عن الملف المطلوب داخل مجلد <strong>htdocs</strong>.</li><li>إذا كان الملف PHP، يتم تنفيذ الكود عن طريق PHP.</li><li>إذا احتاج الكود بيانات، يتصل بقاعدة MariaDB.</li><li>النتيجة النهائية ترجع إلى المتصفح كصفحة يمكن قراءتها.</li></ol></section>",
           "<section class=\"lesson-section\"><h2>مكونات XAMPP الأساسية</h2><ul class=\"lesson-bullets\"><li><strong>Apache:</strong> خادم الويب الذي يستقبل الطلبات ويرجع الصفحات.</li><li><strong>PHP:</strong> اللغة التي تنفذ منطق التطبيق على السيرفر.</li><li><strong>MariaDB:</strong> قاعدة البيانات التي تخزن المستخدمين والمنتجات والمقالات وأي بيانات منظمة.</li><li><strong>phpMyAdmin:</strong> واجهة رسومية لإدارة قاعدة البيانات من المتصفح.</li><li><strong>htdocs:</strong> المجلد الذي تضع داخله مشاريع PHP حتى يستطيع Apache تشغيلها.</li></ul></section>",
           "<section class=\"lesson-section\"><h2>خطوات تشغيل أول مشروع</h2><ol class=\"lesson-steps\"><li>افتح XAMPP Control Panel.</li><li>اضغط Start أمام Apache.</li><li>اضغط Start أمام MySQL إذا كان المشروع يحتاج قاعدة بيانات.</li><li>افتح مجلد <strong>C:\\xampp\\htdocs</strong>.</li><li>أنشئ مجلدا باسم مشروعك، مثلا <strong>php_course</strong>.</li><li>أنشئ ملف <strong>index.php</strong> داخله.</li><li>افتح المتصفح واكتب <strong>http://localhost/php_course</strong>.</li></ol><pre class=\"lesson-code\"><code>&lt;?php\necho \"Hello PHP\";\n?&gt;</code></pre></section>",
           "<section class=\"lesson-section\"><h2>أخطاء شائعة أثناء تشغيل XAMPP</h2><ul class=\"lesson-bullets\"><li>إذا لم يعمل Apache، غالبا يوجد برنامج آخر يستخدم المنفذ 80 مثل IIS أو Skype أو خدمة ويب أخرى.</li><li>إذا لم تظهر ملفات مشروعك، تأكد أنك وضعتها داخل htdocs وليس على سطح المكتب فقط.</li><li>إذا ظهرت صفحة بيضاء في PHP، فعّل عرض الأخطاء أثناء التدريب أو راجع ملف logs.</li><li>إذا لم يفتح phpMyAdmin، تأكد أن MySQL يعمل باللون الأخضر داخل لوحة التحكم.</li></ul></section>"
@@ -1350,7 +1349,6 @@ window.SITE_CONTENT = {
           "XAMPP is not just an installer; it is a local server environment that lets your computer run a PHP project as if it were receiving real browser requests. Instead of uploading every experiment to external hosting, you can build and test locally with speed and safety.",
           "A server, in the simplest sense, is a program that receives a request and returns a response. When you type localhost in the browser, the browser sends a request to your own machine. Apache receives the request, passes PHP files to PHP for execution, then returns the result to the browser as HTML.",
           "The benefit of a local server is that you can learn and experiment without cost and without affecting a real website. You can test forms, connect to a database, read errors, and update files quickly. This is why XAMPP is used at the beginning of a PHP course.",
-          "<section class=\"lesson-section\"><h2>What happens when a PHP project opens?</h2><ol class=\"lesson-steps\"><li>You type an address such as <strong>http://localhost/myproject</strong> in the browser.</li><li>The browser sends the request to Apache inside XAMPP.</li><li>Apache looks for the requested file inside the <strong>htdocs</strong> folder.</li><li>If the file is PHP, PHP executes the code.</li><li>If the code needs data, it connects to MariaDB.</li><li>The final result returns to the browser as a readable page.</li></ol></section>",
           "<section class=\"lesson-section\"><h2>Main XAMPP components</h2><ul class=\"lesson-bullets\"><li><strong>Apache:</strong> the web server that receives requests and returns pages.</li><li><strong>PHP:</strong> the language that runs application logic on the server.</li><li><strong>MariaDB:</strong> the database that stores users, products, articles, and structured data.</li><li><strong>phpMyAdmin:</strong> the graphical browser interface for managing the database.</li><li><strong>htdocs:</strong> the folder where PHP projects are placed so Apache can run them.</li></ul></section>",
           "<section class=\"lesson-section\"><h2>Run your first project</h2><ol class=\"lesson-steps\"><li>Open the XAMPP Control Panel.</li><li>Click Start next to Apache.</li><li>Click Start next to MySQL if the project needs a database.</li><li>Open <strong>C:\\xampp\\htdocs</strong>.</li><li>Create a folder for the project, such as <strong>php_course</strong>.</li><li>Create an <strong>index.php</strong> file inside it.</li><li>Open the browser and visit <strong>http://localhost/php_course</strong>.</li></ol><pre class=\"lesson-code\"><code>&lt;?php\necho \"Hello PHP\";\n?&gt;</code></pre></section>",
           "<section class=\"lesson-section\"><h2>Common XAMPP problems</h2><ul class=\"lesson-bullets\"><li>If Apache does not start, another program may be using port 80, such as IIS, Skype, or another web service.</li><li>If your project files do not appear, make sure they are inside htdocs, not only on the desktop.</li><li>If PHP shows a blank page, enable error display during training or check the logs.</li><li>If phpMyAdmin does not open, make sure MySQL is green in the control panel.</li></ul></section>"

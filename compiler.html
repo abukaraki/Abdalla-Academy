@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compiler Lab | Abdalla Academy</title>
+    <meta name="description" content="Compiler Lab من Abdalla Academy لتجربة HTML وJavaScript وفحص PHP وC++ داخل واجهة تعليمية احترافية.">
+    <meta name="robots" content="index, follow">
+    <meta name="google-adsense-account" content="">
+    <link rel="canonical" href="https://abukaraki.github.io/Abdalla-Academy/compiler.html">
+    <link rel="icon" type="image/png" href="assets/my-logo-transparent.png">
+    <link rel="apple-touch-icon" href="assets/my-logo-transparent.png">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/content.js?v=20260523-compiler-lab" defer></script>
+    <script src="assets/main.js?v=20260524-compiler-page" defer></script>
+  </head>
+  <body data-page="compiler">
+    <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="index.html" aria-label="Abdalla Academy">
+          <img class="brand-logo" src="assets/my-logo-transparent.png" alt="Abdalla Abu Karaki logo" onerror="this.remove()">
+          <span><strong data-text="brandTitle">Abdalla Academy</strong><small data-text="brandSub">HTML • PHP • C++ • JS</small></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-text="menu">القائمة</button>
+        <div class="nav-links" id="site-menu">
+          <a href="index.html" data-text="home">الرئيسية</a>
+          <a href="courses.html" data-text="courses">الدورات</a>
+          <a href="software.html" data-text="software">البرامج</a>
+          <a href="lectures.html" data-text="lectures">المحاضرات</a>
+          <a href="articles.html" data-text="articles">المقالات</a>
+          <a href="videos.html" data-text="videos">الفيديوهات</a>
+          <a href="materials.html" data-text="materials">المواد</a>
+          <a href="compiler.html" aria-current="page" data-text="compiler">Compiler</a>
+          <a href="search.html" data-text="search">البحث</a>
+        </div>
+        <button class="language-toggle" type="button" aria-label="Switch language">EN</button>
+      </nav>
+    </header>
+
+    <main id="main" class="page compiler-page">
+      <section class="compiler-hero">
+        <div>
+          <div class="terminal-title" aria-label="Compiler terminal">
+            <span>compiler@academy:~$</span>
+            <strong>run</strong>
+          </div>
+        </div>
+        <div class="compiler-hero-code" aria-hidden="true">
+          <span>&lt;body&gt;</span>
+          <strong>run()</strong>
+          <span>console.log("learn");</span>
+        </div>
+      </section>
+
+      <section class="compiler-workbench" data-compiler-lab>
+        <div class="compiler-toolbar">
+          <div class="compiler-tabs" role="tablist" aria-label="Compiler languages">
+            <button type="button" class="is-active" data-compiler-tab="html">HTML</button>
+            <button type="button" data-compiler-tab="js">JavaScript</button>
+            <button type="button" data-compiler-tab="php">PHP</button>
+            <button type="button" data-compiler-tab="cpp">C++</button>
+          </div>
+          <div class="compiler-actions">
+            <button class="button secondary" type="button" data-reset-compiler>
+              <span class="lang-ar">استعادة المثال</span><span class="lang-en">Reset Example</span>
+            </button>
+            <button class="button primary" type="button" data-run-compiler>
+              <span class="lang-ar">تشغيل الكود</span><span class="lang-en">Run Code</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="compiler-layout">
+          <section class="editor-panel">
+            <div class="panel-title">
+              <span class="status-dot"></span>
+              <strong data-compiler-title>HTML</strong>
+            </div>
+            <textarea class="studio-editor" spellcheck="false" data-compiler-editor aria-label="Code editor"></textarea>
+          </section>
+
+          <section class="result-panel">
+            <div class="panel-title">
+              <span class="status-dot"></span>
+              <strong class="lang-ar">المعاينة والنتيجة</strong>
+              <strong class="lang-en">Preview and Output</strong>
+            </div>
+            <iframe class="studio-preview" title="Code preview" data-compiler-preview></iframe>
+            <pre class="studio-output"><code data-compiler-output></code></pre>
+            <ul class="studio-issues" data-compiler-issues></ul>
+          </section>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div><strong>Abdalla Academy</strong></div>
+      <div class="footer-links">
+        <a href="privacy.html" data-text="privacy">سياسة الخصوصية</a>
+        <a href="terms.html" data-text="terms">الشروط</a>
+        <a href="contact.html" data-text="contact">تواصل</a>
+      </div>
+    </footer>
+  </body>
+</html>
