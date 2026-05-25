@@ -224,10 +224,8 @@ function ensureNavigation() {
       </div>
     </div>
     <a href="compiler.html"${active("compiler")}>${ui[currentLang].compiler}</a>
-    <a href="articles.html"${active("articles")}>${ui[currentLang].articles}</a>
     <a href="errors.html"${active("errors")}>${ui[currentLang].errors}</a>
     <a href="ai.html"${active("ai")}>${ui[currentLang].ai}</a>
-    <a href="blog.html"${active("blog")}>${ui[currentLang].blog}</a>
   `;
 }
 
