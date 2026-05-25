@@ -1,37 +1,39 @@
 # Abdalla Academy
 
-Static educational platform prepared for GitHub Pages.
+Abdalla Academy is a bilingual programming learning site deployed on Cloudflare Workers.
 
 ## What is included
 
 - Arabic and English interface
-- Lectures section
-- Articles section
-- Blog section
-- Materials section
-- Programming section
+- Courses, software, lectures, articles, blog, materials, and programming sections
+- Compiler page
+- Programming AI page
 - Single content detail page
 - File-based content updates from GitHub
 - Privacy, Terms, Contact, Sitemap, and Robots files
+- Content templates, validation, and sitemap generation tools
 
 There is no public admin page. Content is updated by editing repository files.
 
-## Publish on GitHub Pages
+## Live site
 
-1. Create a public GitHub repository named `site-name`.
-2. Upload these files to the repository root.
-3. In GitHub, open `Settings` > `Pages`.
-4. Choose `Deploy from a branch`.
-5. Select the `main` branch and `/root`.
-6. The site will be available at `https://username.github.io/site-name/`.
+Production URL:
+
+`https://abdalla-academy.abdabukaraki.workers.dev/`
 
 ## Add content
 
 Read [CONTENT_GUIDE.md](CONTENT_GUIDE.md).
 
+Quick workflow:
+
+```powershell
+node tools/validate-content.mjs
+node tools/generate-sitemap.mjs
+```
+
 ## Before AdSense submission
 
-- Replace every `username.github.io/site-name` URL with the real GitHub Pages URL.
-- Replace `contact@example.com` and the GitHub link in `contact.html`.
 - Add more original lectures, articles, and materials.
 - Avoid empty categories, copied content, misleading buttons, and intrusive ad placement.
+- Keep Privacy, Terms, Contact, robots.txt, and sitemap.xml updated.

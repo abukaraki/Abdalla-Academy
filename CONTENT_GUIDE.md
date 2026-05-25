@@ -1,119 +1,60 @@
-# Content Guide
+# Abdalla Academy Content Guide
 
-This site has no public admin page. Content is managed from GitHub by editing files.
+هذا الموقع جاهز من ناحية التصميم والصفحات العامة. بعد الآن أغلب العمل يكون بإضافة محتوى جديد داخل `assets/content.js`.
 
-## Add a Lecture Video
+## طريقة إضافة أي محتوى
 
-1. Upload your video file to:
-   `media/videos/`
-2. Open:
-   `assets/content.js`
-3. Add a new item inside `window.SITE_CONTENT.items`:
+1. اختر قالبا من مجلد `content-templates`.
+2. انسخ القالب وضعه داخل مصفوفة `window.SITE_CONTENT.items` في `assets/content.js`.
+3. غيّر `id`, `title`, `summary`, `body`, والملفات المرتبطة.
+4. شغّل فحص المحتوى:
 
-```js
-{
-  id: "lesson-2-css-basics",
-  type: "lectures",
-  date: "2026-05-24",
-  duration: "18 min",
-  level: "Beginner",
-  title: {
-    ar: "أساسيات CSS",
-    en: "CSS Basics"
-  },
-  summary: {
-    ar: "شرح مبسط لتنسيق الصفحات باستخدام CSS.",
-    en: "A simple explanation of styling pages with CSS."
-  },
-  mediaType: "video",
-  video: "media/videos/css-basics.mp4",
-  body: {
-    ar: [
-      "في هذا الدرس نتعلم طريقة ربط CSS بصفحة HTML.",
-      "نطبق أمثلة على الألوان والمسافات والخطوط."
-    ],
-    en: [
-      "In this lesson, we learn how to connect CSS to an HTML page.",
-      "We practice colors, spacing, and typography."
-    ]
-  }
-}
+```powershell
+node tools/validate-content.mjs
 ```
 
-## Add an Article or Blog Post
+5. حدّث sitemap:
 
-Use `type: "articles"` for long educational articles, or `type: "blog"` for shorter updates.
-
-```js
-{
-  id: "how-to-study-html",
-  type: "articles",
-  date: "2026-05-24",
-  duration: "7 min read",
-  level: "Guide",
-  title: {
-    ar: "كيف تدرس HTML بطريقة صحيحة",
-    en: "How to Study HTML Properly"
-  },
-  summary: {
-    ar: "طريقة عملية لبناء أساس قوي في HTML.",
-    en: "A practical way to build a strong HTML foundation."
-  },
-  mediaType: "article",
-  body: {
-    ar: [
-      "ابدأ بفهم معنى العناصر وليس حفظها فقط.",
-      "اكتب صفحات صغيرة وراجعها على الهاتف والكمبيوتر."
-    ],
-    en: [
-      "Start by understanding what elements mean, not only memorizing them.",
-      "Write small pages and review them on mobile and desktop."
-    ]
-  }
-}
+```powershell
+node tools/generate-sitemap.mjs
 ```
 
-## Add Materials
+6. ارفع التعديل إلى GitHub ثم Cloudflare سيعيد النشر.
 
-1. Upload the file to:
-   `media/materials/`
-2. Add an item with `type: "materials"` and `mediaType: "download"`.
+## القوالب الجاهزة
 
-```js
-{
-  id: "html-cheatsheet",
-  type: "materials",
-  date: "2026-05-24",
-  duration: "PDF",
-  level: "Reference",
-  title: {
-    ar: "ملخص HTML",
-    en: "HTML Cheatsheet"
-  },
-  summary: {
-    ar: "ملف مختصر لأهم عناصر HTML.",
-    en: "A short reference for important HTML elements."
-  },
-  mediaType: "download",
-  file: "media/materials/html-cheatsheet.pdf",
-  body: {
-    ar: ["يمكن تحميل هذا الملف واستخدامه أثناء التدريب."],
-    en: ["You can download this file and use it while practicing."]
-  }
-}
+- `content-templates/course.js`: دورة كاملة مع playlist.
+- `content-templates/article.js`: مقال أو صفحة تعليمية.
+- `content-templates/lecture-video.js`: محاضرة فيديو.
+- `content-templates/material.js`: ملف PDF أو مادة قابلة للتحميل.
+- `content-templates/software-guide.js`: شرح برنامج أو أداة.
+
+## أنواع المحتوى
+
+- `course`: يظهر في صفحة الدورات.
+- `software`: يظهر في صفحة البرامج.
+- `lectures`: يظهر في صفحة المحاضرات والفيديو.
+- `programming`: يظهر في صفحة البرمجة.
+- `articles`: يظهر في صفحة المقالات.
+- `blog`: يظهر في المدونة.
+- `materials`: يظهر في المواد.
+
+## قواعد مهمة
+
+- `id` يجب أن يحتوي أحرف إنجليزية صغيرة وأرقام وشرطات فقط مثل `course-html-basics`.
+- كل عنوان ووصف يجب أن يحتوي `ar` و `en`.
+- الصور توضع غالبا داخل `assets/images/`.
+- الفيديوهات توضع داخل `media/videos/`.
+- الملفات توضع داخل `media/materials/`.
+- لا تضف كلاما مؤقتا أو ملاحظات داخل صفحات الموقع؛ أي ملاحظة داخلية تبقى هنا في الدليل فقط.
+
+## قبل النشر
+
+شغّل هذين الأمرين دائما:
+
+```powershell
+node tools/validate-content.mjs
+node tools/generate-sitemap.mjs
 ```
 
-## Important Notes for AdSense
-
-- Publish enough original content before applying.
-- Keep navigation clear and avoid empty sections.
-- Do not place misleading buttons or ask users to click ads.
-- Replace `contact@example.com` and placeholder GitHub links before launch.
-
-## Logo
-
-Use the original logo file without redrawing it.
-
-Save the exact logo image as:
-
-`assets/logo.png`
+إذا ظهر خطأ، أصلحه قبل الرفع. إذا نجح الفحص، الموقع جاهز لاستقبال المحتوى الجديد بدون تعديل التصميم.

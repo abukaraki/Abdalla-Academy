@@ -1957,8 +1957,7 @@ window.SITE_CONTENT = {
         "ar": "شرح مبسط لفكرة الصفحات التعليمية، الروابط العامة، وتنظيم المحتوى بطريقة سهلة للزوار.",
         "en": "A simple explanation of educational pages, public links, and organizing content in a visitor-friendly way."
       },
-      "mediaType": "video",
-      "video": "",
+      "mediaType": "article",
       "body": {
         "ar": [
           "في هذه المحاضرة نتعرف على الفرق بين الموقع الثابت والتطبيق الذي يحتاج إلى خادم.",
@@ -2070,8 +2069,7 @@ window.SITE_CONTENT = {
         "ar": "قائمة تساعدك على التأكد من الروابط، الصفحات القانونية، المحتوى الأصلي، وتجربة الهاتف.",
         "en": "A checklist for links, legal pages, original content, and mobile experience before publishing."
       },
-      "mediaType": "download",
-      "file": "",
+      "mediaType": "article",
       "body": {
         "ar": [
           "استخدم هذه القائمة قبل نشر أي تحديث كبير.",
