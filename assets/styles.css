@@ -5177,11 +5177,29 @@ body.compiler-world-active .compiler-back-button {
   display: none;
 }
 
+.is-terminal-refreshing {
+  animation: terminalRefresh 360ms ease;
+}
+
 .terminal-title strong::after,
 .terminal-screen p,
 .compiler-boot-window span,
 .compiler-boot-window strong {
   animation: none !important;
+}
+
+@keyframes terminalRefresh {
+  from {
+    opacity: 0.72;
+    transform: translateY(6px);
+    filter: brightness(1.16);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
 }
 
 @keyframes cursorBlink {
