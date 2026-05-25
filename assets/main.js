@@ -1292,7 +1292,6 @@ let generatedExampleIndex = 0;
 let compilerStudioInitialized = false;
 let compilerLanguage = "html";
 let compilerFile = "index.php";
-let scrollSystemReady = false;
 let terminalMotionReady = false;
 let compilerHighlightTimer = 0;
 
@@ -1897,27 +1896,6 @@ function analyzeStudioCode(language, code) {
   }
 
   return { output: "", issues };
-}
-
-function setupScrollSystem() {
-  if (scrollSystemReady) return;
-  scrollSystemReady = true;
-  const update = () => {
-    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const progress = Math.min(1, Math.max(0, window.scrollY / max));
-    document.body.style.setProperty("--scroll-progress", String(progress));
-    document.querySelectorAll(".code-window, .system-logo-card, .lesson-preview-card").forEach((node, index) => {
-      const rect = node.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      const viewportCenter = window.innerHeight / 2;
-      const offset = (center - viewportCenter) / window.innerHeight;
-      node.style.setProperty("--scroll-y", `${offset * (index + 1) * -10}px`);
-      node.style.transform = `translateY(var(--scroll-y, 0px))`;
-    });
-  };
-  update();
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
 }
 
 function setupTerminalMotion() {
