@@ -1382,7 +1382,7 @@ async function runCompilerAi(action, editor, output, highlight) {
     if (data.code) updateCompilerHighlight(editor, highlight, activeLanguage);
   } catch (error) {
     output.dataset.mode = "error";
-    output.innerHTML = `<strong>AI</strong><p>${escapeHtml(error.message)}</p>`;
+    output.innerHTML = `<strong>AI</strong><p>${currentLang === "ar" ? "المساعد غير متاح الآن. جرّب مرة ثانية بعد لحظات." : "The assistant is not available right now. Try again in a moment."}</p>`;
   }
 }
 
@@ -1708,7 +1708,7 @@ function setupAiChat() {
       if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
       if (loading) loading.querySelector("p").textContent = data.explanation || data.title || "AI";
     } catch (error) {
-      if (loading) loading.querySelector("p").textContent = error.message;
+      if (loading) loading.querySelector("p").textContent = currentLang === "ar" ? "المساعد غير متاح الآن. جرّب مرة ثانية بعد لحظات." : "The assistant is not available right now. Try again in a moment.";
     }
   });
 }
