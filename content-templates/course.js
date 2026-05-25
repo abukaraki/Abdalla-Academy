@@ -6,8 +6,8 @@
   "level": "Beginner",
   "category": "courses",
   "mediaType": "article",
-  "thumbnail": "assets/my-logo-transparent.png",
-  "icon": "assets/my-logo-transparent.png",
+  "thumbnail": "assets/my-logo-fast.png",
+  "icon": "assets/my-logo-fast.png",
   "tags": ["course", "topic"],
   "title": {
     "ar": "عنوان الدورة",

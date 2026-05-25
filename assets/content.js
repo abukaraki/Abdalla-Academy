@@ -8,8 +8,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/my-logo-transparent.png",
-      "icon": "assets/my-logo-transparent.png",
+      "thumbnail": "assets/my-logo-fast.png",
+      "icon": "assets/my-logo-fast.png",
       "tags": [
         "course",
         "php"
@@ -260,8 +260,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/my-logo-transparent.png",
-      "icon": "assets/my-logo-transparent.png",
+      "thumbnail": "assets/my-logo-fast.png",
+      "icon": "assets/my-logo-fast.png",
       "tags": [
         "course",
         "mysql"
@@ -512,8 +512,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/my-logo-transparent.png",
-      "icon": "assets/my-logo-transparent.png",
+      "thumbnail": "assets/my-logo-fast.png",
+      "icon": "assets/my-logo-fast.png",
       "tags": [
         "course",
         "js"
@@ -764,8 +764,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/my-logo-transparent.png",
-      "icon": "assets/my-logo-transparent.png",
+      "thumbnail": "assets/my-logo-fast.png",
+      "icon": "assets/my-logo-fast.png",
       "tags": [
         "course",
         "cpp"
@@ -1016,8 +1016,8 @@ window.SITE_CONTENT = {
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
-      "thumbnail": "assets/my-logo-transparent.png",
-      "icon": "assets/my-logo-transparent.png",
+      "thumbnail": "assets/my-logo-fast.png",
+      "icon": "assets/my-logo-fast.png",
       "tags": [
         "course",
         "html"
@@ -1382,12 +1382,12 @@ window.SITE_CONTENT = {
         "mysql",
         "mariadb"
       ],
-      "icon": "assets/images/phpmyadmin/phpmyadmin-login.png",
-      "thumbnail": "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+      "icon": "assets/images/phpmyadmin/phpmyadmin-login-fast.jpg",
+      "thumbnail": "assets/images/phpmyadmin/phpmyadmin-dashboard-fast.jpg",
       "sourceUrl": "https://www.phpmyadmin.net/docs/",
       "images": [
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-login.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-login-fast.jpg",
           "caption": {
             "ar": "اختيار لغة واجهة phpMyAdmin قبل الدخول.",
             "en": "Selecting the phpMyAdmin interface language before login."
@@ -1410,7 +1410,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-login.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-login-fast.jpg",
           "caption": {
             "ar": "حقل اسم المستخدم في شاشة الدخول.",
             "en": "The username field on the login screen."
@@ -1433,7 +1433,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-login.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-login-fast.jpg",
           "caption": {
             "ar": "حقل كلمة المرور في شاشة الدخول.",
             "en": "The password field on the login screen."
@@ -1456,7 +1456,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard-fast.jpg",
           "caption": {
             "ar": "الشريط الجانبي لقواعد البيانات والجداول.",
             "en": "The sidebar for databases and tables."
@@ -1479,7 +1479,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard-fast.jpg",
           "caption": {
             "ar": "شريط التبويبات الرئيسي في phpMyAdmin.",
             "en": "The main tabs bar in phpMyAdmin."
@@ -1502,7 +1502,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard-fast.jpg",
           "caption": {
             "ar": "قسم الإعدادات العامة في لوحة phpMyAdmin.",
             "en": "The general settings panel in phpMyAdmin."
@@ -1525,7 +1525,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard-fast.jpg",
           "caption": {
             "ar": "معلومات خادم قاعدة البيانات.",
             "en": "Database server information."
@@ -1548,7 +1548,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-dashboard-fast.jpg",
           "caption": {
             "ar": "منطقة Console أسفل واجهة phpMyAdmin.",
             "en": "The Console area at the bottom of phpMyAdmin."
@@ -1709,7 +1709,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-relation-view.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-relation-view-fast.jpg",
           "caption": {
             "ar": "تبويب Relation view داخل بنية الجدول.",
             "en": "The Relation view tab inside table structure."
@@ -1732,7 +1732,7 @@ window.SITE_CONTENT = {
           }
         },
         {
-          "src": "assets/images/phpmyadmin/phpmyadmin-relation-view.png",
+          "src": "assets/images/phpmyadmin/phpmyadmin-relation-view-fast.jpg",
           "caption": {
             "ar": "اختيار جدول من الشريط الجانبي قبل تعديل بنيته.",
             "en": "Selecting a table from the sidebar before editing its structure."

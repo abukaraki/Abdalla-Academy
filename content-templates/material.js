@@ -5,7 +5,7 @@
   "duration": "PDF",
   "level": "Reference",
   "mediaType": "download",
-  "thumbnail": "assets/my-logo-transparent.png",
+  "thumbnail": "assets/my-logo-fast.png",
   "file": "media/materials/file-name.pdf",
   "tags": ["material", "topic"],
   "title": {

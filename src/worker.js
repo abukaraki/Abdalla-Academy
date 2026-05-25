@@ -28,7 +28,23 @@ export default {
       return runAiAssistant(request, env);
     }
 
-    return env.ASSETS.fetch(request);
+    const assetResponse = await env.ASSETS.fetch(request);
+    if (!assetResponse.ok || request.method !== "GET") {
+      return assetResponse;
+    }
+
+    const headers = new Headers(assetResponse.headers);
+    if (url.pathname.startsWith("/assets/")) {
+      headers.set("Cache-Control", "public, max-age=31536000, immutable");
+    } else if (/\.(?:html|xml|txt)$/i.test(url.pathname) || url.pathname === "/") {
+      headers.set("Cache-Control", "public, max-age=300, stale-while-revalidate=86400");
+    }
+
+    return new Response(assetResponse.body, {
+      status: assetResponse.status,
+      statusText: assetResponse.statusText,
+      headers
+    });
   }
 };
 

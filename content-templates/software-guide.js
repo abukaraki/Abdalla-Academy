@@ -5,7 +5,7 @@
   "duration": "Guide",
   "level": "Beginner",
   "mediaType": "article",
-  "thumbnail": "assets/my-logo-transparent.png",
+  "thumbnail": "assets/my-logo-fast.png",
   "tags": ["software", "guide"],
   "title": {
     "ar": "عنوان الشرح",

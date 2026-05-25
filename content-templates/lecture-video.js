@@ -5,7 +5,7 @@
   "duration": "15 min",
   "level": "Beginner",
   "mediaType": "video",
-  "thumbnail": "assets/my-logo-transparent.png",
+  "thumbnail": "assets/my-logo-fast.png",
   "video": "media/videos/video-file.mp4",
   "tags": ["lecture", "topic"],
   "title": {

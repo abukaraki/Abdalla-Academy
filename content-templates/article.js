@@ -5,7 +5,7 @@
   "duration": "6 min read",
   "level": "Guide",
   "mediaType": "article",
-  "thumbnail": "assets/my-logo-transparent.png",
+  "thumbnail": "assets/my-logo-fast.png",
   "tags": ["article", "topic"],
   "title": {
     "ar": "عنوان المقال",

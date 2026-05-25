@@ -169,7 +169,7 @@ function setLanguage(lang) {
   document.querySelectorAll(".brand-mark").forEach((node) => {
     const logo = document.createElement("img");
     logo.className = "brand-logo";
-    logo.src = "assets/my-logo-transparent.png";
+    logo.src = "assets/my-logo-fast.png";
     logo.alt = "Abdalla Abu Karaki logo";
     logo.onerror = () => logo.remove();
     node.replaceWith(logo);
@@ -205,7 +205,7 @@ function ensureNavigation() {
     .filter((item) => item.type === "course")
     .slice(0, 3)
     .map((item) => {
-      const image = item.thumbnail || item.icon || "assets/my-logo-transparent.png";
+      const image = item.thumbnail || item.icon || "assets/my-logo-fast.png";
       return `
         <a class="course-menu-card" href="content.html?id=${encodeURIComponent(item.id)}">
           <img src="${image}" alt="${escapeHtml(text(item.title))}" loading="lazy">
@@ -2197,7 +2197,7 @@ function setupScreenshotWatermark() {
   mark.className = "screenshot-watermark";
   mark.setAttribute("aria-hidden", "true");
   mark.innerHTML = `
-    <img src="assets/my-logo-transparent.png" alt="">
+    <img src="assets/my-logo-fast.png" alt="">
     <span>Abdalla Academy</span>
   `;
   document.body.appendChild(mark);

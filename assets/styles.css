@@ -5086,6 +5086,17 @@ body.compiler-world-active .compiler-back-button {
   white-space: pre-wrap;
 }
 
+.content-card,
+.section-grid-v2 a,
+.track-grid-v2 a,
+.materials-guide article,
+.compiler-notes article,
+.detail-body,
+.policy-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
+}
+
 .ai-chat-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
