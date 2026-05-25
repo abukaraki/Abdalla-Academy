@@ -4781,10 +4781,13 @@ body.compiler-world-active {
   overflow: auto;
 }
 
-body.compiler-world-active .site-header,
 body.compiler-world-active .compiler-hero,
 body.compiler-world-active .site-footer {
   display: none;
+}
+
+body.compiler-world-active .site-header {
+  z-index: 1200;
 }
 
 body.compiler-world-active .compiler-page {
@@ -4797,7 +4800,7 @@ body.compiler-world-active .compiler-workbench {
   display: grid;
   grid-template-rows: auto 1fr;
   height: auto;
-  min-height: 100vh;
+  min-height: calc(100vh - 76px);
   margin: 0;
   border-radius: 0;
   border: 0;
@@ -4805,7 +4808,7 @@ body.compiler-world-active .compiler-workbench {
 }
 
 body.compiler-world-active .compiler-layout {
-  min-height: calc(100vh - 74px);
+  min-height: calc(100vh - 150px);
   grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.96fr);
   align-items: start;
   overflow: visible;
@@ -4818,13 +4821,13 @@ body.compiler-world-active .result-panel {
 }
 
 body.compiler-world-active .result-panel {
-  min-height: calc(100vh - 74px);
+  min-height: calc(100vh - 150px);
 }
 
 body.compiler-world-active .editor-panel {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 76px;
+  height: calc(100vh - 76px);
   grid-template-rows: auto auto minmax(0, 1fr);
 }
 
@@ -5013,6 +5016,7 @@ body.compiler-world-active .compiler-back-button {
 
   body.compiler-world-active .editor-panel {
     position: relative;
+    top: auto;
     height: auto;
     min-height: 70vh;
   }
