@@ -20,7 +20,7 @@ async function runAiAssistant(request, env) {
     const uiLanguage = String(body.ui_language || "ar").toLowerCase() === "en" ? "English" : "Arabic";
     const code = String(body.code || "").slice(0, 20000);
     const message = String(body.message || "").slice(0, 4000);
-    if (action !== "chat" && !code.trim()) {
+    if (!["chat", "generate_example"].includes(action) && !code.trim()) {
       return json({ error: "Code is empty." }, 400);
     }
     if (action === "chat" && !message.trim()) {
@@ -50,6 +50,7 @@ async function runAiAssistant(request, env) {
           "Be direct, practical, and beginner-friendly.",
           "Do not solve the whole task for the learner. Point to the problem, explain why it happens, and give ordered hints so the learner can fix it.",
           "For compiler help actions, keep the code field empty. Do not return a full corrected solution.",
+          "For generate_example, return complete runnable starter code. For PHP, return files for index.php, style.css, script.js, and page.html.",
           "Return valid JSON matching the schema.",
           `Write the explanation and tips in ${uiLanguage}.`
         ].join(" "),
@@ -75,12 +76,16 @@ async function runAiAssistant(request, env) {
                 title: { type: "string" },
                 explanation: { type: "string" },
                 code: { type: "string" },
+                files: {
+                  type: "object",
+                  additionalProperties: { type: "string" }
+                },
                 tips: {
                   type: "array",
                   items: { type: "string" }
                 }
               },
-              required: ["title", "explanation", "code", "tips"]
+              required: ["title", "explanation", "code", "files", "tips"]
             }
           }
         }
@@ -121,6 +126,7 @@ async function callCerebrasAssistant(action, language, uiLanguage, source, env) 
             "Do not solve the whole task for the learner.",
             "Point to the problem, explain why it happens, and give ordered hints.",
             "For compiler help actions, keep the code field empty.",
+            "For generate_example, return complete runnable starter code. For PHP, return files for index.php, style.css, script.js, and page.html.",
             "Return valid JSON only. No markdown. No extra text.",
             `Write the explanation and tips in ${uiLanguage}.`
           ].join(" ")
@@ -149,13 +155,14 @@ function normalizeAiPayload(parsed) {
     title: String(parsed?.title || "AI"),
     explanation: String(parsed?.explanation || ""),
     code: String(parsed?.code || ""),
+    files: parsed?.files && typeof parsed.files === "object" ? parsed.files : {},
     tips: Array.isArray(parsed?.tips) ? parsed.tips.map(String).slice(0, 6) : []
   };
 }
 
 function normalizeAction(action) {
   const value = String(action || "explain").toLowerCase();
-  return ["explain", "fix", "improve", "example", "chat"].includes(value) ? value : "explain";
+  return ["explain", "fix", "improve", "example", "chat", "generate_example"].includes(value) ? value : "explain";
 }
 
 function buildAiPrompt(action, language, code) {
@@ -164,7 +171,8 @@ function buildAiPrompt(action, language, code) {
     fix: "Find the likely mistakes. For each mistake, mention the line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
     improve: "Give learning hints for structure, readability, accessibility, and debugging. Do not return rewritten code.",
     example: "Create a small practice challenge related to this code with steps the learner should try. Do not provide the final solution.",
-    chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary."
+    chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary.",
+    generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."
   };
   if (action === "chat") {
     return [
@@ -179,7 +187,9 @@ function buildAiPrompt(action, language, code) {
     `Action: ${action}`,
     `Language: ${language}`,
     tasks[action],
-    "Return JSON with title, explanation, code, and tips. The code field must be an empty string for compiler help actions.",
+    action === "generate_example"
+      ? "Return JSON with title, explanation, code, files, and tips. For non-PHP put the full runnable example in code and files as {}. For PHP put files for index.php, style.css, script.js, and page.html; code may repeat index.php."
+      : "Return JSON with title, explanation, code, files, and tips. The code field must be an empty string for compiler help actions and files must be {}.",
     "Code:",
     code
   ].join("\n");
@@ -205,6 +215,10 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
           code: "",
           tips: []
         };
+  }
+
+  if (action === "generate_example") {
+    return buildLocalGeneratedExample(language, ar);
   }
 
   const lines = text.split(/\r?\n/);
@@ -248,7 +262,119 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
       ? (ar ? "هذا فحص تعليمي سريع. أصلح خطوة واحدة ثم شغل الكود مرة ثانية." : "This is a quick learning scan. Fix one step, then run the code again.")
       : (ar ? "ضع الكود أولاً حتى أقدر أفحصه." : "Add code first so I can scan it."),
     code: "",
+    files: {},
     tips: tips.slice(0, 6)
+  };
+}
+
+function buildLocalGeneratedExample(language, ar) {
+  const stamp = Date.now() % 1000;
+  if (language === "php") {
+    const files = {
+      "index.php": `<?php
+$title = "PHP Lab ${stamp}";
+$skills = ["HTML", "CSS", "JavaScript", "PHP"];
+?>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="panel">
+      <h1><?php echo htmlspecialchars($title); ?></h1>
+      <ul>
+        <?php foreach ($skills as $skill): ?>
+          <li><?php echo htmlspecialchars($skill); ?></li>
+        <?php endforeach; ?>
+      </ul>
+      <p id="status">PHP ready</p>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>`,
+      "style.css": `body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #05070d; color: #eefcff; font-family: Arial, sans-serif; }
+.panel { width: min(560px, 90vw); border: 1px solid #00e5ff; border-radius: 8px; padding: 28px; box-shadow: 0 0 36px rgba(0, 229, 255, .24); }
+li { color: #b7ff00; margin: 8px 0; }`,
+      "script.js": `const status = document.getElementById("status");
+if (status) {
+  status.textContent = "PHP + JS ready";
+  console.log("example ${stamp}");
+}`,
+      "page.html": `<section class="panel">
+  <h2>Extra Block</h2>
+  <p>Injected HTML section ${stamp}</p>
+</section>`
+    };
+    return {
+      title: ar ? "مثال PHP جديد" : "New PHP example",
+      explanation: ar ? "تم تجهيز مشروع PHP بملفات HTML وCSS وJavaScript." : "A PHP project with HTML, CSS, and JavaScript files is ready.",
+      code: files["index.php"],
+      files,
+      tips: ar ? ["شغل الكود.", "غيّر قيمة داخل المصفوفة.", "راقب النتيجة."] : ["Run the code.", "Change one array value.", "Watch the result."]
+    };
+  }
+
+  const examples = {
+    html: `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Terminal Card ${stamp}</title>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #05070d; color: #eefcff; font-family: Arial, sans-serif; }
+      .terminal { width: min(520px, 90vw); border: 1px solid #00e5ff; border-radius: 8px; padding: 24px; box-shadow: 0 0 32px rgba(0, 229, 255, .24); }
+      strong { color: #b7ff00; }
+    </style>
+  </head>
+  <body>
+    <main class="terminal">
+      <strong>$ html example ${stamp}</strong>
+      <h1>Terminal Card</h1>
+      <p>Semantic HTML with a clean visual block.</p>
+    </main>
+  </body>
+</html>`,
+    js: `<main>
+  <h1>Command Counter ${stamp}</h1>
+  <button id="run">Run</button>
+  <p id="output">Waiting...</p>
+</main>
+
+<script>
+  let count = 0;
+  const output = document.getElementById("output");
+
+  document.getElementById("run").addEventListener("click", () => {
+    count += 1;
+    output.textContent = "Command executed: " + count;
+    console.log("run", count);
+  });
+</script>`,
+    cpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> numbers = {${stamp % 9 + 1}, 4, 7, 10};
+    int total = 0;
+
+    for (int number : numbers) {
+        total += number;
+    }
+
+    cout << "Total: " << total << endl;
+    return 0;
+}`
+  };
+  return {
+    title: ar ? "مثال جديد" : "New example",
+    explanation: ar ? "تم تجهيز مثال مختلف وقابل للتشغيل." : "A different runnable example is ready.",
+    code: examples[language] || examples.html,
+    files: {},
+    tips: ar ? ["شغل المثال.", "غيّر قيمة واحدة.", "اقرأ النتيجة."] : ["Run the example.", "Change one value.", "Read the output."]
   };
 }
 

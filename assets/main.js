@@ -1088,6 +1088,208 @@ if (status) {
 </section>`
 };
 
+const compilerExampleLibrary = {
+  html: [
+    `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Profile Card</title>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #05070d; color: white; font-family: Arial, sans-serif; }
+      .card { width: min(420px, 90vw); border: 1px solid #00e5ff; border-radius: 8px; padding: 28px; box-shadow: 0 0 34px rgba(0, 229, 255, .24); }
+      .tag { color: #b7ff00; font-weight: 800; }
+      button { border: 0; border-radius: 8px; padding: 12px 16px; background: #00e5ff; color: #05070d; font-weight: 900; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <p class="tag">HTML</p>
+      <h1>Profile Card</h1>
+      <p>Build a clear page structure with semantic tags.</p>
+      <button onclick="alert('Structure ready')">Check</button>
+    </main>
+  </body>
+</html>`,
+    `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Course Grid</title>
+    <style>
+      body { margin: 0; background: #0b1020; color: #eefcff; font-family: Arial, sans-serif; padding: 32px; }
+      main { max-width: 860px; margin: auto; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+      article { border: 1px solid #1e90ff; border-radius: 8px; padding: 18px; background: rgba(0, 229, 255, .05); }
+      strong { color: #b7ff00; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Courses</h1>
+      <section class="grid">
+        <article><strong>01</strong><h2>HTML</h2><p>Tags and layout.</p></article>
+        <article><strong>02</strong><h2>CSS</h2><p>Colors and spacing.</p></article>
+        <article><strong>03</strong><h2>JS</h2><p>Interaction.</p></article>
+      </section>
+    </main>
+  </body>
+</html>`
+  ],
+  js: [
+    `<main>
+  <h1 id="title">Score Counter</h1>
+  <button id="add">Add Point</button>
+  <p id="result">Score: 0</p>
+</main>
+
+<script>
+  let score = 0;
+  const result = document.getElementById("result");
+
+  document.getElementById("add").addEventListener("click", () => {
+    score += 1;
+    result.textContent = "Score: " + score;
+    console.log("score", score);
+  });
+</script>`,
+    `<main>
+  <h1>Filter Skills</h1>
+  <input id="search" placeholder="Search skill">
+  <ul id="list"></ul>
+</main>
+
+<script>
+  const skills = ["HTML", "CSS", "JavaScript", "PHP", "C++"];
+  const list = document.getElementById("list");
+  const search = document.getElementById("search");
+
+  function render(items) {
+    list.innerHTML = items.map((item) => "<li>" + item + "</li>").join("");
+    console.log("items", items.length);
+  }
+
+  search.addEventListener("input", () => {
+    const word = search.value.toLowerCase();
+    render(skills.filter((skill) => skill.toLowerCase().includes(word)));
+  });
+
+  render(skills);
+</script>`
+  ],
+  cpp: [
+    `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> scores = {80, 95, 72, 88};
+    int total = 0;
+
+    for (int score : scores) {
+        total += score;
+    }
+
+    cout << "Average: " << total / scores.size() << endl;
+    return 0;
+}`,
+    `#include <iostream>
+using namespace std;
+
+int main() {
+    int number = 7;
+
+    if (number % 2 == 0) {
+        cout << "Even number" << endl;
+    } else {
+        cout << "Odd number" << endl;
+    }
+
+    return 0;
+}`
+  ],
+  php: [
+    {
+      "index.php": `<?php
+$title = "Course Console";
+$courses = ["HTML", "CSS", "JavaScript", "PHP"];
+?>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="panel">
+      <h1><?php echo $title; ?></h1>
+      <ul>
+        <?php foreach ($courses as $course): ?>
+          <li><?php echo htmlspecialchars($course); ?></li>
+        <?php endforeach; ?>
+      </ul>
+      <p id="status">PHP loaded</p>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>`,
+      "style.css": `body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #05070d; color: #eefcff; font-family: Arial, sans-serif; }
+.panel { width: min(520px, 90vw); border: 1px solid #00e5ff; border-radius: 8px; padding: 28px; box-shadow: 0 0 36px rgba(0, 229, 255, .24); }
+li { color: #b7ff00; margin: 8px 0; }`,
+      "script.js": `const status = document.getElementById("status");
+if (status) {
+  status.textContent = "PHP + JavaScript ready";
+  console.log("project ready");
+}`,
+      "page.html": `<section class="panel">
+  <h2>Extra HTML</h2>
+  <p>This file can be injected into the project.</p>
+</section>`
+    },
+    {
+      "index.php": `<?php
+$user = ["name" => "Abdalla", "level" => "Beginner"];
+$tasks = ["Write HTML", "Style with CSS", "Run PHP"];
+?>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PHP Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="dashboard">
+      <h1><?php echo htmlspecialchars($user["name"]); ?></h1>
+      <p><?php echo htmlspecialchars($user["level"]); ?></p>
+      <ol>
+        <?php foreach ($tasks as $task): ?>
+          <li><?php echo htmlspecialchars($task); ?></li>
+        <?php endforeach; ?>
+      </ol>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>`,
+      "style.css": `body { margin: 0; background: #0b1020; color: white; font-family: Arial, sans-serif; padding: 32px; }
+.dashboard { max-width: 620px; margin: auto; border: 1px solid #a855f7; border-radius: 8px; padding: 26px; }
+h1 { color: #00e5ff; }
+li { margin: 8px 0; }`,
+      "script.js": `document.querySelectorAll("li").forEach((item, index) => {
+  item.dataset.step = String(index + 1);
+});
+console.log("dashboard enhanced");`,
+      "page.html": `<section>
+  <h2>Project Tasks</h2>
+  <p>Read values from PHP and display them inside HTML.</p>
+</section>`
+    }
+  ]
+};
+
+let generatedExampleIndex = 0;
+
 let compilerStudioInitialized = false;
 let compilerLanguage = "html";
 let compilerFile = "index.php";
@@ -1156,9 +1358,7 @@ function setupCompilerStudio() {
     runCompilerStudio();
   }));
   resetButtons.forEach((resetButton) => resetButton.addEventListener("click", () => {
-    if (compilerLanguage === "php") resetPhpProject();
-    else localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
-    loadExample(compilerLanguage, true);
+    generateCompilerExample(editor, output, issues, highlight, resetButton, fileButtons);
   }));
   exitButton?.addEventListener("click", () => exitCompilerWorld());
   fileButtons.forEach((button) => {
@@ -1229,6 +1429,99 @@ function writePhpProjectFile(filename, value) {
 
 function resetPhpProject() {
   Object.keys(phpProjectDefaults).forEach((filename) => localStorage.removeItem(phpProjectKey(filename)));
+}
+
+async function generateCompilerExample(editor, output, issues, highlight, triggerButton, fileButtons) {
+  if (!editor) return;
+  const language = compilerLanguage;
+  const originalHtml = triggerButton?.innerHTML || "";
+  if (triggerButton) {
+    triggerButton.disabled = true;
+    triggerButton.textContent = "AI...";
+  }
+  if (output) {
+    output.textContent = currentLang === "ar"
+      ? "AI يولد مثال جديد..."
+      : "AI is generating a new example...";
+  }
+  if (issues) issues.innerHTML = "";
+
+  let example = null;
+  try {
+    const response = await fetch("/api/ai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "generate_example",
+        language,
+        code: getCompilerContextForAi(language),
+        ui_language: currentLang
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
+    example = normalizeGeneratedCompilerExample(language, data);
+  } catch (_) {
+    example = getLocalGeneratedExample(language);
+  }
+
+  applyGeneratedCompilerExample(language, example, editor, highlight, fileButtons);
+  if (triggerButton) {
+    triggerButton.disabled = false;
+    triggerButton.innerHTML = originalHtml;
+  }
+  runCompilerStudio();
+}
+
+function getCompilerContextForAi(language) {
+  if (language === "php") {
+    return Object.keys(phpProjectDefaults)
+      .map((filename) => `--- ${filename} ---\n${readPhpProjectFile(filename)}`)
+      .join("\n\n");
+  }
+  return localStorage.getItem(`academy-compiler-${language}`) || compilerExamples[language] || "";
+}
+
+function normalizeGeneratedCompilerExample(language, data) {
+  const files = data?.files && typeof data.files === "object" ? data.files : null;
+  if (language === "php" && files) {
+    const normalizedFiles = {};
+    Object.keys(phpProjectDefaults).forEach((filename) => {
+      normalizedFiles[filename] = String(files[filename] || phpProjectDefaults[filename] || "");
+    });
+    return { files: normalizedFiles };
+  }
+  const code = String(data?.code || "").trim();
+  if (code) return { code };
+  return getLocalGeneratedExample(language);
+}
+
+function getLocalGeneratedExample(language) {
+  generatedExampleIndex += 1;
+  const list = compilerExampleLibrary[language] || [compilerExamples[language] || ""];
+  const item = list[generatedExampleIndex % list.length];
+  if (language === "php") return { files: item };
+  return { code: item };
+}
+
+function applyGeneratedCompilerExample(language, example, editor, highlight, fileButtons) {
+  if (language === "php") {
+    resetPhpProject();
+    const files = example.files || getLocalGeneratedExample("php").files;
+    Object.keys(phpProjectDefaults).forEach((filename) => {
+      writePhpProjectFile(filename, String(files[filename] || phpProjectDefaults[filename] || ""));
+    });
+    compilerFile = "index.php";
+    syncFileTabs(fileButtons);
+    editor.value = readPhpProjectFile(compilerFile);
+    updateCompilerHighlight(editor, highlight, "php");
+    return;
+  }
+
+  const code = String(example.code || compilerExamples[language] || "");
+  localStorage.setItem(`academy-compiler-${language}`, code);
+  editor.value = code;
+  updateCompilerHighlight(editor, highlight, language);
 }
 
 function injectBeforeClose(source, closeTag, insert) {
