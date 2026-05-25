@@ -10,9 +10,9 @@
     <link rel="canonical" href="https://abdalla-academy.abdabukaraki.workers.dev/compiler.html">
     <link rel="icon" type="image/png" href="assets/my-logo-transparent.png">
     <link rel="apple-touch-icon" href="assets/my-logo-transparent.png">
-    <link rel="stylesheet" href="assets/styles.css?v=20260525-terminal-world25">
+    <link rel="stylesheet" href="assets/styles.css?v=20260525-terminal-world26">
     <script src="assets/content.js?v=20260523-compiler-lab" defer></script>
-    <script src="assets/main.js?v=20260525-terminal-world25" defer></script>
+    <script src="assets/main.js?v=20260525-terminal-world26" defer></script>
   </head>
   <body data-page="compiler">
     <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
@@ -79,6 +79,9 @@
             <div class="panel-title">
               <span class="status-dot"></span>
               <strong data-compiler-title>HTML</strong>
+              <button class="editor-help-toggle" type="button" data-toggle-compiler-help>
+                <span class="lang-ar">مساعدة ON</span><span class="lang-en">Help ON</span>
+              </button>
               <button class="run-inline-button" type="button" data-run-compiler>run</button>
             </div>
             <div class="compiler-file-tabs" data-compiler-files hidden>
@@ -90,6 +93,7 @@
             <div class="code-editor-shell">
               <pre class="studio-highlight" data-compiler-highlight aria-hidden="true"></pre>
               <textarea class="studio-editor" spellcheck="false" wrap="off" autocomplete="off" autocorrect="off" autocapitalize="off" data-compiler-editor aria-label="Code editor"></textarea>
+              <div class="code-suggest-panel" data-code-suggestions hidden></div>
               <div class="code-learn-strip" data-code-learn-strip aria-label="Learn code concepts"></div>
             </div>
           </section>

@@ -1294,6 +1294,7 @@ let compilerLanguage = "html";
 let compilerFile = "index.php";
 let terminalMotionReady = false;
 let compilerHighlightTimer = 0;
+let compilerHelpEnabled = localStorage.getItem("academy-compiler-help") !== "off";
 
 function setupCompilerStudio() {
   const lab = document.querySelector("[data-compiler-lab]");
@@ -1311,6 +1312,8 @@ function setupCompilerStudio() {
   const aiButtons = lab.querySelectorAll("[data-ai-action]");
   const aiOutput = lab.querySelector("[data-ai-output]");
   const learnStrip = lab.querySelector("[data-code-learn-strip]");
+  const suggestPanel = lab.querySelector("[data-code-suggestions]");
+  const helpToggle = lab.querySelector("[data-toggle-compiler-help]");
   const exitButton = lab.querySelector("[data-exit-compiler]");
   const fileTabs = lab.querySelector("[data-compiler-files]");
   const fileButtons = lab.querySelectorAll("[data-compiler-file]");
@@ -1320,6 +1323,7 @@ function setupCompilerStudio() {
     return;
   }
   lab.dataset.compilerReady = "true";
+  setCompilerHelpEnabled(lab, learnStrip, suggestPanel, helpToggle, compilerHelpEnabled);
 
   const loadExample = (language, force = false) => {
     const key = `academy-compiler-${language}`;
@@ -1340,6 +1344,7 @@ function setupCompilerStudio() {
     }
     updateCompilerHighlight(editor, highlight, language === "php" ? fileLanguage(compilerFile) : language);
     refreshCompilerLearningStrip(editor, learnStrip);
+    refreshCompilerWritingHints(editor, suggestPanel);
     runCompilerStudio();
   };
 
@@ -1374,8 +1379,16 @@ function setupCompilerStudio() {
       updateCompilerResultTitle(resultTitle, "php");
       updateCompilerHighlight(editor, highlight, fileLanguage(compilerFile));
       refreshCompilerLearningStrip(editor, learnStrip);
+      refreshCompilerWritingHints(editor, suggestPanel);
       runCompilerStudio();
     });
+  });
+  helpToggle?.addEventListener("click", () => {
+    compilerHelpEnabled = !compilerHelpEnabled;
+    localStorage.setItem("academy-compiler-help", compilerHelpEnabled ? "on" : "off");
+    setCompilerHelpEnabled(lab, learnStrip, suggestPanel, helpToggle, compilerHelpEnabled);
+    refreshCompilerLearningStrip(editor, learnStrip);
+    refreshCompilerWritingHints(editor, suggestPanel);
   });
   aiButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -1392,12 +1405,47 @@ function setupCompilerStudio() {
     if (!button) return;
     runCompilerAi("teach", editor, aiOutput, highlight, button.dataset.learnTopic || button.textContent.trim());
   });
+  suggestPanel?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-completion-value]");
+    if (!button) return;
+    applyCompilerCompletion(editor, button.dataset.completionValue || "");
+    saveCurrent();
+    updateCompilerHighlight(editor, highlight, getCompilerLearningLanguage());
+    refreshCompilerLearningStrip(editor, learnStrip);
+    refreshCompilerWritingHints(editor, suggestPanel);
+    editor.focus();
+  });
   editor.addEventListener("input", () => {
     saveCurrent();
     scheduleCompilerHighlight(editor, highlight, compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage);
     refreshCompilerLearningStrip(editor, learnStrip);
+    refreshCompilerWritingHints(editor, suggestPanel);
     if (output) {
       output.textContent = currentLang === "ar" ? "جاهز. اضغط تشغيل الكود." : "Ready. Press Run Code.";
+    }
+  });
+  editor.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      hideCompilerSuggestions(suggestPanel);
+      return;
+    }
+    if (event.key === "Tab") {
+      const activeSuggestion = suggestPanel && !suggestPanel.hidden
+        ? suggestPanel.querySelector("[data-completion-value]")
+        : null;
+      event.preventDefault();
+      if (activeSuggestion) {
+        applyCompilerCompletion(editor, activeSuggestion.dataset.completionValue || "");
+        saveCurrent();
+        updateCompilerHighlight(editor, highlight, getCompilerLearningLanguage());
+        refreshCompilerLearningStrip(editor, learnStrip);
+        refreshCompilerWritingHints(editor, suggestPanel);
+        return;
+      }
+      insertAtEditorCursor(editor, "  ");
+      saveCurrent();
+      updateCompilerHighlight(editor, highlight, getCompilerLearningLanguage());
+      refreshCompilerWritingHints(editor, suggestPanel);
     }
   });
   editor.addEventListener("scroll", () => {
@@ -1416,6 +1464,132 @@ function setupCompilerStudio() {
   }
 
   loadExample(compilerLanguage);
+}
+
+function setCompilerHelpEnabled(lab, learnStrip, suggestPanel, helpToggle, enabled) {
+  if (lab) lab.classList.toggle("compiler-help-off", !enabled);
+  if (!enabled) {
+    hideCompilerSuggestions(suggestPanel);
+    if (learnStrip) learnStrip.innerHTML = "";
+  }
+  if (helpToggle) {
+    helpToggle.classList.toggle("is-off", !enabled);
+    helpToggle.innerHTML = enabled
+      ? `<span class="lang-ar">مساعدة ON</span><span class="lang-en">Help ON</span>`
+      : `<span class="lang-ar">بدون مساعدة</span><span class="lang-en">Help OFF</span>`;
+  }
+}
+
+function getCompilerCompletionItems(language) {
+  const items = {
+    html: [
+      ["html", "<!doctype html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Page</title>\n  </head>\n  <body>\n    \n  </body>\n</html>", "HTML document"],
+      ["main", "<main>\n  \n</main>", "main section"],
+      ["section", "<section>\n  \n</section>", "section"],
+      ["h1", "<h1></h1>", "heading"],
+      ["p", "<p></p>", "paragraph"],
+      ["button", "<button type=\"button\"></button>", "button"],
+      ["input", "<input type=\"text\" name=\"\" id=\"\">", "input"],
+      ["form", "<form method=\"post\">\n  \n</form>", "form"]
+    ],
+    css: [
+      ["display", "display: grid;", "layout"],
+      ["grid", "display: grid;\nplace-items: center;", "grid center"],
+      ["flex", "display: flex;\nalign-items: center;\ngap: 12px;", "flex row"],
+      ["color", "color: #ffffff;", "text color"],
+      ["background", "background: #05070d;", "background"],
+      ["hover", ":hover {\n  transform: translateY(-2px);\n}", "hover state"],
+      ["media", "@media (max-width: 768px) {\n  \n}", "responsive"]
+    ],
+    js: [
+      ["const", "const name = value;", "constant"],
+      ["let", "let count = 0;", "variable"],
+      ["if", "if (condition) {\n  \n}", "condition"],
+      ["function", "function name() {\n  \n}", "function"],
+      ["event", "element.addEventListener(\"click\", () => {\n  \n});", "event"],
+      ["query", "document.querySelector(\"\")", "select element"],
+      ["log", "console.log();", "console"]
+    ],
+    php: [
+      ["php", "<?php\n\n?>", "php block"],
+      ["echo", "<?php echo $value; ?>", "print value"],
+      ["if", "<?php if ($condition): ?>\n  \n<?php endif; ?>", "condition"],
+      ["foreach", "<?php foreach ($items as $item): ?>\n  \n<?php endforeach; ?>", "loop"],
+      ["post", "$name = $_POST[\"name\"] ?? \"\";", "POST value"],
+      ["safe", "htmlspecialchars($value, ENT_QUOTES, \"UTF-8\")", "safe output"]
+    ],
+    cpp: [
+      ["main", "int main() {\n    return 0;\n}", "main"],
+      ["include", "#include <iostream>", "iostream"],
+      ["cout", "cout << \"\" << endl;", "print"],
+      ["cin", "cin >> value;", "input"],
+      ["if", "if (condition) {\n    \n}", "condition"],
+      ["for", "for (int i = 0; i < n; i++) {\n    \n}", "loop"],
+      ["vector", "vector<int> numbers = {};", "vector"]
+    ]
+  };
+  return items[language] || items.html;
+}
+
+function getEditorToken(editor) {
+  const value = editor.value;
+  const cursor = editor.selectionStart;
+  const before = value.slice(0, cursor);
+  const match = before.match(/[a-zA-Z_$#][\w$#-]*$/);
+  return {
+    token: match ? match[0] : "",
+    start: match ? cursor - match[0].length : cursor,
+    end: cursor
+  };
+}
+
+function refreshCompilerWritingHints(editor, panel) {
+  if (!editor || !panel || !compilerHelpEnabled) return;
+  const { token } = getEditorToken(editor);
+  if (!token || token.length < 1) {
+    hideCompilerSuggestions(panel);
+    return;
+  }
+  const normalized = token.replace(/^[#$]/, "").toLowerCase();
+  const language = getCompilerLearningLanguage();
+  const suggestions = getCompilerCompletionItems(language)
+    .filter(([label]) => label.toLowerCase().startsWith(normalized))
+    .slice(0, 5);
+  if (!suggestions.length) {
+    hideCompilerSuggestions(panel);
+    return;
+  }
+  panel.hidden = false;
+  panel.innerHTML = suggestions.map(([label, value, detail], index) => `
+    <button type="button" class="${index === 0 ? "is-active" : ""}" data-completion-value="${encodeURIComponent(value)}">
+      <strong>${escapeHtml(label)}</strong>
+      <span>${escapeHtml(detail)}</span>
+    </button>
+  `).join("");
+}
+
+function hideCompilerSuggestions(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.innerHTML = "";
+}
+
+function insertAtEditorCursor(editor, text) {
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  editor.value = `${editor.value.slice(0, start)}${text}${editor.value.slice(end)}`;
+  const next = start + text.length;
+  editor.setSelectionRange(next, next);
+  editor.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+function applyCompilerCompletion(editor, completion) {
+  completion = decodeURIComponent(completion || "");
+  const { start, end } = getEditorToken(editor);
+  editor.value = `${editor.value.slice(0, start)}${completion}${editor.value.slice(end)}`;
+  const next = start + completion.length;
+  editor.setSelectionRange(next, next);
+  editor.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
 function getCompilerLearningTopics(language, code) {
@@ -1479,7 +1653,7 @@ function getCompilerLearningLanguage() {
 }
 
 function refreshCompilerLearningStrip(editor, strip) {
-  if (!editor || !strip) return;
+  if (!editor || !strip || !compilerHelpEnabled) return;
   const language = getCompilerLearningLanguage();
   const topics = getCompilerLearningTopics(language, editor.value);
   strip.innerHTML = `

@@ -1822,6 +1822,28 @@ html[dir="rtl"] .lesson-bullets {
     inset 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
+.editor-help-toggle {
+  min-height: 30px;
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  border-radius: 8px;
+  padding: 0 0.65rem;
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--terminal-cyan);
+  cursor: pointer;
+  font: 900 0.74rem/1 Consolas, "Courier New", monospace;
+  margin-inline-start: auto;
+}
+
+.editor-help-toggle.is-off {
+  border-color: rgba(255, 98, 98, 0.42);
+  background: rgba(255, 98, 98, 0.1);
+  color: #ffb4b4;
+}
+
+.editor-help-toggle + .run-inline-button {
+  margin-inline-start: 0;
+}
+
 .code-editor-shell {
   grid-row: 3;
   position: relative;
@@ -1887,6 +1909,67 @@ html[dir="rtl"] .lesson-bullets {
 .code-editor-shell .studio-highlight,
 .code-editor-shell .studio-editor {
   padding-bottom: 5.4rem;
+}
+
+.code-suggest-panel {
+  position: absolute;
+  z-index: 5;
+  inset-inline-start: 1rem;
+  bottom: 4.7rem;
+  width: min(360px, calc(100% - 2rem));
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(1, 4, 9, 0.96);
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.42),
+    0 0 34px rgba(0, 229, 255, 0.12);
+  padding: 0.35rem;
+}
+
+.code-suggest-panel[hidden] {
+  display: none;
+}
+
+.code-suggest-panel button {
+  width: 100%;
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 0.45fr);
+  align-items: center;
+  gap: 0.7rem;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  background: transparent;
+  color: var(--terminal-text);
+  cursor: pointer;
+  text-align: left;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.code-suggest-panel button:hover,
+.code-suggest-panel button.is-active {
+  background: rgba(0, 229, 255, 0.13);
+}
+
+.code-suggest-panel strong {
+  color: var(--terminal-green);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.code-suggest-panel span {
+  color: var(--terminal-muted);
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.compiler-help-off .code-learn-strip,
+.compiler-help-off .code-suggest-panel {
+  display: none !important;
 }
 
 .code-learn-strip {
