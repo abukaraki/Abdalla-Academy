@@ -539,6 +539,7 @@ int main() {
 function buildLocalTeachingResponse(language, text, ar) {
   const focus = (text.match(/Learning focus:\s*([^\n]+)/i)?.[1] || "").trim();
   const tips = [];
+  getFocusedLearningTips(focus, ar).forEach((tip) => tips.push(tip));
   const add = (pattern, arTip, enTip) => {
     if (pattern.test(text)) tips.push(ar ? arTip : enTip);
   };
@@ -565,6 +566,135 @@ function buildLocalTeachingResponse(language, text, ar) {
     files: {},
     tips: tips.slice(0, 6)
   };
+}
+
+function getFocusedLearningTips(focus, ar) {
+  const key = String(focus || "").toLowerCase();
+  const concepts = {
+    if: [
+      "if تستخدم لاتخاذ قرار: إذا كان الشرط true ينفذ الكود داخل الأقواس.",
+      "غيّر قيمة الشرط وشغّل الكود لترى كيف تتغير النتيجة."
+    ],
+    tags: [
+      "وسوم HTML تبني هيكل الصفحة مثل h1 للعناوين وp للفقرات وbutton للأزرار.",
+      "كل وسم له دور، واختيار الوسم الصحيح يجعل الصفحة أوضح."
+    ],
+    id: [
+      "id اسم فريد لعنصر واحد فقط داخل الصفحة.",
+      "يستخدمه CSS أو JavaScript للوصول إلى عنصر محدد مباشرة."
+    ],
+    class: [
+      "class اسم مشترك يمكن وضعه على أكثر من عنصر.",
+      "يستخدم غالبا للتنسيق أو لاختيار مجموعة عناصر لها نفس الشكل أو الدور."
+    ],
+    name: [
+      "name يستخدم كثيرا داخل النماذج لإرسال قيمة الحقل إلى PHP أو السيرفر.",
+      "إذا تغيّر name، يتغير الاسم الذي تقرأ منه البيانات لاحقا."
+    ],
+    function: [
+      "function تجمع أوامر تحت اسم واحد حتى تستدعيها عند الحاجة.",
+      "ابحث عن اسم الدالة ثم ابحث أين تم استدعاؤها."
+    ],
+    variable: [
+      "المتغير يخزن قيمة يمكن استخدامها أو تغييرها أثناء التشغيل.",
+      "اسأل دائما: ما القيمة التي يحملها هذا المتغير الآن؟"
+    ],
+    event: [
+      "event يعني حدثا من المستخدم مثل click أو input.",
+      "الكود داخل الحدث لا يعمل إلا عندما يحدث الفعل المرتبط به."
+    ],
+    dom: [
+      "DOM هو طريقة JavaScript للوصول إلى عناصر HTML وتعديلها.",
+      "getElementById يبحث عن عنصر، ثم تستطيع تغيير نصه أو شكله."
+    ],
+    array: [
+      "array تحفظ أكثر من قيمة داخل اسم واحد.",
+      "تستخدمها عندما يكون عندك قائمة مثل أسماء أو درجات أو منتجات."
+    ],
+    loop: [
+      "loop يكرر نفس الخطوة أكثر من مرة.",
+      "استخدمه عندما تريد المرور على عناصر قائمة أو تنفيذ عداد."
+    ],
+    selector: [
+      "selector في CSS يحدد أي عنصر سيتم تنسيقه.",
+      "النقطة تعني class، والرمز # يعني id."
+    ],
+    hover: [
+      ":hover يطبق تنسيقا عندما يمر المستخدم فوق العنصر.",
+      "استخدمه للأزرار والبطاقات حتى يشعر المستخدم بالتفاعل."
+    ],
+    color: [
+      "color يغير لون النص، وbackground يغير لون الخلفية.",
+      "انتبه للتباين حتى يكون النص مريحا للقراءة."
+    ],
+    display: [
+      "display يحدد طريقة ظهور العنصر وترتيب داخله.",
+      "grid وflex يساعدان في بناء تقسيمات منظمة ومتجاوبة."
+    ],
+    grid: [
+      "grid يستخدم لتقسيم الواجهة إلى صفوف وأعمدة.",
+      "مفيد للبطاقات واللوحات التي تحتاج ترتيب واضح."
+    ],
+    flex: [
+      "flex يستخدم لترتيب العناصر في اتجاه واحد مع تحكم بالمسافات.",
+      "مفيد للأزرار، القوائم، والعناصر الصغيرة داخل السطر."
+    ],
+    echo: [
+      "echo في PHP يطبع نصا أو نتيجة إلى الصفحة.",
+      "إذا طبعت HTML عن طريق echo سيظهر داخل المعاينة كجزء من الصفحة."
+    ],
+    post: [
+      "POST يحمل بيانات النموذج بعد الإرسال.",
+      "اقرأه بحذر واستخدم فحص وتنظيف قبل عرض البيانات."
+    ],
+    get: [
+      "GET يحمل بيانات ظاهرة في رابط الصفحة.",
+      "استخدمه للبحث أو الفلاتر، ولا تضع فيه بيانات حساسة."
+    ],
+    htmlspecialchars: [
+      "htmlspecialchars يحمي الصفحة عند عرض نص كتبه المستخدم.",
+      "يحوّل الرموز الخطرة إلى نص عادي بدل تنفيذها كـ HTML."
+    ],
+    main: [
+      "main هي نقطة بداية تشغيل برنامج C++.",
+      "أي برنامج C++ يحتاج main حتى يعرف من أين يبدأ التنفيذ."
+    ],
+    cout: [
+      "cout يطبع نصا أو قيمة في مخرجات C++.",
+      "استخدمه لترى نتيجة الحساب أو حالة المتغير."
+    ],
+    cin: [
+      "cin يقرأ قيمة يدخلها المستخدم في C++.",
+      "بعد القراءة خزّن القيمة في متغير ثم استخدمها في الشرط أو الحساب."
+    ]
+  };
+  const englishConcepts = {
+    if: ["if makes a decision: when the condition is true, the code inside runs.", "Change the condition value and run the code to see the result change."],
+    tags: ["HTML tags build the page structure, such as h1 for headings, p for paragraphs, and button for buttons.", "Each tag has a role; choosing the right tag makes the page clearer."],
+    id: ["id is a unique name for one element only.", "CSS or JavaScript uses it to reach one specific element directly."],
+    class: ["class is a shared name that can be used on many elements.", "It is usually used to style or select a group of similar elements."],
+    name: ["name is often used in forms to send a field value to PHP or the server.", "If name changes, the value must be read using the new name."],
+    function: ["A function groups commands under one name.", "Find the function name, then find where it is called."],
+    variable: ["A variable stores a value that can be used or changed while the program runs.", "Always ask: what value does this variable hold now?"],
+    event: ["An event is a user action like click or input.", "The code inside the event runs only when that action happens."],
+    dom: ["DOM is how JavaScript reaches and changes HTML elements.", "getElementById finds an element so you can change its text or style."],
+    array: ["An array stores multiple values under one name.", "Use it for lists such as names, grades, or products."],
+    loop: ["A loop repeats the same step more than once.", "Use it to go through list items or build a counter."],
+    selector: ["A CSS selector decides which element gets styled.", "A dot means class, and # means id."],
+    hover: [":hover applies styling when the pointer is over an element.", "Use it for buttons and cards to show interaction."],
+    color: ["color changes text color, and background changes the background.", "Watch contrast so text stays readable."],
+    display: ["display controls how an element and its children are laid out.", "grid and flex help build organized responsive layouts."],
+    grid: ["grid divides a layout into rows and columns.", "It is useful for cards and panels that need clear structure."],
+    flex: ["flex arranges elements in one direction with spacing control.", "It is useful for buttons, menus, and small inline groups."],
+    echo: ["echo prints text or a result into the PHP response.", "If it prints HTML, it appears in the preview as part of the page."],
+    post: ["POST carries form data after submission.", "Read it carefully and validate or escape before displaying data."],
+    get: ["GET carries data visible in the page URL.", "Use it for search or filters, not sensitive data."],
+    htmlspecialchars: ["htmlspecialchars protects the page when showing user text.", "It turns dangerous symbols into normal text instead of executable HTML."],
+    main: ["main is the starting point of a C++ program.", "Every C++ program needs main so execution knows where to begin."],
+    cout: ["cout prints text or values in C++ output.", "Use it to see calculation results or variable state."],
+    cin: ["cin reads a value entered by the user in C++.", "Store the value in a variable, then use it in a condition or calculation."]
+  };
+  return ar ? (concepts[key] || []) : (englishConcepts[key] || []);
 }
 
 function extractResponseText(result) {
