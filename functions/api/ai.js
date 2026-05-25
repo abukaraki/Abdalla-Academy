@@ -14,10 +14,6 @@ export async function onRequestPost(context) {
 
 async function runAiAssistant(request, env) {
   try {
-    if (!env.OPENAI_API_KEY) {
-      return json({ error: "OPENAI_API_KEY is not configured in Cloudflare." }, 501);
-    }
-
     const body = await request.json();
     const action = normalizeAction(body.action);
     const language = String(body.language || "html").toLowerCase().slice(0, 20);
@@ -29,6 +25,9 @@ async function runAiAssistant(request, env) {
     }
     if (action === "chat" && !message.trim()) {
       return json({ error: "Message is empty." }, 400);
+    }
+    if (!env.OPENAI_API_KEY) {
+      return json(buildLocalAiResponse(action, language, uiLanguage, action === "chat" ? message : code));
     }
 
     const response = await fetch("https://api.openai.com/v1/responses", {
@@ -129,6 +128,71 @@ function buildAiPrompt(action, language, code) {
     "Code:",
     code
   ].join("\n");
+}
+
+function buildLocalAiResponse(action, language, uiLanguage, source) {
+  const ar = uiLanguage !== "English";
+  const text = String(source || "");
+  if (action === "chat") {
+    const programming = /(html|css|js|javascript|php|c\+\+|cpp|code|compiler|function|class|variable|array|debug|error|syntax|برمجة|كود|دالة|متغير|مصفوفة|خطأ|تصحيح)/i.test(text);
+    return programming
+      ? {
+          title: ar ? "فحص برمجي" : "Code check",
+          explanation: ar ? "اكتب الكود داخل صفحة Compiler واضغط فحص حتى أحدد لك المكان المحتمل للمشكلة." : "Paste the code in the Compiler page and press Scan so I can point to the likely issue.",
+          code: "",
+          tips: ar
+            ? ["ابدأ من رسالة الخطأ إن وجدت.", "راجع السطر القريب من الخطأ.", "غيّر خطوة واحدة ثم شغل الكود مرة ثانية."]
+            : ["Start from the error message if one exists.", "Check the line near the error.", "Change one thing, then run again."]
+        }
+      : {
+          title: ar ? "برمجة فقط" : "Programming only",
+          explanation: ar ? "هذا المساعد مخصص للأسئلة البرمجية فقط." : "This assistant is only for programming questions.",
+          code: "",
+          tips: []
+        };
+  }
+
+  const lines = text.split(/\r?\n/);
+  const tips = [];
+  const add = (condition, arTip, enTip) => {
+    if (condition) tips.push(ar ? arTip : enTip);
+  };
+  const numbered = (pattern) => {
+    const index = lines.findIndex((line) => pattern.test(line));
+    return index >= 0 ? index + 1 : null;
+  };
+  const hasText = text.trim().length > 0;
+
+  add(language === "html" && !/<!doctype html>/i.test(text), "أضف DOCTYPE في بداية الصفحة.", "Add DOCTYPE at the top of the page.");
+  add(language === "html" && /id\s*=\s*["'][^"']+["']/i.test(text), "راجع أن كل id مستخدم مرة واحدة فقط.", "Make sure each id is used only once.");
+  add(language === "js" && /\b(document|getElementById|querySelector)\b/.test(text), "تأكد أن العنصر موجود قبل تشغيل JavaScript.", "Make sure the element exists before JavaScript runs.");
+  add(language === "js" && numbered(/console\.log\([^)]*[^;]\s*$/), ar ? `راجع نهاية السطر ${numbered(/console\.log\([^)]*[^;]\s*$/)}.` : `Check the end of line ${numbered(/console\.log\([^)]*[^;]\s*$/)}.`, ar ? "راجع نهاية السطر." : "Check the line ending.");
+  add(language === "php" && !/<\?php/.test(text), "ابدأ جزء PHP بـ <?php.", "Start the PHP part with <?php.");
+  add(language === "php" && /\$_(GET|POST)/.test(text) && !/(htmlspecialchars|filter_input|filter_var)/.test(text), "عند قراءة GET أو POST أضف فحص وتنظيف للمدخلات.", "When reading GET or POST, add validation and escaping.");
+  add(language === "cpp" && !/int\s+main\s*\(/.test(text), "برنامج C++ يحتاج int main().", "A C++ program needs int main().");
+  add(language === "cpp" && /cout|cin/.test(text) && !/#include\s*<iostream>/.test(text), "لاستخدام cout أو cin أضف include الخاص بـ iostream.", "To use cout or cin, include iostream.");
+  add((text.match(/\{/g) || []).length !== (text.match(/\}/g) || []).length, "عدد الأقواس { } غير متوازن.", "The { } braces are not balanced.");
+  add((text.match(/\(/g) || []).length !== (text.match(/\)/g) || []).length, "عدد الأقواس ( ) غير متوازن.", "The ( ) parentheses are not balanced.");
+
+  if (!tips.length) {
+    tips.push(ar ? "الكود لا يظهر فيه خطأ واضح من الفحص السريع." : "No obvious issue appeared in the quick scan.");
+    tips.push(ar ? "إذا ظهرت رسالة خطأ، ابدأ من أول سطر مذكور فيها." : "If an error appears, start from the first line mentioned in it.");
+  }
+
+  const titles = {
+    explain: ar ? "فحص الكود" : "Code scan",
+    fix: ar ? "مكان المشكلة" : "Problem location",
+    improve: ar ? "تلميحات التحسين" : "Improvement hints",
+    example: ar ? "تدريب" : "Practice"
+  };
+  return {
+    title: titles[action] || "AI",
+    explanation: hasText
+      ? (ar ? "هذا فحص تعليمي سريع. أصلح خطوة واحدة ثم شغل الكود مرة ثانية." : "This is a quick learning scan. Fix one step, then run the code again.")
+      : (ar ? "ضع الكود أولاً حتى أقدر أفحصه." : "Add code first so I can scan it."),
+    code: "",
+    tips: tips.slice(0, 6)
+  };
 }
 
 function extractResponseText(result) {
