@@ -36,8 +36,8 @@ const ui = {
     programmingDesc: "مسارات مبسطة في HTML وCSS وJavaScript ومشاريع تدريبية للمبتدئين.",
     latestEyebrow: "الأحدث",
     latestTitle: "آخر الدروس والمواد",
-    adsenseTitle: "مصمم ليكون واضحا ومناسبا للمراجعة.",
-    adsenseText: "المنصة تتجنب الصفحات الفارغة، الإعلانات المضللة، النوافذ المزعجة، والمحتوى المنسوخ. قبل التقديم، أضف محتوى أصليا أكثر واستبدل بيانات التواصل والرابط الرسمي.",
+    adsenseTitle: "",
+    adsenseText: "",
     footerText: "",
     lecturesPageTitle: "محاضرات الدورات",
     lecturesPageLead: "",
@@ -105,8 +105,8 @@ const ui = {
     programmingDesc: "Simple HTML, CSS, and JavaScript tracks with practical projects for beginners.",
     latestEyebrow: "Latest",
     latestTitle: "Latest Lessons and Materials",
-    adsenseTitle: "Designed to be clear and review-friendly.",
-    adsenseText: "The platform avoids empty pages, misleading ads, intrusive popups, and copied content. Before applying, add more original content and replace the official contact details and URL.",
+    adsenseTitle: "",
+    adsenseText: "",
     footerText: "",
     lecturesPageTitle: "Course Lectures",
     lecturesPageLead: "",
@@ -582,7 +582,7 @@ function injectJsonLd(id, data) {
 
 function updateStructuredData() {
   const page = document.body.getAttribute("data-page") || window.location.pathname.split("/").pop().replace(".html", "") || "home";
-  const base = "https://abukaraki.github.io/Abdalla-Academy/";
+  const base = "https://abdalla-academy.abdabukaraki.workers.dev/";
   const pageName = document.title.replace(" | Abdalla Academy", "");
 
   injectJsonLd("breadcrumbs", {
@@ -1316,7 +1316,7 @@ async function runCloudCompiler(language, code, output, issues) {
     output.textContent = currentLang === "ar"
       ? "تعذر تشغيل الكود الآن."
       : "Could not run the code right now.";
-    issues.innerHTML = `<li class="error"><strong>API</strong><span>${escapeHtml(error.message)}</span></li>`;
+    issues.innerHTML = `<li class="error"><strong>runtime</strong><span>${currentLang === "ar" ? "أعد المحاولة بعد لحظات." : "Try again in a moment."}</span></li>`;
     return null;
   }
 }
@@ -1573,8 +1573,8 @@ function analyzeStudioCode(language, code) {
     if (trimmed && !/[;}]\s*(\?>)?$/.test(trimmed)) add("warn", "نهاية السطر", "Line ending", "أغلب أوامر PHP تنتهي بفاصلة منقوطة ;", "Most PHP statements end with a semicolon ;");
     return {
       output: currentLang === "ar"
-        ? "PHP لا يعمل مباشرة على GitHub Pages. هذا المختبر يفحص الكود تعليميا، والتشغيل الحقيقي يحتاج سيرفر PHP أو API."
-        : "PHP cannot run directly on GitHub Pages. This lab checks the code educationally; real execution needs a PHP server or API.",
+        ? "جاهز لتشغيل PHP وقراءة النتيجة."
+        : "Ready to run PHP and read the output.",
       issues
     };
   }
@@ -1584,7 +1584,7 @@ function analyzeStudioCode(language, code) {
     if (!/int\s+main\s*\(/.test(code)) add("error", "main غير موجودة", "Missing main", "كل برنامج C++ يحتاج دالة int main().", "Every C++ program needs int main().");
     [balanceIssue(code, "{", "}", currentLang === "ar" ? "الأقواس المتعرجة" : "curly braces"), balanceIssue(code, "(", ")", currentLang === "ar" ? "الأقواس" : "parentheses")].filter(Boolean).forEach((issue) => issues.push(issue));
     return {
-      output: currentLang === "ar" ? "جاهز للإرسال إلى C++ API." : "Ready for the C++ API.",
+      output: currentLang === "ar" ? "جاهز لتشغيل C++." : "Ready to run C++.",
       issues
     };
   }
