@@ -625,6 +625,7 @@ function renderAll() {
   setupCompilerStudio();
   setupScrollSystem();
   setupTerminalMotion();
+  setupContactForm();
 }
 
 if (menuButton && menu) {
@@ -1257,6 +1258,35 @@ function setupTerminalMotion() {
       node.textContent = commands[index];
     });
   }, 1800);
+}
+
+function setupContactForm() {
+  document.querySelectorAll("[data-contact-form]").forEach((form) => {
+    if (form.dataset.ready === "true") return;
+    form.dataset.ready = "true";
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const emailInput = form.querySelector('[name="email"]');
+      const messageInput = form.querySelector('[name="message"]');
+      const recipientInput = form.querySelector('[name="recipient"]');
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+      const recipient = recipientInput.value || "abdabukaraki2023@gmail.com";
+      const status = form.querySelector("[data-contact-status]");
+      if (!email || !message) {
+        if (status) status.textContent = currentLang === "ar" ? "اكتب الإيميل والرسالة." : "Enter your email and message.";
+        return;
+      }
+      const subject = currentLang === "ar" ? "رسالة من موقع Abdalla Academy" : "Message from Abdalla Academy website";
+      const body = [
+        currentLang === "ar" ? `إيميل المرسل: ${email}` : `Sender email: ${email}`,
+        "",
+        message
+      ].join("\n");
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (status) status.textContent = currentLang === "ar" ? "تم تجهيز الرسالة في تطبيق البريد." : "The email is ready in your mail app.";
+    });
+  });
 }
 
 setLanguage(currentLang);
