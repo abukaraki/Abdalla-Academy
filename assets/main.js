@@ -1643,7 +1643,9 @@ async function runCompilerAi(action, editor, output, highlight) {
     explain: currentLang === "ar" ? "AI فحص" : "AI Scan",
     fix: currentLang === "ar" ? "AI المشكلة" : "AI Problem",
     improve: currentLang === "ar" ? "AI تلميحات" : "AI Hints",
-    example: currentLang === "ar" ? "AI تدريب" : "AI Practice"
+    example: currentLang === "ar" ? "AI تدريب" : "AI Practice",
+    teach: currentLang === "ar" ? "AI تعلم" : "AI Learn",
+    analyze_question: currentLang === "ar" ? "AI حلل السؤال" : "AI Analyze"
   }[action] || "AI";
   output.removeAttribute("data-mode");
   output.dataset.aiCode = "";

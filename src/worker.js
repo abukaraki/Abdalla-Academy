@@ -242,7 +242,7 @@ function normalizeAiPayload(parsed) {
 
 function normalizeAction(action) {
   const value = String(action || "explain").toLowerCase();
-  return ["explain", "fix", "improve", "example", "chat", "generate_example"].includes(value) ? value : "explain";
+  return ["explain", "fix", "improve", "example", "teach", "analyze_question", "chat", "generate_example"].includes(value) ? value : "explain";
 }
 
 function buildAiPrompt(action, language, code) {
@@ -251,6 +251,8 @@ function buildAiPrompt(action, language, code) {
     fix: "Use the code and runtime output to find likely mistakes. For each mistake, mention the file/line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
     improve: "Give learning hints for structure, readability, accessibility, debugging, and how to test the next step. Do not return rewritten code.",
     example: "Create a small practice challenge related to this code with steps the learner should try. Do not provide the final solution.",
+    teach: "Act as a programming coach. Explain the important concepts used in this code, such as if, loops, functions, arrays, tags, ids, classes, variables, and events. For each concept, explain what it is used for and point to where it appears in the code. Keep it practical and do not rewrite the solution.",
+    analyze_question: "Teach the learner how to analyze a programming question before coding. Based on this code and runtime output, identify the expected input, output, data, conditions, steps, and tests. Give a short checklist the learner can follow. Do not solve the whole task.",
     chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary.",
     generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."
   };
@@ -301,6 +303,24 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     return buildLocalGeneratedExample(language, ar);
   }
 
+  if (action === "teach") {
+    return buildLocalTeachingResponse(language, text, ar);
+  }
+
+  if (action === "analyze_question") {
+    return {
+      title: ar ? "تحليل السؤال" : "Question analysis",
+      explanation: ar
+        ? "ابدأ بفهم المطلوب قبل كتابة الكود. حدد البيانات، الشروط، والخطوات، ثم اختبر نتيجة صغيرة."
+        : "Start by understanding the task before writing code. Identify the data, conditions, steps, then test a small result.",
+      code: "",
+      files: {},
+      tips: ar
+        ? ["ما المدخلات الموجودة؟", "ما النتيجة المطلوبة؟", "هل يوجد شرط مثل if أو تكرار مثل loop؟", "قسّم الحل إلى خطوات صغيرة.", "اختبر حالة سهلة ثم حالة فيها خطأ."]
+        : ["What inputs exist?", "What output is required?", "Is there a condition like if or repetition like a loop?", "Break the solution into small steps.", "Test an easy case, then an error case."]
+    };
+  }
+
   const lines = text.split(/\r?\n/);
   const tips = [];
   const add = (condition, arTip, enTip) => {
@@ -334,7 +354,9 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     explain: ar ? "فحص الكود" : "Code scan",
     fix: ar ? "مكان المشكلة" : "Problem location",
     improve: ar ? "تلميحات التحسين" : "Improvement hints",
-    example: ar ? "تدريب" : "Practice"
+    example: ar ? "تدريب" : "Practice",
+    teach: ar ? "تعلم المفاهيم" : "Learn the concepts",
+    analyze_question: ar ? "تحليل السؤال" : "Question analysis"
   };
   return {
     title: titles[action] || "AI",
@@ -455,6 +477,36 @@ int main() {
     code: examples[language] || examples.html,
     files: {},
     tips: ar ? ["شغل المثال.", "غيّر قيمة واحدة.", "اقرأ النتيجة."] : ["Run the example.", "Change one value.", "Read the output."]
+  };
+}
+
+function buildLocalTeachingResponse(language, text, ar) {
+  const tips = [];
+  const add = (pattern, arTip, enTip) => {
+    if (pattern.test(text)) tips.push(ar ? arTip : enTip);
+  };
+  add(/\bif\s*\(/, "if تستخدم لاتخاذ قرار: إذا تحقق الشرط ينفذ الكود داخلها.", "if is used for decisions: when the condition is true, the code inside runs.");
+  add(/\b(for|while|foreach)\b/, "التكرار يستخدم لتنفيذ نفس الفكرة على أكثر من عنصر أو أكثر من مرة.", "Loops repeat the same idea for multiple items or multiple times.");
+  add(/\bfunction\b|[a-zA-Z_]\w*\s*\([^)]*\)\s*\{/, "function تجمع خطوات باسم واحد حتى تعيد استخدامها بوضوح.", "A function groups steps under one name so you can reuse them clearly.");
+  add(/\$[a-zA-Z_]\w*|\b(let|const|var)\b/, "المتغير يخزن قيمة مؤقتة يستخدمها البرنامج أثناء التشغيل.", "A variable stores a temporary value while the program runs.");
+  add(/\[[\s\S]*\]|\barray\s*\(/, "المصفوفة تحفظ أكثر من قيمة تحت اسم واحد.", "An array stores multiple values under one name.");
+  add(/id\s*=|getElementById/, "id يحدد عنصرا واحدا حتى يصل له CSS أو JavaScript مباشرة.", "id identifies one element so CSS or JavaScript can reach it directly.");
+  add(/class\s*=|querySelector|\./, "class تستخدم لتنسيق أو اختيار مجموعة عناصر لها نفس الدور.", "class is used to style or select a group of elements with the same role.");
+  add(/addEventListener|onclick/, "event يربط فعل المستخدم مثل الضغط بكود يتم تنفيذه.", "An event connects a user action, like a click, to code that runs.");
+
+  if (!tips.length) {
+    tips.push(ar ? "ابدأ بقراءة أسماء المتغيرات والعناصر؛ غالبا تخبرك بفكرة الكود." : "Start by reading variable and element names; they often reveal the code idea.");
+    tips.push(ar ? "اسأل: ما الذي يدخل؟ ما الذي يخرج؟ وما الشرط الذي يغيّر النتيجة؟" : "Ask: what goes in, what comes out, and what condition changes the result?");
+  }
+
+  return {
+    title: ar ? "تعلم المفاهيم" : "Learn the concepts",
+    explanation: ar
+      ? `هذا تدريب سريع على قراءة كود ${language}. اقرأ الفكرة، ثم جرّب تغيير قيمة واحدة وشغّل الكود.`
+      : `This is a quick practice for reading ${language} code. Read the idea, then change one value and run it.`,
+    code: "",
+    files: {},
+    tips: tips.slice(0, 6)
   };
 }
 
