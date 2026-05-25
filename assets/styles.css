@@ -5235,6 +5235,39 @@ html[dir="ltr"] .hacker-hero-side a:hover {
   color: var(--terminal-green);
 }
 
+.screenshot-watermark {
+  position: fixed;
+  inset-inline-end: 14px;
+  bottom: 14px;
+  z-index: 900;
+  min-width: 138px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(0, 229, 255, 0.24);
+  border-radius: 8px;
+  padding: 0.38rem 0.55rem;
+  pointer-events: none;
+  background: rgba(1, 4, 9, 0.62);
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.12);
+  opacity: 0.72;
+  backdrop-filter: blur(10px);
+}
+
+.screenshot-watermark img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.32));
+}
+
+.screenshot-watermark span {
+  color: #f8feff;
+  font: 900 0.78rem/1.1 Consolas, "Courier New", monospace;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.42);
+}
+
 .section-grid-v2 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -5287,6 +5320,20 @@ html[dir="ltr"] .hacker-hero-side a:hover {
 @media (max-width: 560px) {
   .section-grid-v2 {
     grid-template-columns: 1fr;
+  }
+
+  .screenshot-watermark {
+    min-width: 0;
+    padding: 0.3rem;
+  }
+
+  .screenshot-watermark span {
+    display: none;
+  }
+
+  .screenshot-watermark img {
+    width: 36px;
+    height: 36px;
   }
 
   .hacker-hero-terminal {

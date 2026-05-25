@@ -1618,6 +1618,7 @@ function setupScrollSystem() {
 function setupTerminalMotion() {
   if (terminalMotionReady) return;
   terminalMotionReady = true;
+  setupScreenshotWatermark();
   const commands = ["start", "open compiler", "run cpp", "load sections", "show images"];
   let index = 0;
   window.setInterval(() => {
@@ -1627,6 +1628,18 @@ function setupTerminalMotion() {
     });
   }, 1800);
   setupTypingTerminals();
+}
+
+function setupScreenshotWatermark() {
+  if (document.querySelector(".screenshot-watermark")) return;
+  const mark = document.createElement("div");
+  mark.className = "screenshot-watermark";
+  mark.setAttribute("aria-hidden", "true");
+  mark.innerHTML = `
+    <img src="assets/my-logo-transparent.png" alt="">
+    <span>Abdalla Academy</span>
+  `;
+  document.body.appendChild(mark);
 }
 
 function setupTypingTerminals() {
