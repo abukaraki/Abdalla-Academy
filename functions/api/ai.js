@@ -23,8 +23,12 @@ async function runAiAssistant(request, env) {
     const language = String(body.language || "html").toLowerCase().slice(0, 20);
     const uiLanguage = String(body.ui_language || "ar").toLowerCase() === "en" ? "English" : "Arabic";
     const code = String(body.code || "").slice(0, 20000);
-    if (!code.trim()) {
+    const message = String(body.message || "").slice(0, 4000);
+    if (action !== "chat" && !code.trim()) {
       return json({ error: "Code is empty." }, 400);
+    }
+    if (action === "chat" && !message.trim()) {
+      return json({ error: "Message is empty." }, 400);
     }
 
     const response = await fetch("https://api.openai.com/v1/responses", {
@@ -48,7 +52,7 @@ async function runAiAssistant(request, env) {
             content: [
               {
                 type: "input_text",
-                text: buildAiPrompt(action, language, code)
+                text: buildAiPrompt(action, language, action === "chat" ? message : code)
               }
             ]
           }
@@ -95,7 +99,7 @@ async function runAiAssistant(request, env) {
 
 function normalizeAction(action) {
   const value = String(action || "explain").toLowerCase();
-  return ["explain", "fix", "improve", "example"].includes(value) ? value : "explain";
+  return ["explain", "fix", "improve", "example", "chat"].includes(value) ? value : "explain";
 }
 
 function buildAiPrompt(action, language, code) {
@@ -103,8 +107,18 @@ function buildAiPrompt(action, language, code) {
     explain: "Explain what the code does, name the important tags/functions/ids/names/classes, and point out possible problems. Do not rewrite the whole code unless needed.",
     fix: "Find mistakes and return a corrected version of the code. Keep the same intent.",
     improve: "Improve the code style, structure, readability, accessibility, and beginner clarity. Return an improved version.",
-    example: "Create a stronger learning example in the same language, using the same topic when possible."
+    example: "Create a stronger learning example in the same language, using the same topic when possible.",
+    chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary."
   };
+  if (action === "chat") {
+    return [
+      "Action: chat",
+      tasks.chat,
+      "Return JSON with title, explanation, code, and tips.",
+      "User message:",
+      code
+    ].join("\n");
+  }
   return [
     `Action: ${action}`,
     `Language: ${language}`,

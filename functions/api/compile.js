@@ -12,8 +12,8 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
     const language = String(body.language || "").toLowerCase();
-    const languageId = LANGUAGE_IDS[language];
-    if (!languageId) {
+    const languageIds = LANGUAGE_IDS[language];
+    if (!languageIds) {
       return json({ error: "Only PHP and C++ are enabled on this endpoint." }, 400);
     }
 
@@ -22,25 +22,7 @@ export async function onRequestPost(context) {
       return json({ error: "Code is empty." }, 400);
     }
 
-    const baseUrl = context.env.JUDGE0_URL || "https://ce.judge0.com";
-    const token = context.env.JUDGE0_TOKEN || "";
-    const response = await fetch(`${baseUrl.replace(/\/$/, "")}/submissions?base64_encoded=false&wait=true`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { "X-Auth-Token": token } : {})
-      },
-      body: JSON.stringify({
-        language_id: languageId,
-        source_code: sourceCode,
-        stdin: String(body.stdin || "").slice(0, 8000)
-      })
-    });
-
-    const result = await response.json();
-    if (!response.ok) {
-      return json({ error: result.error || result.message || "Compiler API error." }, response.status);
-    }
+    const result = await judge0Submit(context.env, languageIds, sourceCode, String(body.stdin || "").slice(0, 8000));
 
     return json({
       stdout: result.stdout || "",
@@ -55,9 +37,35 @@ export async function onRequestPost(context) {
 }
 
 const LANGUAGE_IDS = {
-  cpp: 105,
-  php: 98
+  cpp: [105, 54, 53],
+  php: [98, 68]
 };
+
+async function judge0Submit(env, languageIds, sourceCode, stdin) {
+  const baseUrl = env.JUDGE0_URL || "https://ce.judge0.com";
+  const token = env.JUDGE0_TOKEN || "";
+  let lastError = "";
+
+  for (const languageId of languageIds) {
+    const response = await fetch(`${baseUrl.replace(/\/$/, "")}/submissions?base64_encoded=false&wait=true`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { "X-Auth-Token": token } : {})
+      },
+      body: JSON.stringify({
+        language_id: languageId,
+        source_code: sourceCode,
+        stdin
+      })
+    });
+    const result = await response.json();
+    if (response.ok && !result.error) return result;
+    lastError = result.error || result.message || `Compiler API error (${response.status}).`;
+  }
+
+  throw new Error(lastError || "Compiler API error.");
+}
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {

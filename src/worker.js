@@ -33,16 +33,16 @@ export default {
 };
 
 const LANGUAGE_IDS = {
-  cpp: 105,
-  php: 98
+  cpp: [105, 54, 53],
+  php: [98, 68]
 };
 
 async function compileCode(request, env) {
   try {
     const body = await request.json();
     const language = String(body.language || "").toLowerCase();
-    const languageId = LANGUAGE_IDS[language];
-    if (!languageId) {
+    const languageIds = LANGUAGE_IDS[language];
+    if (!languageIds) {
       return json({ error: "Only PHP and C++ are enabled." }, 400);
     }
 
@@ -51,25 +51,7 @@ async function compileCode(request, env) {
       return json({ error: "Code is empty." }, 400);
     }
 
-    const baseUrl = env.JUDGE0_URL || "https://ce.judge0.com";
-    const token = env.JUDGE0_TOKEN || "";
-    const response = await fetch(`${baseUrl.replace(/\/$/, "")}/submissions?base64_encoded=false&wait=true`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { "X-Auth-Token": token } : {})
-      },
-      body: JSON.stringify({
-        language_id: languageId,
-        source_code: sourceCode,
-        stdin: String(body.stdin || "").slice(0, 8000)
-      })
-    });
-
-    const result = await response.json();
-    if (!response.ok) {
-      return json({ error: result.error || result.message || "Compiler API error." }, response.status);
-    }
+    const result = await judge0Submit(env, languageIds, sourceCode, String(body.stdin || "").slice(0, 8000));
 
     return json({
       stdout: result.stdout || "",
@@ -83,6 +65,32 @@ async function compileCode(request, env) {
   }
 }
 
+async function judge0Submit(env, languageIds, sourceCode, stdin) {
+  const baseUrl = env.JUDGE0_URL || "https://ce.judge0.com";
+  const token = env.JUDGE0_TOKEN || "";
+  let lastError = "";
+
+  for (const languageId of languageIds) {
+    const response = await fetch(`${baseUrl.replace(/\/$/, "")}/submissions?base64_encoded=false&wait=true`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { "X-Auth-Token": token } : {})
+      },
+      body: JSON.stringify({
+        language_id: languageId,
+        source_code: sourceCode,
+        stdin
+      })
+    });
+    const result = await response.json();
+    if (response.ok && !result.error) return result;
+    lastError = result.error || result.message || `Compiler API error (${response.status}).`;
+  }
+
+  throw new Error(lastError || "Compiler API error.");
+}
+
 async function runAiAssistant(request, env) {
   try {
     if (!env.OPENAI_API_KEY) {
@@ -94,8 +102,12 @@ async function runAiAssistant(request, env) {
     const language = String(body.language || "html").toLowerCase().slice(0, 20);
     const uiLanguage = String(body.ui_language || "ar").toLowerCase() === "en" ? "English" : "Arabic";
     const code = String(body.code || "").slice(0, 20000);
-    if (!code.trim()) {
+    const message = String(body.message || "").slice(0, 4000);
+    if (action !== "chat" && !code.trim()) {
       return json({ error: "Code is empty." }, 400);
+    }
+    if (action === "chat" && !message.trim()) {
+      return json({ error: "Message is empty." }, 400);
     }
 
     const model = env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -120,7 +132,7 @@ async function runAiAssistant(request, env) {
             content: [
               {
                 type: "input_text",
-                text: buildAiPrompt(action, language, code)
+                text: buildAiPrompt(action, language, action === "chat" ? message : code)
               }
             ]
           }
@@ -168,7 +180,7 @@ async function runAiAssistant(request, env) {
 
 function normalizeAction(action) {
   const value = String(action || "explain").toLowerCase();
-  return ["explain", "fix", "improve", "example"].includes(value) ? value : "explain";
+  return ["explain", "fix", "improve", "example", "chat"].includes(value) ? value : "explain";
 }
 
 function buildAiPrompt(action, language, code) {
@@ -176,8 +188,18 @@ function buildAiPrompt(action, language, code) {
     explain: "Explain what the code does, name the important tags/functions/ids/names/classes, and point out possible problems. Do not rewrite the whole code unless needed.",
     fix: "Find mistakes and return a corrected version of the code. Keep the same intent.",
     improve: "Improve the code style, structure, readability, accessibility, and beginner clarity. Return an improved version.",
-    example: "Create a stronger learning example in the same language, using the same topic when possible."
+    example: "Create a stronger learning example in the same language, using the same topic when possible.",
+    chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary."
   };
+  if (action === "chat") {
+    return [
+      "Action: chat",
+      tasks.chat,
+      "Return JSON with title, explanation, code, and tips.",
+      "User message:",
+      code
+    ].join("\n");
+  }
   return [
     `Action: ${action}`,
     `Language: ${language}`,

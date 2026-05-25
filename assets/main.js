@@ -13,6 +13,9 @@ const ui = {
     materials: "المواد",
     programming: "البرمجة",
     compiler: "Compiler",
+    ai: "AI",
+    errors: "أخطاء برمجية",
+    more: "المزيد",
     search: "البحث",
     about: "عن المنصة",
     contact: "تواصل",
@@ -79,6 +82,9 @@ const ui = {
     materials: "Materials",
     programming: "Programming",
     compiler: "Compiler",
+    ai: "AI",
+    errors: "Coding Errors",
+    more: "More",
     search: "Search",
     about: "About",
     contact: "Contact",
@@ -193,19 +199,36 @@ function setLanguage(lang) {
 
 function ensureNavigation() {
   if (!menu) return;
-  const searchLink = menu.querySelector('a[href="search.html"]');
-  [
-    ["programming.html", "programming", "programming"],
-    ["compiler.html", "compiler", "compiler"]
-  ].forEach(([href, key, page]) => {
-    if (menu.querySelector(`a[href="${href}"]`)) return;
-    const link = document.createElement("a");
-    link.href = href;
-    link.dataset.text = key;
-    link.textContent = ui[currentLang][key];
-    if (document.body.getAttribute("data-page") === page) link.setAttribute("aria-current", "page");
-    menu.insertBefore(link, searchLink || null);
-  });
+  const page = document.body.getAttribute("data-page") || "";
+  const active = (...pages) => pages.includes(page) ? ` aria-current="page"` : "";
+  const courseCards = content
+    .filter((item) => item.type === "course")
+    .slice(0, 3)
+    .map((item) => {
+      const image = item.thumbnail || item.icon || "assets/my-logo-transparent.png";
+      return `
+        <a class="course-menu-card" href="content.html?id=${encodeURIComponent(item.id)}">
+          <img src="${image}" alt="${escapeHtml(text(item.title))}" loading="lazy">
+          <span>${escapeHtml(text(item.title))}</span>
+        </a>
+      `;
+    })
+    .join("");
+
+  menu.innerHTML = `
+    <div class="nav-dropdown">
+      <a href="courses.html"${active("courses", "content")} data-nav-root="courses">${ui[currentLang].courses}</a>
+      <div class="nav-dropdown-panel" aria-label="${ui[currentLang].courses}">
+        ${courseCards}
+        <a class="course-menu-more" href="courses.html">${ui[currentLang].more}</a>
+      </div>
+    </div>
+    <a href="compiler.html"${active("compiler")}>${ui[currentLang].compiler}</a>
+    <a href="articles.html"${active("articles")}>${ui[currentLang].articles}</a>
+    <a href="errors.html"${active("errors")}>${ui[currentLang].errors}</a>
+    <a href="ai.html"${active("ai")}>${ui[currentLang].ai}</a>
+    <a href="blog.html"${active("blog")}>${ui[currentLang].blog}</a>
+  `;
 }
 
 function cardAction(item) {
@@ -334,6 +357,15 @@ function renderCollection(type, root) {
   if (type === "lectures") {
     const items = courseLectures()
       .filter((item) => `${text(item.title)} ${text(item.summary)} ${text(item.course)}`.toLowerCase().includes(query));
+    renderPagedItems(root, items);
+    return;
+  }
+  if (type === "errors") {
+    const source = content.concat(courseLectures());
+    const terms = /error|errors|bug|debug|syntax|exception|warning|خطأ|اخطاء|أخطاء|تصحيح|مشكلة/i;
+    const items = source
+      .filter((item) => terms.test(`${text(item.title)} ${text(item.summary)} ${(item.tags || []).join(" ")}`))
+      .filter((item) => `${text(item.title)} ${text(item.summary)}`.toLowerCase().includes(query));
     renderPagedItems(root, items);
     return;
   }
@@ -631,6 +663,7 @@ function renderAll() {
   setupScrollSystem();
   setupTerminalMotion();
   setupContactForm();
+  setupAiChat();
 }
 
 if (menuButton && menu) {
@@ -982,15 +1015,39 @@ const compilerExamples = {
   });
 </script>`,
   php: `<?php
-$student = "Abdalla Academy";
-$tracks = ["HTML", "CSS", "JavaScript", "PHP"];
-
-echo "Welcome to " . $student . PHP_EOL;
-
-foreach ($tracks as $track) {
-    echo "Learning: " . $track . PHP_EOL;
-}
-?>`,
+$title = "Abdalla Academy";
+$tracks = ["HTML", "JavaScript", "PHP"];
+$active = "PHP connected";
+?>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><?php echo $title; ?></title>
+    <style>
+      body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: white; }
+      main { min-height: 100vh; display: grid; place-items: center; padding: 32px; }
+      .panel { border: 1px solid #00e5ff; padding: 24px; box-shadow: 0 0 36px rgba(0, 229, 255, .22); }
+      span { color: #b7ff00; font-weight: 900; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="panel">
+        <h1><?php echo $title; ?></h1>
+        <p id="status"><?php echo $active; ?></p>
+        <ul>
+          <?php foreach ($tracks as $track): ?>
+            <li><span><?php echo $track; ?></span></li>
+          <?php endforeach; ?>
+        </ul>
+      </section>
+    </main>
+    <script>
+      document.getElementById("status").textContent += " + JavaScript ready";
+    </script>
+  </body>
+</html>`,
   cpp: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -1026,6 +1083,7 @@ function setupCompilerStudio() {
   const resetButtons = lab.querySelectorAll("[data-reset-compiler]");
   const aiButtons = lab.querySelectorAll("[data-ai-action]");
   const aiOutput = lab.querySelector("[data-ai-output]");
+  const exitButton = lab.querySelector("[data-exit-compiler]");
   if (!editor || !preview || !output || !issues) return;
   if (lab.dataset.compilerReady === "true") {
     runCompilerStudio();
@@ -1052,7 +1110,9 @@ function setupCompilerStudio() {
   tabs.forEach((tabNode) => {
     tabNode.addEventListener("click", () => {
       saveCurrent();
-      loadExample(tabNode.dataset.compilerTab || "html");
+      const nextLanguage = tabNode.dataset.compilerTab || "html";
+      loadExample(nextLanguage);
+      enterCompilerWorld(nextLanguage);
     });
   });
   runButtons.forEach((runButton) => runButton.addEventListener("click", () => {
@@ -1063,6 +1123,7 @@ function setupCompilerStudio() {
     localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
     loadExample(compilerLanguage, true);
   }));
+  exitButton?.addEventListener("click", () => exitCompilerWorld());
   aiButtons.forEach((button) => {
     button.addEventListener("click", () => {
       runCompilerAi(button.dataset.aiAction || "explain", editor, aiOutput, highlight);
@@ -1129,7 +1190,11 @@ async function runCompilerStudio() {
   if (compilerLanguage === "php" || compilerLanguage === "cpp") {
     preview.hidden = true;
     preview.removeAttribute("srcdoc");
-    await runCloudCompiler(compilerLanguage, code, output, issues);
+    const result = await runCloudCompiler(compilerLanguage, code, output, issues);
+    if (compilerLanguage === "php" && result?.stdout && /<\/?[a-z][\s\S]*>/i.test(result.stdout)) {
+      preview.srcdoc = result.stdout;
+      preview.hidden = false;
+    }
     return;
   }
   preview.hidden = true;
@@ -1157,12 +1222,42 @@ async function runCloudCompiler(language, code, output, issues) {
     issues.innerHTML = stderr
       ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات compiler" : "Compiler output"}</strong><span>${escapeHtml(stderr)}</span></li>`
       : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? `تم تشغيل ${label}.` : `${label} executed.`}</span></li>`;
+    return { stdout, stderr };
   } catch (error) {
     output.textContent = currentLang === "ar"
       ? "تعذر تشغيل الكود الآن."
       : "Could not run the code right now.";
     issues.innerHTML = `<li class="error"><strong>API</strong><span>${escapeHtml(error.message)}</span></li>`;
+    return null;
   }
+}
+
+function enterCompilerWorld(language) {
+  document.body.classList.add("compiler-world-active");
+  document.body.dataset.compilerWorld = language;
+  showCompilerBoot(language);
+}
+
+function exitCompilerWorld() {
+  document.body.classList.remove("compiler-world-active");
+  delete document.body.dataset.compilerWorld;
+}
+
+function showCompilerBoot(language) {
+  document.querySelector(".compiler-boot-overlay")?.remove();
+  const label = language === "js" ? "JavaScript" : language.toUpperCase();
+  const overlay = document.createElement("div");
+  overlay.className = "compiler-boot-overlay";
+  overlay.innerHTML = `
+    <div class="compiler-boot-window" role="status" aria-live="polite">
+      <span>$ init ${escapeHtml(label)} compiler</span>
+      <span>$ load syntax colors</span>
+      <span>$ connect runtime</span>
+      <strong>$ ready_</strong>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  window.setTimeout(() => overlay.remove(), 1350);
 }
 
 async function runCompilerAi(action, editor, output, highlight) {
@@ -1252,7 +1347,7 @@ function tokenSpan(className, value) {
 function protectTokens(html, regex, className) {
   const tokens = [];
   const protectedHtml = html.replace(regex, (match) => {
-    const key = `\u0000${tokens.length}\u0000`;
+    const key = `\uE000${tokens.length}\uE001`;
     tokens.push(tokenSpan(className, match));
     return key;
   });
@@ -1260,7 +1355,21 @@ function protectTokens(html, regex, className) {
 }
 
 function restoreTokens(html, tokens) {
-  return html.replace(/\u0000(\d+)\u0000/g, (_, index) => tokens[Number(index)] || "");
+  return html.replace(/\uE000(\d+)\uE001/g, (_, index) => tokens[Number(index)] || "");
+}
+
+function createTokenStash() {
+  const tokens = [];
+  return {
+    put(className, value) {
+      const key = String.fromCharCode(0xE100 + tokens.length);
+      tokens.push(tokenSpan(className, value));
+      return key;
+    },
+    restore(html) {
+      return html.replace(/[\uE100-\uF8FF]/g, (key) => tokens[key.charCodeAt(0) - 0xE100] || "");
+    }
+  };
 }
 
 function highlightHtml(code) {
@@ -1277,42 +1386,39 @@ function highlightHtml(code) {
 
 function highlightJs(code) {
   let html = escapeHtml(code);
-  const comments = protectTokens(html, /(\/\/.*$)/gm, "tok-comment");
-  html = comments.html;
-  const strings = protectTokens(html, /(`(?:\\.|[^`])*`|&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, "tok-string");
-  html = strings.html;
-  html = html.replace(/\b(const|let|var|function|return|if|else|for|while|class|new|async|await|try|catch|throw|document|console)\b/g, tokenSpan("tok-keyword", "$1"));
-  html = html.replace(/\b([a-zA-Z_$][\w$]*)(?=\s*\()/g, tokenSpan("tok-function", "$1"));
-  html = html.replace(/\b(id|name|className|textContent|innerHTML|addEventListener|getElementById|querySelector)\b/g, tokenSpan("tok-attr", "$1"));
-  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, tokenSpan("tok-number", "$1"));
-  return restoreTokens(restoreTokens(html, strings.tokens), comments.tokens);
+  const stash = createTokenStash();
+  html = html.replace(/(\/\/.*$)/gm, (match) => stash.put("tok-comment", match));
+  html = html.replace(/(`(?:\\.|[^`])*`|&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, (match) => stash.put("tok-string", match));
+  html = html.replace(/\b(const|let|var|function|return|if|else|for|while|class|new|async|await|try|catch|throw|document|console)\b/g, (match) => stash.put("tok-keyword", match));
+  html = html.replace(/\b([a-zA-Z_$][\w$]*)(?=\s*\()/g, (match) => stash.put("tok-function", match));
+  html = html.replace(/\b(id|name|className|textContent|innerHTML|addEventListener|getElementById|querySelector)\b/g, (match) => stash.put("tok-attr", match));
+  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, (match) => stash.put("tok-number", match));
+  return stash.restore(html);
 }
 
 function highlightPhp(code) {
   let html = escapeHtml(code);
-  html = html.replace(/(&lt;\?php|\?&gt;)/g, tokenSpan("tok-tag", "$1"));
-  const comments = protectTokens(html, /(\/\/.*$|#.*$)/gm, "tok-comment");
-  html = comments.html;
-  const strings = protectTokens(html, /(&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, "tok-string");
-  html = strings.html;
-  html = html.replace(/(\$[a-zA-Z_]\w*)/g, tokenSpan("tok-variable", "$1"));
-  html = html.replace(/\b(echo|foreach|as|if|else|function|return|class|public|private|protected|new|array|require|include)\b/g, tokenSpan("tok-keyword", "$1"));
-  html = html.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, tokenSpan("tok-function", "$1"));
-  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, tokenSpan("tok-number", "$1"));
-  return restoreTokens(restoreTokens(html, strings.tokens), comments.tokens);
+  const stash = createTokenStash();
+  html = html.replace(/(&lt;\?php|\?&gt;)/g, (match) => stash.put("tok-tag", match));
+  html = html.replace(/(\/\/.*$|#.*$)/gm, (match) => stash.put("tok-comment", match));
+  html = html.replace(/(&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, (match) => stash.put("tok-string", match));
+  html = html.replace(/(\$[a-zA-Z_]\w*)/g, (match) => stash.put("tok-variable", match));
+  html = html.replace(/\b(echo|foreach|as|if|else|function|return|class|public|private|protected|new|array|require|include)\b/g, (match) => stash.put("tok-keyword", match));
+  html = html.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, (match) => stash.put("tok-function", match));
+  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, (match) => stash.put("tok-number", match));
+  return stash.restore(html);
 }
 
 function highlightCpp(code) {
   let html = escapeHtml(code);
-  const comments = protectTokens(html, /(\/\/.*$)/gm, "tok-comment");
-  html = comments.html;
-  const strings = protectTokens(html, /(&lt;[a-zA-Z0-9_.]+&gt;|&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, "tok-string");
-  html = strings.html;
-  html = html.replace(/(#include|#define|#ifdef|#endif)/g, tokenSpan("tok-keyword", "$1"));
-  html = html.replace(/\b(using|namespace|int|return|for|while|if|else|class|public|private|void|const|auto|vector|string|include|std|cout|cin|endl)\b/g, tokenSpan("tok-keyword", "$1"));
-  html = html.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, tokenSpan("tok-function", "$1"));
-  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, tokenSpan("tok-number", "$1"));
-  return restoreTokens(restoreTokens(html, strings.tokens), comments.tokens);
+  const stash = createTokenStash();
+  html = html.replace(/(\/\/.*$)/gm, (match) => stash.put("tok-comment", match));
+  html = html.replace(/(&lt;[a-zA-Z0-9_.]+&gt;|&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, (match) => stash.put("tok-string", match));
+  html = html.replace(/(#include|#define|#ifdef|#endif)/g, (match) => stash.put("tok-keyword", match));
+  html = html.replace(/\b(using|namespace|int|return|for|while|if|else|class|public|private|void|const|auto|vector|string|include|std|cout|cin|endl)\b/g, (match) => stash.put("tok-keyword", match));
+  html = html.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, (match) => stash.put("tok-function", match));
+  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, (match) => stash.put("tok-number", match));
+  return stash.restore(html);
 }
 
 function buildStudioJsDocument(code) {
@@ -1470,6 +1576,44 @@ function setupContactForm() {
       window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       if (status) status.textContent = currentLang === "ar" ? "تم تجهيز الرسالة في تطبيق البريد." : "The email is ready in your mail app.";
     });
+  });
+}
+
+function setupAiChat() {
+  const form = document.querySelector("[data-ai-chat-form]");
+  if (!form || form.dataset.ready === "true") return;
+  form.dataset.ready = "true";
+  const input = form.querySelector("[data-ai-chat-input]");
+  const log = document.querySelector("[data-ai-chat-log]");
+  const append = (role, message) => {
+    if (!log) return;
+    const item = document.createElement("article");
+    item.className = `ai-chat-message ${role}`;
+    item.innerHTML = `<strong>${role === "user" ? "user" : "ai"}</strong><p>${escapeHtml(message)}</p>`;
+    log.appendChild(item);
+    log.scrollTop = log.scrollHeight;
+  };
+  append("ai", currentLang === "ar" ? "اسأل عن البرمجة فقط." : "Ask about programming only.");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const message = input?.value.trim();
+    if (!message) return;
+    input.value = "";
+    append("user", message);
+    append("ai", "$ thinking...");
+    const loading = log?.lastElementChild;
+    try {
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "chat", message, ui_language: currentLang })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
+      if (loading) loading.querySelector("p").textContent = data.explanation || data.title || "AI";
+    } catch (error) {
+      if (loading) loading.querySelector("p").textContent = error.message;
+    }
   });
 }
 
