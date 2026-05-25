@@ -5083,6 +5083,7 @@ body.compiler-world-active .compiler-back-button {
 .ai-chat-message p {
   margin: 0.35rem 0 0;
   color: var(--terminal-text);
+  white-space: pre-wrap;
 }
 
 .ai-chat-form {

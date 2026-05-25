@@ -131,7 +131,8 @@ async function runAiAssistant(request, env) {
         model,
         instructions: [
           "You are the Abdalla Academy compiler assistant.",
-          "Answer only for learning and coding help.",
+          "Answer programming questions freely and naturally for learners.",
+          "Reject only questions that are clearly unrelated to programming, web development, software, compilers, debugging, databases, or learning code.",
           "Be direct, practical, and beginner-friendly.",
           "Do not solve the whole task for the learner. Point to the problem, explain why it happens, and give ordered hints so the learner can fix it.",
           "For compiler help actions, keep the code field empty. Do not return a full corrected solution.",
@@ -207,7 +208,8 @@ async function callCerebrasAssistant(action, language, uiLanguage, source, env) 
           role: "system",
           content: [
             "You are the Abdalla Academy compiler assistant.",
-            "Answer only for programming, web development, compilers, debugging, and learning code.",
+            "Answer programming questions freely and naturally for learners.",
+            "Reject only questions that are clearly unrelated to programming, web development, software, compilers, debugging, databases, or learning code.",
             "Do not solve the whole task for the learner.",
             "Point to the problem, explain why it happens, and give ordered hints.",
             "For compiler help actions, keep the code field empty.",
@@ -249,7 +251,8 @@ async function callGeminiAssistant(action, language, uiLanguage, source, env) {
           {
             text: [
               "You are the Abdalla Academy compiler assistant.",
-              "Answer only for programming, web development, compilers, debugging, and learning code.",
+              "Answer programming questions freely and naturally for learners.",
+              "Reject only questions that are clearly unrelated to programming, web development, software, compilers, debugging, databases, or learning code.",
               "Do not solve the whole task for the learner.",
               "Point to the problem, explain why it happens, and give ordered hints.",
               "For compiler help actions, keep the code field empty.",
@@ -314,7 +317,7 @@ function buildAiPrompt(action, language, code) {
     improve: "Give learning hints for structure, readability, accessibility, debugging, and how to test the next step. Do not return rewritten code.",
     example: "Create one clear practice task related to this code, then teach the learner how to analyze the task before coding. Include: the task text, required input or user action, expected output, data needed, conditions, step order, and simple tests. Do not provide the final solution or corrected code.",
     teach: "Act as a programming coach. If the code includes a Learning focus value, explain that exact concept first. Explain what it means, where it appears in the code, when it is used, and one small experiment the learner can try. Do not rewrite the solution.",
-    chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary.",
+    chat: "Answer the learner's programming question directly. The question may be conceptual, practical, debugging-related, or about how to think before coding. Do not force the learner to use the Compiler page. If the message is clearly unrelated to programming, politely refuse. Short examples are allowed when they help learning.",
     generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."
   };
   if (action === "chat") {
@@ -338,23 +341,122 @@ function buildAiPrompt(action, language, code) {
   ].join("\n");
 }
 
+function isProgrammingTopic(text) {
+  const value = String(text || "").trim();
+  if (!value) return false;
+  return /(html|css|js|javascript|typescript|php|c\+\+|cpp|c#|python|java|sql|mysql|database|api|json|dom|react|node|express|laravel|code|coding|programming|compiler|debug|bug|error|syntax|function|class|object|variable|array|loop|if|condition|algorithm|frontend|backend|server|website|web app|برمجة|برمجي|كود|شفرة|موقع|تطبيق|خوارزمية|دالة|كلاس|متغير|مصفوفة|حلقة|شرط|قاعدة بيانات|سيرفر|واجهة|خطأ|تصحيح|كمبايلر|كومبايلر)/i.test(value);
+}
+
+function buildLocalChatResponse(text, ar) {
+  const value = String(text || "").toLowerCase();
+  const wantsMeaning = /(ما\s+معنى|ماهو|ما\s+هي|what\s+is|meaning)/i.test(text);
+  const aboutProgramming = /(برمجة|programming|coding)/i.test(text);
+  const aboutIf = /\bif\b|شرط|الجملة الشرطية|condition/i.test(text);
+  const aboutLoop = /loop|for|while|حلقة|تكرار/i.test(text);
+  const aboutFunction = /function|دالة/i.test(text);
+  const aboutHtml = /html|tag|وسم/i.test(text);
+  const aboutPhp = /php/i.test(value);
+  const aboutCpp = /c\+\+|cpp/i.test(text);
+
+  if (wantsMeaning && aboutProgramming) {
+    return {
+      title: ar ? "معنى البرمجة" : "Programming meaning",
+      explanation: ar
+        ? "البرمجة هي كتابة تعليمات واضحة للحاسوب حتى ينفذ مهمة محددة. أنت لا تكتب كلاما عاما، بل خطوات مرتبة: خذ قيمة، افحص شرطا، كرر عملية، اعرض نتيجة، أو خزّن بيانات."
+        : "Programming means writing clear instructions that a computer can execute. You are not writing general text; you are arranging steps: take input, check a condition, repeat work, show output, or store data.",
+      code: "",
+      tips: ar
+        ? ["فكر في المطلوب كخطوات صغيرة.", "حدد المدخلات والنتيجة قبل كتابة الكود.", "حوّل كل خطوة إلى شرط أو حلقة أو دالة عند الحاجة."]
+        : ["Break the requirement into small steps.", "Identify input and output before writing code.", "Turn each step into a condition, loop, or function when needed."]
+    };
+  }
+
+  if (aboutIf) {
+    return {
+      title: ar ? "جملة if" : "if statement",
+      explanation: ar
+        ? "نستخدم if عندما نريد أن ينفذ البرنامج أمرا فقط إذا تحقق شرط معين. الفكرة: اسأل سؤالا نتيجته true أو false، وإذا كانت true نفذ الكود داخل القوسين."
+        : "Use if when the program should run code only when a condition is true. The idea is to ask a true/false question, then execute the block when the answer is true.",
+      code: ar ? "" : "",
+      tips: ar
+        ? ["اكتب الشرط بين الأقواس.", "ضع العمل المطلوب داخل جسم if.", "استخدم else للحالة العكسية."]
+        : ["Put the condition inside parentheses.", "Put the required action inside the if block.", "Use else for the opposite case."]
+    };
+  }
+
+  if (aboutLoop) {
+    return {
+      title: ar ? "الحلقات" : "Loops",
+      explanation: ar
+        ? "الحلقة تستخدم لتكرار نفس الفكرة أكثر من مرة بدون نسخ الكود. استخدم for عندما تعرف عدد التكرارات، واستخدم while عندما يعتمد التوقف على شرط يتغير أثناء التشغيل."
+        : "A loop repeats the same idea without copying code. Use for when you know the number of repetitions, and while when stopping depends on a condition that changes while running.",
+      code: "",
+      tips: ar
+        ? ["حدد ماذا سيتكرر.", "حدد متى يبدأ التكرار.", "حدد متى يتوقف حتى لا تصبح الحلقة لا نهائية."]
+        : ["Identify what repeats.", "Identify where repetition starts.", "Identify when it stops so the loop does not become infinite."]
+    };
+  }
+
+  if (aboutFunction) {
+    return {
+      title: ar ? "الدوال" : "Functions",
+      explanation: ar
+        ? "الدالة تجمع خطوات لها اسم واحد. نستخدمها حتى لا نكرر نفس الكود، وحتى يصبح البرنامج أسهل قراءة واختبار."
+        : "A function groups steps under one name. We use it to avoid repeating code and to make the program easier to read and test.",
+      code: "",
+      tips: ar
+        ? ["اختر اسما يوضح وظيفة الدالة.", "مرر القيم التي تحتاجها كمدخلات.", "اجعل الدالة ترجع نتيجة واحدة واضحة عندما تستطيع."]
+        : ["Choose a name that explains the job.", "Pass needed values as inputs.", "Return one clear result when possible."]
+    };
+  }
+
+  if (aboutHtml) {
+    return {
+      title: "HTML",
+      explanation: ar
+        ? "HTML يبني هيكل الصفحة. الوسوم تحدد معنى كل جزء: عنوان، فقرة، زر، صورة، نموذج، أو قسم. المتصفح يقرأ هذا الهيكل ثم يعرضه للمستخدم."
+        : "HTML builds the page structure. Tags define what each part means: heading, paragraph, button, image, form, or section. The browser reads that structure and displays it.",
+      code: "",
+      tips: ar
+        ? ["استخدم الوسم حسب معناه، وليس شكله فقط.", "اجعل id فريدا للعنصر الواحد.", "اربط CSS للتصميم وJavaScript للتفاعل."]
+        : ["Use each tag by meaning, not only by appearance.", "Keep each id unique.", "Use CSS for style and JavaScript for interaction."]
+    };
+  }
+
+  if (aboutPhp || aboutCpp) {
+    return {
+      title: aboutPhp ? "PHP" : "C++",
+      explanation: ar
+        ? `${aboutPhp ? "PHP تعمل غالبا على السيرفر وتولد HTML يصل للمتصفح." : "C++ لغة قوية يتعامل معها compiler قبل التشغيل."} افهم رسالة الخطأ من أول سطر مهم، ثم ارجع للسطر القريب في الكود.`
+        : `${aboutPhp ? "PHP usually runs on the server and generates HTML for the browser." : "C++ is compiled before it runs."} Read the first important error line, then go back to the nearby line in the code.`,
+      code: "",
+      tips: ar
+        ? ["ابدأ من أول رسالة خطأ حقيقية.", "راجع الأقواس والفواصل وعلامات الاقتباس.", "شغل بعد كل تعديل صغير."]
+        : ["Start from the first real error message.", "Check brackets, commas, and quotes.", "Run after each small change."]
+    };
+  }
+
+  return {
+    title: ar ? "مساعد البرمجة" : "Programming assistant",
+    explanation: ar
+      ? "اسألني عن المفهوم أو الخطأ أو طريقة التفكير في الحل، وسأشرح لك الفكرة بخطوات واضحة بدون أن أحل التمرين كاملا بدلا منك."
+      : "Ask about a concept, error, or how to reason through a solution, and I will explain it in clear steps without taking the whole exercise away from you.",
+    code: "",
+    tips: ar
+      ? ["اكتب السؤال أو المطلوب كما هو.", "اذكر اللغة المستخدمة إن كانت مهمة.", "إذا عندك خطأ، أرسل رسالة الخطأ مع السطر القريب منها."]
+      : ["Paste the question or requirement as-is.", "Mention the language when it matters.", "For errors, include the error message and nearby line."]
+  };
+}
+
 function buildLocalAiResponse(action, language, uiLanguage, source) {
   const ar = uiLanguage !== "English";
   const text = String(source || "");
   if (action === "chat") {
-    const programming = /(html|css|js|javascript|php|c\+\+|cpp|code|compiler|function|class|variable|array|debug|error|syntax|برمجة|كود|دالة|متغير|مصفوفة|خطأ|تصحيح)/i.test(text);
-    return programming
-      ? {
-          title: ar ? "فحص برمجي" : "Code check",
-          explanation: ar ? "اكتب الكود داخل صفحة Compiler واضغط فحص حتى أحدد لك المكان المحتمل للمشكلة." : "Paste the code in the Compiler page and press Scan so I can point to the likely issue.",
-          code: "",
-          tips: ar
-            ? ["ابدأ من رسالة الخطأ إن وجدت.", "راجع السطر القريب من الخطأ.", "غيّر خطوة واحدة ثم شغل الكود مرة ثانية."]
-            : ["Start from the error message if one exists.", "Check the line near the error.", "Change one thing, then run again."]
-        }
+    return isProgrammingTopic(text)
+      ? buildLocalChatResponse(text, ar)
       : {
           title: ar ? "خارج النطاق" : "Out of scope",
-          explanation: ar ? "لا أستطيع المساعدة في هذا الطلب." : "I cannot help with this request.",
+          explanation: ar ? "أقدر أساعدك في أسئلة البرمجة، المواقع، الأخطاء، قواعد البيانات، والخوارزميات." : "I can help with programming, websites, errors, databases, and algorithms.",
           code: "",
           tips: []
         };

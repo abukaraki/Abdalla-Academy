@@ -2323,11 +2323,21 @@ function setupAiChat() {
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
-      if (loading) loading.querySelector("p").textContent = data.explanation || data.title || "AI";
+      if (loading) loading.querySelector("p").textContent = formatAiChatReply(data);
     } catch (error) {
       if (loading) loading.querySelector("p").textContent = currentLang === "ar" ? "المساعد غير متاح الآن. جرّب مرة ثانية بعد لحظات." : "The assistant is not available right now. Try again in a moment.";
     }
   });
+}
+
+function formatAiChatReply(data) {
+  const parts = [];
+  if (data?.explanation) parts.push(String(data.explanation));
+  if (Array.isArray(data?.tips) && data.tips.length) {
+    parts.push(data.tips.map((tip) => `- ${tip}`).join("\n"));
+  }
+  if (data?.code) parts.push(String(data.code));
+  return parts.join("\n\n") || String(data?.title || "AI");
 }
 
 setLanguage(currentLang);
