@@ -162,7 +162,7 @@ function normalizeAiPayload(parsed) {
 
 function normalizeAction(action) {
   const value = String(action || "explain").toLowerCase();
-  return ["explain", "fix", "improve", "example", "teach", "analyze_question", "chat", "generate_example"].includes(value) ? value : "explain";
+  return ["explain", "fix", "improve", "example", "teach", "chat", "generate_example"].includes(value) ? value : "explain";
 }
 
 function buildAiPrompt(action, language, code) {
@@ -170,9 +170,8 @@ function buildAiPrompt(action, language, code) {
     explain: "Scan the code and runtime output. Name the important tags/functions/ids/names/classes, then point out suspicious lines. Do not rewrite the code.",
     fix: "Use the code and runtime output to find likely mistakes. For each mistake, mention the file/line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
     improve: "Give learning hints for structure, readability, accessibility, debugging, and how to test the next step. Do not return rewritten code.",
-    example: "Create a small practice challenge related to this code with steps the learner should try. Do not provide the final solution.",
+    example: "Create one clear practice task related to this code, then teach the learner how to analyze the task before coding. Include: the task text, required input or user action, expected output, data needed, conditions, step order, and simple tests. Do not provide the final solution or corrected code.",
     teach: "Act as a programming coach. Explain the important concepts used in this code, such as if, loops, functions, arrays, tags, ids, classes, variables, and events. For each concept, explain what it is used for and point to where it appears in the code. Keep it practical and do not rewrite the solution.",
-    analyze_question: "Teach the learner how to analyze a programming question before coding. Based on this code and runtime output, identify the expected input, output, data, conditions, steps, and tests. Give a short checklist the learner can follow. Do not solve the whole task.",
     chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary.",
     generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."
   };
@@ -227,18 +226,8 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     return buildLocalTeachingResponse(language, text, ar);
   }
 
-  if (action === "analyze_question") {
-    return {
-      title: ar ? "تحليل السؤال" : "Question analysis",
-      explanation: ar
-        ? "ابدأ بفهم المطلوب قبل كتابة الكود. حدد البيانات، الشروط، والخطوات، ثم اختبر نتيجة صغيرة."
-        : "Start by understanding the task before writing code. Identify the data, conditions, steps, then test a small result.",
-      code: "",
-      files: {},
-      tips: ar
-        ? ["ما المدخلات الموجودة؟", "ما النتيجة المطلوبة؟", "هل يوجد شرط مثل if أو تكرار مثل loop؟", "قسّم الحل إلى خطوات صغيرة.", "اختبر حالة سهلة ثم حالة فيها خطأ."]
-        : ["What inputs exist?", "What output is required?", "Is there a condition like if or repetition like a loop?", "Break the solution into small steps.", "Test an easy case, then an error case."]
-    };
+  if (action === "example") {
+    return buildLocalPracticeResponse(language, ar);
   }
 
   const lines = text.split(/\r?\n/);
@@ -275,8 +264,7 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     fix: ar ? "مكان المشكلة" : "Problem location",
     improve: ar ? "تلميحات التحسين" : "Improvement hints",
     example: ar ? "تدريب" : "Practice",
-    teach: ar ? "تعلم المفاهيم" : "Learn the concepts",
-    analyze_question: ar ? "تحليل السؤال" : "Question analysis"
+    teach: ar ? "تعلم المفاهيم" : "Learn the concepts"
   };
   return {
     title: titles[action] || "AI",
@@ -286,6 +274,74 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     code: "",
     files: {},
     tips: tips.slice(0, 6)
+  };
+}
+
+function buildLocalPracticeResponse(language, ar) {
+  const tasks = {
+    html: {
+      ar: "قم ببناء صفحة بطاقة طالب تحتوي عنوانا، صورة، وصفا قصيرا، رابطا، وزرا واضحا.",
+      en: "Build a student card page with a title, image, short description, link, and clear button.",
+      inputAr: "المحتوى الذي سيظهر داخل الصفحة: اسم، صورة، وصف، رابط.",
+      inputEn: "The page content: name, image, description, and link.",
+      outputAr: "صفحة مرتبة بعناصر HTML واضحة وسهلة القراءة.",
+      outputEn: "A structured page with clear readable HTML elements."
+    },
+    css: {
+      ar: "قم بتنسيق بطاقة دورة بحيث يكون لها خلفية داكنة، عنوان واضح، زر، وحالة hover.",
+      en: "Style a course card with a dark background, clear title, button, and hover state.",
+      inputAr: "عناصر HTML الموجودة: card، title، button.",
+      inputEn: "Existing HTML elements: card, title, and button.",
+      outputAr: "تصميم واضح ومتجاوب مع حركة hover بسيطة.",
+      outputEn: "A clear responsive design with a simple hover interaction."
+    },
+    js: {
+      ar: "قم ببناء عداد نقاط يزيد عند الضغط على زر، ويعرض رسالة عند الوصول إلى 10.",
+      en: "Build a score counter that increases on button click and shows a message at 10.",
+      inputAr: "ضغط المستخدم على الزر.",
+      inputEn: "The user's button click.",
+      outputAr: "تحديث الرقم ورسالة عند تحقق الشرط.",
+      outputEn: "An updated number and a message when the condition is met."
+    },
+    php: {
+      ar: "قم ببناء نموذج اسم وبريد إلكتروني يعرض رسالة ترحيب بعد الإرسال.",
+      en: "Build a name and email form that shows a welcome message after submission.",
+      inputAr: "بيانات POST: الاسم والبريد الإلكتروني.",
+      inputEn: "POST data: name and email.",
+      outputAr: "رسالة آمنة تعرض الاسم بعد فحصه وتنظيفه.",
+      outputEn: "A safe message that displays the name after validation and escaping."
+    },
+    cpp: {
+      ar: "قم ببناء برنامج يقرأ درجة طالب ويطبع ناجح أو يحتاج مراجعة حسب الدرجة.",
+      en: "Build a program that reads a student grade and prints passed or needs review.",
+      inputAr: "رقم يمثل الدرجة.",
+      inputEn: "A number representing the grade.",
+      outputAr: "رسالة تعتمد على شرط if.",
+      outputEn: "A message based on an if condition."
+    }
+  };
+  const task = tasks[language] || tasks.html;
+
+  return {
+    title: ar ? "تدريب" : "Practice",
+    explanation: ar ? `المطلوب: ${task.ar}` : `Task: ${task.en}`,
+    code: "",
+    files: {},
+    tips: ar
+      ? [
+          `المدخلات: ${task.inputAr}`,
+          `المخرجات: ${task.outputAr}`,
+          "حدد العناصر أو المتغيرات قبل كتابة الكود.",
+          "اكتب الخطوات بالترتيب: قراءة البيانات، تنفيذ الشرط، عرض النتيجة.",
+          "اختبر حالة صحيحة وحالة خطأ قبل اعتبار التدريب منتهيا."
+        ]
+      : [
+          `Input: ${task.inputEn}`,
+          `Output: ${task.outputEn}`,
+          "Identify the elements or variables before writing code.",
+          "Order the steps: read data, apply condition, show result.",
+          "Test a valid case and an invalid case before finishing."
+        ]
   };
 }
 
