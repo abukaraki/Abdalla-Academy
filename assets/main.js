@@ -1626,6 +1626,97 @@ function setupTerminalMotion() {
       node.textContent = commands[index];
     });
   }, 1800);
+  setupTypingTerminals();
+}
+
+function setupTypingTerminals() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const commandSets = [
+    [
+      "abdalla@academy:~$ git clone Abdalla-Academy",
+      "abdalla@academy:~$ cd compiler-lab",
+      "abdalla@academy:~$ npm run start",
+      "password: ********",
+      "access granted",
+      "abdalla@academy:~$ php -S localhost:8000",
+      "abdalla@academy:~$ g++ main.cpp -o app && ./app",
+      "abdalla@academy:~$ open ai --mode hints",
+      "abdalla@academy:~$ deploy --target cloudflare"
+    ],
+    [
+      "abdalla@academy:~$ curl /api/compile",
+      "status: html css js php cpp",
+      "auth: password ********",
+      "run: build, test, debug",
+      "scan: tags functions ids names",
+      "ai: hints only",
+      "deploy: workers online"
+    ]
+  ];
+  document.querySelectorAll("[data-type-terminal]").forEach((terminal, terminalIndex) => {
+    const target = terminal.querySelector("code") || terminal.querySelector(".terminal-screen");
+    if (!target || target.dataset.typingReady === "true") return;
+    target.dataset.typingReady = "true";
+    const lines = commandSets[terminalIndex % commandSets.length];
+    typeTerminalLines(target, lines, 0);
+  });
+}
+
+function typeTerminalLines(target, lines, lineIndex) {
+  target.innerHTML = "";
+  let charIndex = 0;
+  const rendered = [];
+  const write = () => {
+    const line = lines[lineIndex] || "";
+    const next = line.slice(0, charIndex);
+    target.innerHTML = rendered.concat(formatTerminalLine(next, charIndex < line.length)).join("\n");
+    charIndex += 1;
+    if (charIndex <= line.length) {
+      window.setTimeout(write, 22 + Math.random() * 24);
+      return;
+    }
+    rendered.push(formatTerminalLine(line, false));
+    const nextLine = (lineIndex + 1) % lines.length;
+    if (nextLine === 0) {
+      window.setTimeout(() => typeTerminalLines(target, lines, 0), 1500);
+      return;
+    }
+    window.setTimeout(() => typeTerminalLinesAppend(target, lines, nextLine, rendered), 260);
+  };
+  write();
+}
+
+function typeTerminalLinesAppend(target, lines, lineIndex, rendered) {
+  let charIndex = 0;
+  const write = () => {
+    const line = lines[lineIndex] || "";
+    const next = line.slice(0, charIndex);
+    target.innerHTML = rendered.concat(formatTerminalLine(next, charIndex < line.length)).join("\n");
+    target.scrollTop = target.scrollHeight;
+    charIndex += 1;
+    if (charIndex <= line.length) {
+      window.setTimeout(write, 18 + Math.random() * 22);
+      return;
+    }
+    rendered.push(formatTerminalLine(line, false));
+    const nextLine = (lineIndex + 1) % lines.length;
+    if (nextLine === 0) {
+      window.setTimeout(() => typeTerminalLines(target, lines, 0), 1600);
+      return;
+    }
+    window.setTimeout(() => typeTerminalLinesAppend(target, lines, nextLine, rendered), 240);
+  };
+  write();
+}
+
+function formatTerminalLine(line, cursor) {
+  const escaped = escapeHtml(line);
+  const promptMatch = escaped.match(/^([^$]*\$)\s?(.*)$/);
+  const statusMatch = escaped.match(/^(password:|access granted|status:|auth:|run:|scan:|ai:|deploy:)(.*)$/i);
+  const cursorHtml = cursor ? `<span class="typing-cursor">_</span>` : "";
+  if (promptMatch) return `<span class="prompt">${promptMatch[1]}</span> ${promptMatch[2]}${cursorHtml}`;
+  if (statusMatch) return `<span class="${/access granted/i.test(statusMatch[1]) ? "ok" : "prompt"}">${statusMatch[1]}</span>${statusMatch[2]}${cursorHtml}`;
+  return `${escaped}${cursorHtml}`;
 }
 
 function setupPageTerminalHero() {
