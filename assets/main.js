@@ -1064,8 +1064,33 @@ int main() {
 }`
 };
 
+const phpProjectDefaults = {
+  "index.php": compilerExamples.php,
+  "style.css": `body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #05070d;
+  color: white;
+}
+
+.panel {
+  border: 1px solid #00e5ff;
+  padding: 24px;
+  box-shadow: 0 0 36px rgba(0, 229, 255, .22);
+}`,
+  "script.js": `const status = document.getElementById("status");
+if (status) {
+  status.textContent += " + JS file";
+}`,
+  "page.html": `<section class="panel">
+  <h2>HTML file</h2>
+  <p>This block came from page.html</p>
+</section>`
+};
+
 let compilerStudioInitialized = false;
 let compilerLanguage = "html";
+let compilerFile = "index.php";
 let scrollSystemReady = false;
 let terminalMotionReady = false;
 
@@ -1084,6 +1109,8 @@ function setupCompilerStudio() {
   const aiButtons = lab.querySelectorAll("[data-ai-action]");
   const aiOutput = lab.querySelector("[data-ai-output]");
   const exitButton = lab.querySelector("[data-exit-compiler]");
+  const fileTabs = lab.querySelector("[data-compiler-files]");
+  const fileButtons = lab.querySelectorAll("[data-compiler-file]");
   if (!editor || !preview || !output || !issues) return;
   if (lab.dataset.compilerReady === "true") {
     runCompilerStudio();
@@ -1096,15 +1123,24 @@ function setupCompilerStudio() {
     compilerLanguage = language;
     tabs.forEach((tabNode) => tabNode.classList.toggle("is-active", tabNode.dataset.compilerTab === language));
     if (title) title.textContent = language === "js" ? "JavaScript" : language.toUpperCase();
-    const saved = localStorage.getItem(key);
-    if (force || !saved) editor.value = compilerExamples[language];
-    else editor.value = saved;
-    updateCompilerHighlight(editor, highlight, language);
+    if (fileTabs) fileTabs.hidden = language !== "php";
+    if (language === "php") {
+      if (force) resetPhpProject();
+      compilerFile = "index.php";
+      syncFileTabs(fileButtons);
+      editor.value = readPhpProjectFile(compilerFile);
+    } else {
+      const saved = localStorage.getItem(key);
+      if (force || !saved) editor.value = compilerExamples[language];
+      else editor.value = saved;
+    }
+    updateCompilerHighlight(editor, highlight, language === "php" ? fileLanguage(compilerFile) : language);
     runCompilerStudio();
   };
 
   const saveCurrent = () => {
-    localStorage.setItem(`academy-compiler-${compilerLanguage}`, editor.value);
+    if (compilerLanguage === "php") writePhpProjectFile(compilerFile, editor.value);
+    else localStorage.setItem(`academy-compiler-${compilerLanguage}`, editor.value);
   };
 
   tabs.forEach((tabNode) => {
@@ -1120,10 +1156,22 @@ function setupCompilerStudio() {
     runCompilerStudio();
   }));
   resetButtons.forEach((resetButton) => resetButton.addEventListener("click", () => {
-    localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
+    if (compilerLanguage === "php") resetPhpProject();
+    else localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
     loadExample(compilerLanguage, true);
   }));
   exitButton?.addEventListener("click", () => exitCompilerWorld());
+  fileButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (compilerLanguage !== "php") return;
+      writePhpProjectFile(compilerFile, editor.value);
+      compilerFile = button.dataset.compilerFile || "index.php";
+      syncFileTabs(fileButtons);
+      editor.value = readPhpProjectFile(compilerFile);
+      updateCompilerHighlight(editor, highlight, fileLanguage(compilerFile));
+      runCompilerStudio();
+    });
+  });
   aiButtons.forEach((button) => {
     button.addEventListener("click", () => {
       runCompilerAi(button.dataset.aiAction || "explain", editor, aiOutput, highlight);
@@ -1131,7 +1179,7 @@ function setupCompilerStudio() {
   });
   editor.addEventListener("input", () => {
     saveCurrent();
-    updateCompilerHighlight(editor, highlight, compilerLanguage);
+    updateCompilerHighlight(editor, highlight, compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage);
     if (compilerLanguage === "html" || compilerLanguage === "js") {
       window.clearTimeout(editor.dataset.timer);
       editor.dataset.timer = window.setTimeout(runCompilerStudio, 420);
@@ -1153,6 +1201,52 @@ function setupCompilerStudio() {
   loadExample(compilerLanguage);
 }
 
+function fileLanguage(filename) {
+  if (filename.endsWith(".css")) return "css";
+  if (filename.endsWith(".js")) return "js";
+  if (filename.endsWith(".html")) return "html";
+  return "php";
+}
+
+function syncFileTabs(buttons) {
+  buttons.forEach((button) => button.classList.toggle("is-active", button.dataset.compilerFile === compilerFile));
+}
+
+function phpProjectKey(filename) {
+  return `academy-compiler-php-file-${filename}`;
+}
+
+function readPhpProjectFile(filename) {
+  const saved = localStorage.getItem(phpProjectKey(filename));
+  return saved ?? phpProjectDefaults[filename] ?? "";
+}
+
+function writePhpProjectFile(filename, value) {
+  localStorage.setItem(phpProjectKey(filename), value);
+}
+
+function resetPhpProject() {
+  Object.keys(phpProjectDefaults).forEach((filename) => localStorage.removeItem(phpProjectKey(filename)));
+}
+
+function injectBeforeClose(source, closeTag, insert) {
+  if (!insert.trim()) return source;
+  const pattern = new RegExp(closeTag, "i");
+  if (pattern.test(source)) return source.replace(pattern, `${insert}\n$&`);
+  return `${source}\n${insert}`;
+}
+
+function buildPhpProjectSource() {
+  let source = readPhpProjectFile("index.php");
+  const css = readPhpProjectFile("style.css");
+  const js = readPhpProjectFile("script.js");
+  const html = readPhpProjectFile("page.html");
+  source = injectBeforeClose(source, "</head>", css.trim() ? `<style>\n${css}\n</style>` : "");
+  source = injectBeforeClose(source, "</body>", html);
+  source = injectBeforeClose(source, "</body>", js.trim() ? `<script>\n${js}\n</script>` : "");
+  return source;
+}
+
 async function runCompilerStudio() {
   const lab = document.querySelector("[data-compiler-lab]");
   if (!lab) return;
@@ -1162,27 +1256,30 @@ async function runCompilerStudio() {
   const issues = lab.querySelector("[data-compiler-issues]");
   if (!editor || !preview || !output || !issues) return;
   const code = editor.value;
-  updateCompilerHighlight(editor, lab.querySelector("[data-compiler-highlight]"), compilerLanguage);
-  const report = analyzeStudioCode(compilerLanguage, code);
+  if (compilerLanguage === "php") writePhpProjectFile(compilerFile, code);
+  const activeLanguage = compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
+  const runCode = compilerLanguage === "php" ? buildPhpProjectSource() : code;
+  updateCompilerHighlight(editor, lab.querySelector("[data-compiler-highlight]"), activeLanguage);
+  const report = analyzeStudioCode(compilerLanguage, runCode);
   output.textContent = report.output;
   issues.innerHTML = report.issues.length
     ? report.issues.map((issue) => `<li class="${issue.type}"><strong>${issue.title}</strong><span>${issue.message}</span></li>`).join("")
     : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? "الكود يبدو جاهزا للتجربة." : "The code looks ready to try."}</span></li>`;
 
   if (compilerLanguage === "html") {
-    preview.srcdoc = code;
+    preview.srcdoc = runCode;
     preview.hidden = false;
     return;
   }
   if (compilerLanguage === "js") {
-    preview.srcdoc = buildStudioJsDocument(code);
+    preview.srcdoc = buildStudioJsDocument(runCode);
     preview.hidden = false;
     return;
   }
   if (compilerLanguage === "php" || compilerLanguage === "cpp") {
     preview.hidden = true;
     preview.removeAttribute("srcdoc");
-    const result = await runCloudCompiler(compilerLanguage, code, output, issues);
+    const result = await runCloudCompiler(compilerLanguage, runCode, output, issues);
     if (compilerLanguage === "php" && result?.stdout && /<\/?[a-z][\s\S]*>/i.test(result.stdout)) {
       preview.srcdoc = result.stdout;
       preview.hidden = false;
@@ -1254,6 +1351,7 @@ function showCompilerBoot(language) {
 
 async function runCompilerAi(action, editor, output, highlight) {
   if (!editor || !output) return;
+  const activeLanguage = compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
   const actionLabel = {
     explain: currentLang === "ar" ? "AI فحص" : "AI Scan",
     fix: currentLang === "ar" ? "AI المشكلة" : "AI Problem",
@@ -1269,7 +1367,7 @@ async function runCompilerAi(action, editor, output, highlight) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         action,
-        language: compilerLanguage,
+        language: activeLanguage,
         code: editor.value,
         ui_language: currentLang
       })
@@ -1279,7 +1377,7 @@ async function runCompilerAi(action, editor, output, highlight) {
     output.dataset.mode = "ready";
     output.dataset.aiCode = data.code || "";
     output.innerHTML = renderAiResult(data);
-    if (data.code) updateCompilerHighlight(editor, highlight, compilerLanguage);
+    if (data.code) updateCompilerHighlight(editor, highlight, activeLanguage);
   } catch (error) {
     output.dataset.mode = "error";
     output.innerHTML = `<strong>AI</strong><p>${escapeHtml(error.message)}</p>`;
@@ -1319,6 +1417,7 @@ function syncCompilerHighlightScroll(editor, highlight) {
 function highlightCode(code, language) {
   if (!code) return "";
   if (language === "html") return highlightHtml(code);
+  if (language === "css") return highlightCss(code);
   if (language === "js") return highlightJs(code);
   if (language === "php") return highlightPhp(code);
   if (language === "cpp") return highlightCpp(code);
@@ -1367,6 +1466,16 @@ function highlightHtml(code) {
     return `${tokenSpan("tok-tag", open)}${tokenSpan("tok-name", tag)}${highlightedAttrs}${tokenSpan("tok-tag", close)}`;
   });
   return html;
+}
+
+function highlightCss(code) {
+  let html = escapeHtml(code);
+  const stash = createTokenStash();
+  html = html.replace(/(\/\*[\s\S]*?\*\/)/g, (match) => stash.put("tok-comment", match));
+  html = html.replace(/([.#]?[a-zA-Z_-][\w-]*)(?=\s*\{)/g, (match) => stash.put("tok-name", match));
+  html = html.replace(/\b(color|background|display|grid|flex|padding|margin|border|box-shadow|font|width|height|min-height|place-items)\b(?=\s*:)/g, (match) => stash.put("tok-attr", match));
+  html = html.replace(/(#[0-9a-fA-F]{3,8}|rgba?\([^)]+\)|\b\d+(?:\.\d+)?(?:px|rem|em|vh|vw|%)\b)/g, (match) => stash.put("tok-number", match));
+  return stash.restore(html);
 }
 
 function highlightJs(code) {

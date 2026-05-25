@@ -10,9 +10,9 @@
     <link rel="canonical" href="https://abukaraki.github.io/Abdalla-Academy/compiler.html">
     <link rel="icon" type="image/png" href="assets/my-logo-transparent.png">
     <link rel="apple-touch-icon" href="assets/my-logo-transparent.png">
-    <link rel="stylesheet" href="assets/styles.css?v=20260525-terminal-world3">
+    <link rel="stylesheet" href="assets/styles.css?v=20260525-terminal-world4">
     <script src="assets/content.js?v=20260523-compiler-lab" defer></script>
-    <script src="assets/main.js?v=20260525-terminal-world3" defer></script>
+    <script src="assets/main.js?v=20260525-terminal-world4" defer></script>
   </head>
   <body data-page="compiler">
     <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
@@ -81,9 +81,15 @@
               <strong data-compiler-title>HTML</strong>
               <button class="run-inline-button" type="button" data-run-compiler>run</button>
             </div>
+            <div class="compiler-file-tabs" data-compiler-files hidden>
+              <button type="button" class="is-active" data-compiler-file="index.php">index.php</button>
+              <button type="button" data-compiler-file="style.css">style.css</button>
+              <button type="button" data-compiler-file="script.js">script.js</button>
+              <button type="button" data-compiler-file="page.html">page.html</button>
+            </div>
             <div class="code-editor-shell">
-              <pre class="studio-highlight" aria-hidden="true"><code data-compiler-highlight></code></pre>
-              <textarea class="studio-editor" spellcheck="false" wrap="off" data-compiler-editor aria-label="Code editor"></textarea>
+              <pre class="studio-highlight" data-compiler-highlight aria-hidden="true"></pre>
+              <textarea class="studio-editor" spellcheck="false" wrap="off" autocomplete="off" autocorrect="off" autocapitalize="off" data-compiler-editor aria-label="Code editor"></textarea>
             </div>
           </section>
 

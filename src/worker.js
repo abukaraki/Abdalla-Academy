@@ -246,6 +246,8 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
 
   add(language === "html" && !/<!doctype html>/i.test(text), "أضف DOCTYPE في بداية الصفحة.", "Add DOCTYPE at the top of the page.");
   add(language === "html" && /id\s*=\s*["'][^"']+["']/i.test(text), "راجع أن كل id مستخدم مرة واحدة فقط.", "Make sure each id is used only once.");
+  add(language === "css" && /#[\w-]+/.test(text), "راجع أن id في CSS مطابق لنفس id داخل HTML.", "Make sure the CSS id matches the same id in HTML.");
+  add(language === "css" && /:\s*[^;{}\n]+(?:\n|$)/.test(text), "راجع الفاصلة المنقوطة ; بعد خصائص CSS.", "Check the semicolon after CSS properties.");
   add(language === "js" && /\b(document|getElementById|querySelector)\b/.test(text), "تأكد أن العنصر موجود قبل تشغيل JavaScript.", "Make sure the element exists before JavaScript runs.");
   add(language === "js" && numbered(/console\.log\([^)]*[^;]\s*$/), ar ? `راجع نهاية السطر ${numbered(/console\.log\([^)]*[^;]\s*$/)}.` : `Check the end of line ${numbered(/console\.log\([^)]*[^;]\s*$/)}.`, ar ? "راجع نهاية السطر." : "Check the line ending.");
   add(language === "php" && !/<\?php/.test(text), "ابدأ جزء PHP بـ <?php.", "Start the PHP part with <?php.");
