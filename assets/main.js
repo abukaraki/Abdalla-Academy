@@ -1733,7 +1733,10 @@ async function runCompilerAi(action, editor, output, highlight, focusTopic = "")
   const activeLanguage = compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
   const aiLanguage = compilerLanguage === "php" && action !== "teach" ? "php" : activeLanguage;
   const runtimeOutput = document.querySelector("[data-compiler-output]")?.textContent || "";
-  const aiSource = buildCompilerAiSource(editor.value, runtimeOutput, focusTopic);
+  const selectedCode = editor.selectionStart !== editor.selectionEnd
+    ? editor.value.slice(editor.selectionStart, editor.selectionEnd)
+    : "";
+  const aiSource = buildCompilerAiSource(editor.value, runtimeOutput, focusTopic, selectedCode);
   const actionLabel = {
     explain: currentLang === "ar" ? "AI فحص" : "AI Scan",
     fix: currentLang === "ar" ? "AI المشكلة" : "AI Problem",
@@ -1767,11 +1770,13 @@ async function runCompilerAi(action, editor, output, highlight, focusTopic = "")
   }
 }
 
-function buildCompilerAiSource(editorValue, runtimeOutput, focusTopic = "") {
+function buildCompilerAiSource(editorValue, runtimeOutput, focusTopic = "", selectedCode = "") {
   const focusBlock = focusTopic ? ["Learning focus:", focusTopic, ""].join("\n") : "";
+  const selectedBlock = selectedCode ? ["Selected code:", selectedCode, ""].join("\n") : "";
   if (compilerLanguage !== "php") {
     return [
       focusBlock,
+      selectedBlock,
       "Current code:",
       editorValue,
       "",
@@ -1781,6 +1786,7 @@ function buildCompilerAiSource(editorValue, runtimeOutput, focusTopic = "") {
   }
   return [
     focusBlock,
+    selectedBlock,
     "PHP project files:",
     ...Object.keys(phpProjectDefaults).map((filename) => `--- ${filename} ---\n${readPhpProjectFile(filename)}`),
     "",

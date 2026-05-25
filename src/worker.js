@@ -248,7 +248,7 @@ function normalizeAction(action) {
 function buildAiPrompt(action, language, code) {
   const tasks = {
     explain: "Scan the code and runtime output. Name the important tags/functions/ids/names/classes, then point out suspicious lines. Do not rewrite the code.",
-    fix: "Use the code and runtime output to find likely mistakes. For each mistake, mention the file/line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
+    fix: "Use the selected code when present, the full code, and the runtime output to find the likely mistake. Explain the cause, then show the correct pattern or one small corrected line example. Do not rewrite the whole solution.",
     improve: "Give learning hints for structure, readability, accessibility, debugging, and how to test the next step. Do not return rewritten code.",
     example: "Create one clear practice task related to this code, then teach the learner how to analyze the task before coding. Include: the task text, required input or user action, expected output, data needed, conditions, step order, and simple tests. Do not provide the final solution or corrected code.",
     teach: "Act as a programming coach. If the code includes a Learning focus value, explain that exact concept first. Explain what it means, where it appears in the code, when it is used, and one small experiment the learner can try. Do not rewrite the solution.",
@@ -306,6 +306,10 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     return buildLocalTeachingResponse(language, text, ar);
   }
 
+  if (action === "fix") {
+    return buildLocalProblemResponse(language, text, ar);
+  }
+
   if (action === "example") {
     return buildLocalPracticeResponse(language, ar);
   }
@@ -351,6 +355,66 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
     explanation: hasText
       ? (ar ? "هذا فحص تعليمي سريع. أصلح خطوة واحدة ثم شغل الكود مرة ثانية." : "This is a quick learning scan. Fix one step, then run the code again.")
       : (ar ? "ضع الكود أولاً حتى أقدر أفحصه." : "Add code first so I can scan it."),
+    code: "",
+    files: {},
+    tips: tips.slice(0, 6)
+  };
+}
+
+function buildLocalProblemResponse(language, text, ar) {
+  const selected = (text.match(/Selected code:\s*([\s\S]*?)(?:\n\nCurrent code:|\n\nPHP project files:|\n\nRuntime output:|$)/i)?.[1] || "").trim();
+  const runtime = (text.match(/Runtime output:\s*([\s\S]*)$/i)?.[1] || "").trim();
+  const target = selected || text;
+  const tips = [];
+
+  const add = (condition, arTip, enTip) => {
+    if (condition) tips.push(ar ? arTip : enTip);
+  };
+
+  add(/Exited with error status|Parse error|syntax error|unexpected|fatal error/i.test(runtime),
+    "النتيجة تقول إن التشغيل توقف بسبب خطأ. ابدأ من أول سطر خطأ في المخرجات، ثم راجع السطر المحدد في الكود.",
+    "The output says execution stopped with an error. Start from the first error line, then inspect the selected code line.");
+  add(language === "php" && /\becho[a-zA-Z_$]/.test(target),
+    "السبب المحتمل: كتبت echo ملتصقة بكلمة أو متغير. في PHP يجب أن تكون echo لوحدها ثم القيمة بعدها.",
+    "Likely cause: echo is attached to a word or variable. In PHP, echo must stand alone before the value.");
+  add(language === "php" && /\becho[a-zA-Z_$]/.test(target),
+    "الصيغة الصحيحة: <?php echo $active; ?> أو <?php echo \"text\"; ?>",
+    "Correct pattern: <?php echo $active; ?> or <?php echo \"text\"; ?>");
+  add(language === "php" && /\$[a-zA-Z_]\w*\s+\$[a-zA-Z_]\w*/.test(target),
+    "إذا أردت طباعة نص مع متغير، استخدم نقطة للربط أو اكتب echo أكثر من قيمة مفصولة بفواصل.",
+    "If you want to print text with a variable, concatenate with a dot or pass multiple values to echo.");
+  add(language === "php" && /\$[a-zA-Z_]\w*\s+\$[a-zA-Z_]\w*/.test(target),
+    "مثال صحيح: <?php echo \"Status: \" . $active; ?>",
+    "Correct example: <?php echo \"Status: \" . $active; ?>");
+  add(language === "js" && /Unexpected string|SyntaxError/i.test(runtime),
+    "رسالة JavaScript تقول إن هناك نصا في مكان غير متوقع. راجع علامات الاقتباس والفواصل بين القيم.",
+    "JavaScript reports text in an unexpected place. Check quotes and separators between values.");
+  add(language === "js" && /\[[^\]]*\"[^\"]+\"\s+\"[^\"]+\"/.test(target),
+    "داخل المصفوفة يجب فصل القيم بفواصل.",
+    "Inside an array, values must be separated with commas.");
+  add(language === "js" && /\[[^\]]*\"[^\"]+\"\s+\"[^\"]+\"/.test(target),
+    "الصيغة الصحيحة: const skills = [\"HTML\", \"CSS\", \"JavaScript\"];",
+    "Correct pattern: const skills = [\"HTML\", \"CSS\", \"JavaScript\"];");
+  add(language === "cpp" && /error|undefined|expected|compile/i.test(runtime),
+    "مخرجات C++ تشير إلى خطأ ترجمة. راجع أول رسالة compiler لأنها غالبا أصل المشكلة.",
+    "C++ output indicates a compile error. Check the first compiler message because it is often the root issue.");
+  add(language === "cpp" && /cout|cin/.test(target) && !/#include\s*<iostream>/.test(text),
+    "لاستخدام cout أو cin تحتاج include الخاص بـ iostream.",
+    "To use cout or cin, include iostream.");
+  add(language === "cpp" && /cout|cin/.test(target) && !/#include\s*<iostream>/.test(text),
+    "الصيغة الصحيحة: #include <iostream>",
+    "Correct pattern: #include <iostream>");
+
+  if (!tips.length) {
+    tips.push(ar ? "لم يظهر سبب واضح من الفحص السريع. اقرأ رسالة الخطأ كاملة وابدأ من أول سطر فيها." : "No clear cause appeared in the quick scan. Read the full error message and start from its first line.");
+    tips.push(ar ? "حدد أصغر جزء فيه المشكلة، ثم شغله بعد تعديل واحد فقط." : "Select the smallest suspicious part, then run after one change only.");
+  }
+
+  return {
+    title: ar ? "سبب المشكلة" : "Problem cause",
+    explanation: selected
+      ? (ar ? "فحصت الجزء الذي حددته مع مخرجات التشغيل." : "I checked the selected code together with the runtime output.")
+      : (ar ? "فحصت الكود الحالي مع مخرجات التشغيل." : "I checked the current code together with the runtime output."),
     code: "",
     files: {},
     tips: tips.slice(0, 6)
