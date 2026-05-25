@@ -5174,10 +5174,14 @@ body.compiler-world-active .compiler-back-button {
 }
 
 .typing-cursor {
-  display: inline-block;
-  color: var(--terminal-violet);
-  text-shadow: 0 0 14px rgba(168, 85, 247, 0.62);
-  animation: cursorBlink 0.72s steps(2, start) infinite;
+  display: none;
+}
+
+.terminal-title strong::after,
+.terminal-screen p,
+.compiler-boot-window span,
+.compiler-boot-window strong {
+  animation: none !important;
 }
 
 @keyframes cursorBlink {

@@ -1295,6 +1295,7 @@ let compilerLanguage = "html";
 let compilerFile = "index.php";
 let scrollSystemReady = false;
 let terminalMotionReady = false;
+let compilerHighlightTimer = 0;
 
 function setupCompilerStudio() {
   const lab = document.querySelector("[data-compiler-lab]");
@@ -1358,7 +1359,7 @@ function setupCompilerStudio() {
     runCompilerStudio();
   }));
   resetButtons.forEach((resetButton) => resetButton.addEventListener("click", () => {
-    generateCompilerExample(editor, output, issues, highlight, resetButton, fileButtons);
+    generateCompilerExample(editor, output, issues, highlight, fileButtons);
   }));
   exitButton?.addEventListener("click", () => exitCompilerWorld());
   fileButtons.forEach((button) => {
@@ -1379,10 +1380,9 @@ function setupCompilerStudio() {
   });
   editor.addEventListener("input", () => {
     saveCurrent();
-    updateCompilerHighlight(editor, highlight, compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage);
-    if (compilerLanguage === "html" || compilerLanguage === "js") {
-      window.clearTimeout(editor.dataset.timer);
-      editor.dataset.timer = window.setTimeout(runCompilerStudio, 420);
+    scheduleCompilerHighlight(editor, highlight, compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage);
+    if (output) {
+      output.textContent = currentLang === "ar" ? "جاهز. اضغط تشغيل الكود." : "Ready. Press Run Code.";
     }
   });
   editor.addEventListener("scroll", () => {
@@ -1431,69 +1431,17 @@ function resetPhpProject() {
   Object.keys(phpProjectDefaults).forEach((filename) => localStorage.removeItem(phpProjectKey(filename)));
 }
 
-async function generateCompilerExample(editor, output, issues, highlight, triggerButton, fileButtons) {
+function generateCompilerExample(editor, output, issues, highlight, fileButtons) {
   if (!editor) return;
   const language = compilerLanguage;
-  const originalHtml = triggerButton?.innerHTML || "";
-  if (triggerButton) {
-    triggerButton.disabled = true;
-    triggerButton.textContent = "AI...";
-  }
-  if (output) {
-    output.textContent = currentLang === "ar"
-      ? "AI يولد مثال جديد..."
-      : "AI is generating a new example...";
-  }
-  if (issues) issues.innerHTML = "";
-
-  let example = null;
-  try {
-    const response = await fetch("/api/ai", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "generate_example",
-        language,
-        code: getCompilerContextForAi(language),
-        ui_language: currentLang
-      })
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
-    example = normalizeGeneratedCompilerExample(language, data);
-  } catch (_) {
-    example = getLocalGeneratedExample(language);
-  }
-
+  const example = getLocalGeneratedExample(language);
   applyGeneratedCompilerExample(language, example, editor, highlight, fileButtons);
-  if (triggerButton) {
-    triggerButton.disabled = false;
-    triggerButton.innerHTML = originalHtml;
+  if (output) {
+    output.textContent = currentLang === "ar" ? "تم تجهيز مثال جديد. اضغط تشغيل الكود." : "New example ready. Press Run Code.";
   }
-  runCompilerStudio();
-}
-
-function getCompilerContextForAi(language) {
-  if (language === "php") {
-    return Object.keys(phpProjectDefaults)
-      .map((filename) => `--- ${filename} ---\n${readPhpProjectFile(filename)}`)
-      .join("\n\n");
+  if (issues) {
+    issues.innerHTML = `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? "المثال جاهز للتشغيل." : "The example is ready to run."}</span></li>`;
   }
-  return localStorage.getItem(`academy-compiler-${language}`) || compilerExamples[language] || "";
-}
-
-function normalizeGeneratedCompilerExample(language, data) {
-  const files = data?.files && typeof data.files === "object" ? data.files : null;
-  if (language === "php" && files) {
-    const normalizedFiles = {};
-    Object.keys(phpProjectDefaults).forEach((filename) => {
-      normalizedFiles[filename] = String(files[filename] || phpProjectDefaults[filename] || "");
-    });
-    return { files: normalizedFiles };
-  }
-  const code = String(data?.code || "").trim();
-  if (code) return { code };
-  return getLocalGeneratedExample(language);
 }
 
 function getLocalGeneratedExample(language) {
@@ -1522,6 +1470,13 @@ function applyGeneratedCompilerExample(language, example, editor, highlight, fil
   localStorage.setItem(`academy-compiler-${language}`, code);
   editor.value = code;
   updateCompilerHighlight(editor, highlight, language);
+}
+
+function scheduleCompilerHighlight(editor, highlight, language) {
+  window.clearTimeout(compilerHighlightTimer);
+  compilerHighlightTimer = window.setTimeout(() => {
+    updateCompilerHighlight(editor, highlight, language);
+  }, 120);
 }
 
 function injectBeforeClose(source, closeTag, insert) {
@@ -1912,15 +1867,7 @@ function setupTerminalMotion() {
   if (terminalMotionReady) return;
   terminalMotionReady = true;
   setupScreenshotWatermark();
-  const commands = ["start", "open compiler", "run cpp", "load sections", "show images"];
-  let index = 0;
-  window.setInterval(() => {
-    document.querySelectorAll(".terminal-title strong").forEach((node) => {
-      index = (index + 1) % commands.length;
-      node.textContent = commands[index];
-    });
-  }, 1800);
-  setupTypingTerminals();
+  setupStaticTerminals();
 }
 
 function setupScreenshotWatermark() {
@@ -1935,8 +1882,7 @@ function setupScreenshotWatermark() {
   document.body.appendChild(mark);
 }
 
-function setupTypingTerminals() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+function setupStaticTerminals() {
   const commandSets = [
     [
       "abdalla@academy:~$ git clone Abdalla-Academy",
@@ -1961,58 +1907,11 @@ function setupTypingTerminals() {
   ];
   document.querySelectorAll("[data-type-terminal]").forEach((terminal, terminalIndex) => {
     const target = terminal.querySelector("code") || terminal.querySelector(".terminal-screen");
-    if (!target || target.dataset.typingReady === "true") return;
-    target.dataset.typingReady = "true";
+    if (!target || target.dataset.staticTerminalReady === "true") return;
+    target.dataset.staticTerminalReady = "true";
     const lines = commandSets[terminalIndex % commandSets.length];
-    typeTerminalLines(target, lines, 0);
+    target.innerHTML = lines.map((line) => formatTerminalLine(line, false)).join("\n");
   });
-}
-
-function typeTerminalLines(target, lines, lineIndex) {
-  target.innerHTML = "";
-  let charIndex = 0;
-  const rendered = [];
-  const write = () => {
-    const line = lines[lineIndex] || "";
-    const next = line.slice(0, charIndex);
-    target.innerHTML = rendered.concat(formatTerminalLine(next, charIndex < line.length)).join("\n");
-    charIndex += 1;
-    if (charIndex <= line.length) {
-      window.setTimeout(write, 22 + Math.random() * 24);
-      return;
-    }
-    rendered.push(formatTerminalLine(line, false));
-    const nextLine = (lineIndex + 1) % lines.length;
-    if (nextLine === 0) {
-      window.setTimeout(() => typeTerminalLines(target, lines, 0), 1500);
-      return;
-    }
-    window.setTimeout(() => typeTerminalLinesAppend(target, lines, nextLine, rendered), 260);
-  };
-  write();
-}
-
-function typeTerminalLinesAppend(target, lines, lineIndex, rendered) {
-  let charIndex = 0;
-  const write = () => {
-    const line = lines[lineIndex] || "";
-    const next = line.slice(0, charIndex);
-    target.innerHTML = rendered.concat(formatTerminalLine(next, charIndex < line.length)).join("\n");
-    target.scrollTop = target.scrollHeight;
-    charIndex += 1;
-    if (charIndex <= line.length) {
-      window.setTimeout(write, 18 + Math.random() * 22);
-      return;
-    }
-    rendered.push(formatTerminalLine(line, false));
-    const nextLine = (lineIndex + 1) % lines.length;
-    if (nextLine === 0) {
-      window.setTimeout(() => typeTerminalLines(target, lines, 0), 1600);
-      return;
-    }
-    window.setTimeout(() => typeTerminalLinesAppend(target, lines, nextLine, rendered), 240);
-  };
-  write();
 }
 
 function formatTerminalLine(line, cursor) {
