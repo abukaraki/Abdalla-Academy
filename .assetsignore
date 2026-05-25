@@ -6,3 +6,9 @@ src
 src/**
 wrangler.jsonc
 .assetsignore
+README.md
+CONTENT_GUIDE.md
+content-templates
+content-templates/**
+tools
+tools/**
