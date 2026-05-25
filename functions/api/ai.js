@@ -212,8 +212,8 @@ function buildLocalAiResponse(action, language, uiLanguage, source) {
             : ["Start from the error message if one exists.", "Check the line near the error.", "Change one thing, then run again."]
         }
       : {
-          title: ar ? "برمجة فقط" : "Programming only",
-          explanation: ar ? "هذا المساعد مخصص للأسئلة البرمجية فقط." : "This assistant is only for programming questions.",
+          title: ar ? "خارج النطاق" : "Out of scope",
+          explanation: ar ? "لا أستطيع المساعدة في هذا الطلب." : "I cannot help with this request.",
           code: "",
           tips: []
         };

@@ -2043,7 +2043,7 @@ function setupAiChat() {
     log.appendChild(item);
     log.scrollTop = log.scrollHeight;
   };
-  append("ai", currentLang === "ar" ? "اسأل عن البرمجة فقط." : "Ask about programming only.");
+  append("ai", currentLang === "ar" ? "$ ready" : "$ ready");
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const message = input?.value.trim();
