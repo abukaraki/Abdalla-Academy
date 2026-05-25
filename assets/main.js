@@ -1024,6 +1024,8 @@ function setupCompilerStudio() {
   const tabs = lab.querySelectorAll("[data-compiler-tab]");
   const runButtons = lab.querySelectorAll("[data-run-compiler]");
   const resetButtons = lab.querySelectorAll("[data-reset-compiler]");
+  const aiButtons = lab.querySelectorAll("[data-ai-action]");
+  const aiOutput = lab.querySelector("[data-ai-output]");
   if (!editor || !preview || !output || !issues) return;
   if (lab.dataset.compilerReady === "true") {
     runCompilerStudio();
@@ -1061,6 +1063,19 @@ function setupCompilerStudio() {
     localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
     loadExample(compilerLanguage, true);
   }));
+  aiButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      runCompilerAi(button.dataset.aiAction || "explain", editor, aiOutput, highlight);
+    });
+  });
+  aiOutput?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-apply-ai-code]");
+    if (!button || !aiOutput.dataset.aiCode) return;
+    editor.value = aiOutput.dataset.aiCode;
+    localStorage.setItem(`academy-compiler-${compilerLanguage}`, editor.value);
+    updateCompilerHighlight(editor, highlight, compilerLanguage);
+    runCompilerStudio();
+  });
   editor.addEventListener("input", () => {
     saveCurrent();
     updateCompilerHighlight(editor, highlight, compilerLanguage);
@@ -1148,6 +1163,56 @@ async function runCloudCompiler(language, code, output, issues) {
       : "Could not run the code right now.";
     issues.innerHTML = `<li class="error"><strong>API</strong><span>${escapeHtml(error.message)}</span></li>`;
   }
+}
+
+async function runCompilerAi(action, editor, output, highlight) {
+  if (!editor || !output) return;
+  const actionLabel = {
+    explain: "AI Explain",
+    fix: "AI Fix",
+    improve: "AI Improve",
+    example: "AI Example"
+  }[action] || "AI";
+  output.removeAttribute("data-mode");
+  output.dataset.aiCode = "";
+  output.innerHTML = `<span class="ai-loading">$ ${escapeHtml(actionLabel)}...</span>`;
+  try {
+    const response = await fetch("/api/ai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action,
+        language: compilerLanguage,
+        code: editor.value,
+        ui_language: currentLang
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
+    output.dataset.mode = "ready";
+    output.dataset.aiCode = data.code || "";
+    output.innerHTML = renderAiResult(data);
+    if (data.code) updateCompilerHighlight(editor, highlight, compilerLanguage);
+  } catch (error) {
+    output.dataset.mode = "error";
+    output.innerHTML = `<strong>AI</strong><p>${escapeHtml(error.message)}</p>`;
+  }
+}
+
+function renderAiResult(data) {
+  const tips = Array.isArray(data.tips) ? data.tips : [];
+  const code = data.code ? `
+    <div class="ai-code-block">
+      <button type="button" data-apply-ai-code>${currentLang === "ar" ? "تطبيق الكود" : "Apply code"}</button>
+      <pre><code>${escapeHtml(data.code)}</code></pre>
+    </div>
+  ` : "";
+  return `
+    <strong>${escapeHtml(data.title || "AI")}</strong>
+    <p>${escapeHtml(data.explanation || "")}</p>
+    ${tips.length ? `<ul>${tips.map((tip) => `<li>${escapeHtml(tip)}</li>`).join("")}</ul>` : ""}
+    ${code}
+  `;
 }
 
 function escapeHtml(value) {
