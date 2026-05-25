@@ -123,6 +123,8 @@ async function runAiAssistant(request, env) {
           "You are the Abdalla Academy compiler assistant.",
           "Answer only for learning and coding help.",
           "Be direct, practical, and beginner-friendly.",
+          "Do not solve the whole task for the learner. Point to the problem, explain why it happens, and give ordered hints so the learner can fix it.",
+          "For compiler help actions, keep the code field empty. Do not return a full corrected solution.",
           "Return valid JSON matching the schema.",
           `Write the explanation and tips in ${uiLanguage}.`
         ].join(" "),
@@ -185,10 +187,10 @@ function normalizeAction(action) {
 
 function buildAiPrompt(action, language, code) {
   const tasks = {
-    explain: "Explain what the code does, name the important tags/functions/ids/names/classes, and point out possible problems. Do not rewrite the whole code unless needed.",
-    fix: "Find mistakes and return a corrected version of the code. Keep the same intent.",
-    improve: "Improve the code style, structure, readability, accessibility, and beginner clarity. Return an improved version.",
-    example: "Create a stronger learning example in the same language, using the same topic when possible.",
+    explain: "Scan the code. Name the important tags/functions/ids/names/classes and point out suspicious lines. Do not rewrite the code.",
+    fix: "Find the likely mistakes. For each mistake, mention the line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
+    improve: "Give learning hints for structure, readability, accessibility, and debugging. Do not return rewritten code.",
+    example: "Create a small practice challenge related to this code with steps the learner should try. Do not provide the final solution.",
     chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary."
   };
   if (action === "chat") {
@@ -204,7 +206,7 @@ function buildAiPrompt(action, language, code) {
     `Action: ${action}`,
     `Language: ${language}`,
     tasks[action],
-    "Return JSON with title, explanation, code, and tips. For explain, code may be an empty string.",
+    "Return JSON with title, explanation, code, and tips. The code field must be an empty string for compiler help actions.",
     "Code:",
     code
   ].join("\n");

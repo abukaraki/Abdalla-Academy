@@ -1129,14 +1129,6 @@ function setupCompilerStudio() {
       runCompilerAi(button.dataset.aiAction || "explain", editor, aiOutput, highlight);
     });
   });
-  aiOutput?.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-apply-ai-code]");
-    if (!button || !aiOutput.dataset.aiCode) return;
-    editor.value = aiOutput.dataset.aiCode;
-    localStorage.setItem(`academy-compiler-${compilerLanguage}`, editor.value);
-    updateCompilerHighlight(editor, highlight, compilerLanguage);
-    runCompilerStudio();
-  });
   editor.addEventListener("input", () => {
     saveCurrent();
     updateCompilerHighlight(editor, highlight, compilerLanguage);
@@ -1263,10 +1255,10 @@ function showCompilerBoot(language) {
 async function runCompilerAi(action, editor, output, highlight) {
   if (!editor || !output) return;
   const actionLabel = {
-    explain: "AI Explain",
-    fix: "AI Fix",
-    improve: "AI Improve",
-    example: "AI Example"
+    explain: currentLang === "ar" ? "AI فحص" : "AI Scan",
+    fix: currentLang === "ar" ? "AI المشكلة" : "AI Problem",
+    improve: currentLang === "ar" ? "AI تلميحات" : "AI Hints",
+    example: currentLang === "ar" ? "AI تدريب" : "AI Practice"
   }[action] || "AI";
   output.removeAttribute("data-mode");
   output.dataset.aiCode = "";
@@ -1296,17 +1288,10 @@ async function runCompilerAi(action, editor, output, highlight) {
 
 function renderAiResult(data) {
   const tips = Array.isArray(data.tips) ? data.tips : [];
-  const code = data.code ? `
-    <div class="ai-code-block">
-      <button type="button" data-apply-ai-code>${currentLang === "ar" ? "تطبيق الكود" : "Apply code"}</button>
-      <pre><code>${escapeHtml(data.code)}</code></pre>
-    </div>
-  ` : "";
   return `
     <strong>${escapeHtml(data.title || "AI")}</strong>
     <p>${escapeHtml(data.explanation || "")}</p>
     ${tips.length ? `<ul>${tips.map((tip) => `<li>${escapeHtml(tip)}</li>`).join("")}</ul>` : ""}
-    ${code}
   `;
 }
 

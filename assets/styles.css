@@ -4948,3 +4948,86 @@ body.compiler-world-active .compiler-back-button {
     grid-template-columns: 1fr;
   }
 }
+
+/* Hacker syntax contrast */
+.studio-highlight,
+.studio-editor {
+  font-size: 1rem;
+  line-height: 1.78;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.1);
+}
+
+.studio-highlight {
+  color: #f8feff;
+}
+
+.code-editor-shell {
+  background:
+    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px) 0 0 / 100% 31px,
+    radial-gradient(circle at 12% 18%, rgba(0, 229, 255, 0.08), transparent 18rem),
+    #010409;
+}
+
+.tok-tag {
+  color: #00e5ff;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.42);
+}
+
+.tok-name {
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.tok-attr {
+  color: #b7ff00;
+  text-shadow: 0 0 10px rgba(183, 255, 0, 0.32);
+}
+
+.tok-string {
+  color: #7dffb2;
+}
+
+.tok-keyword {
+  color: #a855f7;
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.45);
+}
+
+.tok-function {
+  color: #1e90ff;
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(30, 144, 255, 0.38);
+}
+
+.tok-variable {
+  color: #00e5ff;
+  font-weight: 900;
+}
+
+.tok-number {
+  color: #ffdd66;
+}
+
+.tok-comment {
+  color: #607781;
+  font-style: italic;
+}
+
+.ai-actions button {
+  text-transform: none;
+}
+
+.ai-output {
+  color: #d9faff;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.ai-output strong::before {
+  content: "$ ";
+  color: var(--terminal-green);
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.ai-output li {
+  margin-top: 0.35rem;
+}
