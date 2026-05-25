@@ -171,7 +171,7 @@ function buildAiPrompt(action, language, code) {
     fix: "Use the code and runtime output to find likely mistakes. For each mistake, mention the file/line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
     improve: "Give learning hints for structure, readability, accessibility, debugging, and how to test the next step. Do not return rewritten code.",
     example: "Create one clear practice task related to this code, then teach the learner how to analyze the task before coding. Include: the task text, required input or user action, expected output, data needed, conditions, step order, and simple tests. Do not provide the final solution or corrected code.",
-    teach: "Act as a programming coach. Explain the important concepts used in this code, such as if, loops, functions, arrays, tags, ids, classes, variables, and events. For each concept, explain what it is used for and point to where it appears in the code. Keep it practical and do not rewrite the solution.",
+    teach: "Act as a programming coach. If the code includes a Learning focus value, explain that exact concept first. Explain what it means, where it appears in the code, when it is used, and one small experiment the learner can try. Do not rewrite the solution.",
     chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary.",
     generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."
   };
@@ -457,6 +457,7 @@ int main() {
 }
 
 function buildLocalTeachingResponse(language, text, ar) {
+  const focus = (text.match(/Learning focus:\s*([^\n]+)/i)?.[1] || "").trim();
   const tips = [];
   const add = (pattern, arTip, enTip) => {
     if (pattern.test(text)) tips.push(ar ? arTip : enTip);
@@ -476,10 +477,10 @@ function buildLocalTeachingResponse(language, text, ar) {
   }
 
   return {
-    title: ar ? "تعلم المفاهيم" : "Learn the concepts",
+    title: focus ? (ar ? `تعلم ${focus}` : `Learn ${focus}`) : (ar ? "تعلم المفاهيم" : "Learn the concepts"),
     explanation: ar
-      ? `هذا تدريب سريع على قراءة كود ${language}. اقرأ الفكرة، ثم جرّب تغيير قيمة واحدة وشغّل الكود.`
-      : `This is a quick practice for reading ${language} code. Read the idea, then change one value and run it.`,
+      ? (focus ? `ركز على ${focus} داخل كود ${language}. اقرأ مكانها، ثم جرّب تغييرها وشغّل الكود.` : `هذا تدريب سريع على قراءة كود ${language}. اقرأ الفكرة، ثم جرّب تغيير قيمة واحدة وشغّل الكود.`)
+      : (focus ? `Focus on ${focus} inside the ${language} code. Find where it appears, then change it and run the code.` : `This is a quick practice for reading ${language} code. Read the idea, then change one value and run it.`),
     code: "",
     files: {},
     tips: tips.slice(0, 6)

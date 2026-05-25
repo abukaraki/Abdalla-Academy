@@ -1884,6 +1884,54 @@ html[dir="rtl"] .lesson-bullets {
   background: rgba(140, 246, 255, 0.22);
 }
 
+.code-editor-shell .studio-highlight,
+.code-editor-shell .studio-editor {
+  padding-bottom: 5.4rem;
+}
+
+.code-learn-strip {
+  position: absolute;
+  z-index: 4;
+  inset-inline: 0.85rem;
+  bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.55rem;
+  border: 1px solid rgba(0, 229, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(2, 8, 13, 0.88);
+  box-shadow:
+    0 0 28px rgba(0, 229, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(10px);
+}
+
+.code-learn-strip span {
+  color: var(--terminal-cyan);
+  font: 900 0.78rem/1 Consolas, "Courier New", monospace;
+}
+
+.code-learn-strip button {
+  min-height: 30px;
+  border: 1px solid rgba(183, 255, 0, 0.28);
+  border-radius: 7px;
+  padding: 0.28rem 0.55rem;
+  background: rgba(183, 255, 0, 0.08);
+  color: var(--terminal-text);
+  cursor: pointer;
+  font: 900 0.76rem/1 Consolas, "Courier New", monospace;
+  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.code-learn-strip button:hover {
+  transform: translateY(-1px);
+  border-color: var(--terminal-green);
+  background: rgba(183, 255, 0, 0.18);
+  color: var(--terminal-green);
+}
+
 .tok-tag {
   color: #ff7ac6;
 }

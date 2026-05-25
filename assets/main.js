@@ -1310,6 +1310,7 @@ function setupCompilerStudio() {
   const resetButtons = lab.querySelectorAll("[data-reset-compiler]");
   const aiButtons = lab.querySelectorAll("[data-ai-action]");
   const aiOutput = lab.querySelector("[data-ai-output]");
+  const learnStrip = lab.querySelector("[data-code-learn-strip]");
   const exitButton = lab.querySelector("[data-exit-compiler]");
   const fileTabs = lab.querySelector("[data-compiler-files]");
   const fileButtons = lab.querySelectorAll("[data-compiler-file]");
@@ -1338,6 +1339,7 @@ function setupCompilerStudio() {
       else editor.value = saved;
     }
     updateCompilerHighlight(editor, highlight, language === "php" ? fileLanguage(compilerFile) : language);
+    refreshCompilerLearningStrip(editor, learnStrip);
     runCompilerStudio();
   };
 
@@ -1371,17 +1373,29 @@ function setupCompilerStudio() {
       editor.value = readPhpProjectFile(compilerFile);
       updateCompilerResultTitle(resultTitle, "php");
       updateCompilerHighlight(editor, highlight, fileLanguage(compilerFile));
+      refreshCompilerLearningStrip(editor, learnStrip);
       runCompilerStudio();
     });
   });
   aiButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      runCompilerAi(button.dataset.aiAction || "explain", editor, aiOutput, highlight);
+      const action = button.dataset.aiAction || "explain";
+      if (action === "teach") {
+        showCompilerLearningChoices(editor, aiOutput, learnStrip);
+        return;
+      }
+      runCompilerAi(action, editor, aiOutput, highlight);
     });
+  });
+  learnStrip?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-learn-topic]");
+    if (!button) return;
+    runCompilerAi("teach", editor, aiOutput, highlight, button.dataset.learnTopic || button.textContent.trim());
   });
   editor.addEventListener("input", () => {
     saveCurrent();
     scheduleCompilerHighlight(editor, highlight, compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage);
+    refreshCompilerLearningStrip(editor, learnStrip);
     if (output) {
       output.textContent = currentLang === "ar" ? "جاهز. اضغط تشغيل الكود." : "Ready. Press Run Code.";
     }
@@ -1402,6 +1416,89 @@ function setupCompilerStudio() {
   }
 
   loadExample(compilerLanguage);
+}
+
+function getCompilerLearningTopics(language, code) {
+  const text = String(code || "");
+  const topicSets = {
+    html: [
+      ["tag", "tags", "وسوم HTML", "HTML tags", /<\/?[a-z][\s>]/i],
+      ["id", "id", "id", "id", /\sid\s*=/i],
+      ["class", "class", "class", "class", /\sclass\s*=/i],
+      ["name", "name", "name", "name", /\sname\s*=/i],
+      ["form", "form", "form", "form", /<form\b/i],
+      ["input", "input", "input", "input", /<input\b/i],
+      ["button", "button", "button", "button", /<button\b/i]
+    ],
+    css: [
+      ["selector", "selector", "selector", "selector", /[.#]?[a-zA-Z_-][\w-]*\s*\{/],
+      ["hover", "hover", ":hover", ":hover", /:hover/],
+      ["color", "color", "color", "color", /\bcolor\s*:/],
+      ["display", "display", "display", "display", /\bdisplay\s*:/],
+      ["grid", "grid", "grid", "grid", /\bgrid\b/],
+      ["flex", "flex", "flex", "flex", /\bflex\b/]
+    ],
+    js: [
+      ["if", "if", "if", "if", /\bif\s*\(/],
+      ["function", "function", "function", "function", /\bfunction\b|=>/],
+      ["variable", "variable", "متغير", "variable", /\b(let|const|var)\b/],
+      ["event", "event", "event", "event", /addEventListener|onclick/],
+      ["dom", "DOM", "DOM", "DOM", /document|getElementById|querySelector/],
+      ["array", "array", "array", "array", /\[[\s\S]*\]/],
+      ["loop", "loop", "loop", "loop", /\b(for|while)\b/]
+    ],
+    php: [
+      ["if", "if", "if", "if", /\bif\s*\(/],
+      ["variable", "variable", "متغير", "variable", /\$[a-zA-Z_]\w*/],
+      ["echo", "echo", "echo", "echo", /\becho\b/],
+      ["post", "POST", "POST", "POST", /\$_POST/],
+      ["get", "GET", "GET", "GET", /\$_GET/],
+      ["escaping", "htmlspecialchars", "htmlspecialchars", "htmlspecialchars", /htmlspecialchars|filter_input|filter_var/]
+    ],
+    cpp: [
+      ["main", "main", "main", "main", /int\s+main\s*\(/],
+      ["if", "if", "if", "if", /\bif\s*\(/],
+      ["cout", "cout", "cout", "cout", /\bcout\b/],
+      ["cin", "cin", "cin", "cin", /\bcin\b/],
+      ["loop", "loop", "loop", "loop", /\b(for|while)\b/],
+      ["function", "function", "function", "function", /\w+\s+\w+\s*\([^)]*\)\s*\{/]
+    ]
+  };
+  const active = topicSets[language] || topicSets.html;
+  const matches = active.filter((topic) => topic[4].test(text));
+  const fallback = active.slice(0, 4);
+  return (matches.length ? matches : fallback).slice(0, 7).map(([id, focus, ar, en]) => ({
+    id,
+    focus,
+    label: currentLang === "ar" ? ar : en
+  }));
+}
+
+function getCompilerLearningLanguage() {
+  return compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
+}
+
+function refreshCompilerLearningStrip(editor, strip) {
+  if (!editor || !strip) return;
+  const language = getCompilerLearningLanguage();
+  const topics = getCompilerLearningTopics(language, editor.value);
+  strip.innerHTML = `
+    <span>${currentLang === "ar" ? "تعلم من الكود:" : "Learn:"}</span>
+    ${topics.map((topic) => `<button type="button" data-learn-topic="${escapeHtml(topic.focus)}">${escapeHtml(topic.label)}</button>`).join("")}
+  `;
+}
+
+function showCompilerLearningChoices(editor, output, strip) {
+  refreshCompilerLearningStrip(editor, strip);
+  if (!output) return;
+  const language = getCompilerLearningLanguage();
+  const topics = getCompilerLearningTopics(language, editor?.value || "");
+  output.dataset.mode = "ready";
+  output.innerHTML = `
+    <strong>${currentLang === "ar" ? "تعلم من الكود" : "Learn from the code"}</strong>
+    <p>${currentLang === "ar" ? "اختر كلمة أو مفهوم من شريط الكود، وسأشرح لك معناها واستخدامها داخل هذا المثال." : "Choose a word or concept from the code strip, and I will explain what it means inside this example."}</p>
+    <ul>${topics.map((topic) => `<li>${escapeHtml(topic.label)}</li>`).join("")}</ul>
+  `;
 }
 
 function fileLanguage(filename) {
@@ -1631,12 +1728,12 @@ function showCompilerBoot(language) {
   window.setTimeout(() => overlay.remove(), 1350);
 }
 
-async function runCompilerAi(action, editor, output, highlight) {
+async function runCompilerAi(action, editor, output, highlight, focusTopic = "") {
   if (!editor || !output) return;
   const activeLanguage = compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
-  const aiLanguage = compilerLanguage === "php" ? "php" : activeLanguage;
+  const aiLanguage = compilerLanguage === "php" && action !== "teach" ? "php" : activeLanguage;
   const runtimeOutput = document.querySelector("[data-compiler-output]")?.textContent || "";
-  const aiSource = buildCompilerAiSource(editor.value, runtimeOutput);
+  const aiSource = buildCompilerAiSource(editor.value, runtimeOutput, focusTopic);
   const actionLabel = {
     explain: currentLang === "ar" ? "AI فحص" : "AI Scan",
     fix: currentLang === "ar" ? "AI المشكلة" : "AI Problem",
@@ -1670,9 +1767,11 @@ async function runCompilerAi(action, editor, output, highlight) {
   }
 }
 
-function buildCompilerAiSource(editorValue, runtimeOutput) {
+function buildCompilerAiSource(editorValue, runtimeOutput, focusTopic = "") {
+  const focusBlock = focusTopic ? ["Learning focus:", focusTopic, ""].join("\n") : "";
   if (compilerLanguage !== "php") {
     return [
+      focusBlock,
       "Current code:",
       editorValue,
       "",
@@ -1681,6 +1780,7 @@ function buildCompilerAiSource(editorValue, runtimeOutput) {
     ].join("\n");
   }
   return [
+    focusBlock,
     "PHP project files:",
     ...Object.keys(phpProjectDefaults).map((filename) => `--- ${filename} ---\n${readPhpProjectFile(filename)}`),
     "",
