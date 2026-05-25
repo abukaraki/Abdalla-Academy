@@ -442,6 +442,12 @@ function buildLocalProblemResponse(language, text, ar) {
   add(language === "php" && /\becho[a-zA-Z_$]/.test(target),
     "الصيغة الصحيحة: <?php echo $active; ?> أو <?php echo \"text\"; ?>",
     "Correct pattern: <?php echo $active; ?> or <?php echo \"text\"; ?>");
+  add(language === "php" && /unexpected double-quoted string|expecting\s+[\]"]|syntax error/i.test(runtime) && /\[[\s\S]*?\"[^\"]+\"\s+\"[^\"]+\"/.test(target),
+    "السبب المحتمل: داخل مصفوفة PHP يوجد نصان متتاليان بدون فاصلة بينهما.",
+    "Likely cause: inside a PHP array, two strings are written next to each other without a comma.");
+  add(language === "php" && /unexpected double-quoted string|expecting\s+[\]"]|syntax error/i.test(runtime) && /\[[\s\S]*?\"[^\"]+\"\s+\"[^\"]+\"/.test(target),
+    "الصيغة الصحيحة: $tracks = [\"HTML\", \"PHP\", \"C++\", \"JS\"];",
+    "Correct pattern: $tracks = [\"HTML\", \"PHP\", \"C++\", \"JS\"];");
   add(language === "php" && /\$[a-zA-Z_]\w*\s+\$[a-zA-Z_]\w*/.test(target),
     "إذا أردت طباعة نص مع متغير، استخدم نقطة للربط أو اكتب echo أكثر من قيمة مفصولة بفواصل.",
     "If you want to print text with a variable, concatenate with a dot or pass multiple values to echo.");

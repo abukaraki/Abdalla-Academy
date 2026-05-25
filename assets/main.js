@@ -1850,19 +1850,20 @@ async function runCloudCompiler(language, code, output, issues) {
     }
     const stdout = data.stdout || data.output || data.run?.stdout || "";
     const stderr = data.stderr || data.compile_output || data.run?.stderr || data.message || "";
+    const diagnostic = pickCompilerDiagnostic(stdout, stderr);
     const hasHtml = language === "php" && /<\/?[a-z][\s\S]*>/i.test(stdout);
     if (hasHtml) {
-      output.textContent = stderr
-        ? stderr
+      output.textContent = diagnostic
+        ? diagnostic
         : (currentLang === "ar" ? "تم تشغيل PHP. المعاينة تعرض الصفحة الناتجة." : "PHP executed. Preview shows the rendered page.");
-      issues.innerHTML = stderr
-        ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات PHP" : "PHP output"}</strong><span>${escapeHtml(stderr)}</span></li>`
+      issues.innerHTML = diagnostic
+        ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات PHP" : "PHP output"}</strong><span>${escapeHtml(diagnostic)}</span></li>`
         : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? "الناتج ظهر في المعاينة." : "The result appears in the preview."}</span></li>`;
       return { stdout, stderr, hasHtml };
     }
     output.textContent = [stdout, stderr].filter(Boolean).join("\n") || (currentLang === "ar" ? "تم التشغيل بدون مخرجات." : "Executed with no output.");
-    issues.innerHTML = stderr
-      ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات compiler" : "Compiler output"}</strong><span>${escapeHtml(stderr)}</span></li>`
+    issues.innerHTML = diagnostic
+      ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات compiler" : "Compiler output"}</strong><span>${escapeHtml(diagnostic)}</span></li>`
       : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? `تم تشغيل ${label}.` : `${label} executed.`}</span></li>`;
     return { stdout, stderr, hasHtml: false };
   } catch (error) {
@@ -1872,6 +1873,14 @@ async function runCloudCompiler(language, code, output, issues) {
     issues.innerHTML = `<li class="error"><strong>runtime</strong><span>${currentLang === "ar" ? "أعد المحاولة بعد لحظات." : "Try again in a moment."}</span></li>`;
     return null;
   }
+}
+
+function pickCompilerDiagnostic(stdout, stderr) {
+  const output = [stdout, stderr].filter(Boolean).join("\n");
+  const parseLine = output.split(/\r?\n/).find((line) => /(Parse error|Fatal error|syntax error|Compilation error|error:)/i.test(line));
+  if (parseLine) return parseLine.trim();
+  if (/Exited with error status/i.test(stderr || "") && stdout.trim()) return stdout.trim();
+  return String(stderr || "").trim();
 }
 
 function enterCompilerWorld(language) {
