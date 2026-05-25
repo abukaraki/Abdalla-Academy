@@ -27,6 +27,11 @@ async function runAiAssistant(request, env) {
       return json({ error: "Message is empty." }, 400);
     }
     const source = action === "chat" ? message : code;
+    if (env.GEMINI_API_KEY) {
+      const parsed = await callGeminiAssistant(action, language, uiLanguage, source, env);
+      return json(normalizeAiPayload(parsed));
+    }
+
     if (env.CEREBRAS_API_KEY) {
       const parsed = await callCerebrasAssistant(action, language, uiLanguage, source, env);
       return json(normalizeAiPayload(parsed));
@@ -147,6 +152,63 @@ async function callCerebrasAssistant(action, language, uiLanguage, source, env) 
   const content = data?.choices?.[0]?.message?.content;
   const parsed = tryParseJsonRobust(content);
   if (!parsed) throw new Error("Invalid Cerebras response.");
+  return parsed;
+}
+
+async function callGeminiAssistant(action, language, uiLanguage, source, env) {
+  const model = env.GEMINI_MODEL || "gemini-2.5-flash";
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": env.GEMINI_API_KEY
+    },
+    body: JSON.stringify({
+      systemInstruction: {
+        parts: [
+          {
+            text: [
+              "You are the Abdalla Academy compiler assistant.",
+              "Answer only for programming, web development, compilers, debugging, and learning code.",
+              "Do not solve the whole task for the learner.",
+              "Point to the problem, explain why it happens, and give ordered hints.",
+              "For compiler help actions, keep the code field empty.",
+              "For generate_example, return complete runnable starter code. For PHP, return files for index.php, style.css, script.js, and page.html.",
+              "Return valid JSON only. No markdown. No extra text.",
+              `Write the explanation and tips in ${uiLanguage}.`
+            ].join(" ")
+          }
+        ]
+      },
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: buildAiPrompt(action, language, source)
+            }
+          ]
+        }
+      ],
+      generationConfig: {
+        temperature: 0.25,
+        maxOutputTokens: 1200,
+        responseMimeType: "application/json"
+      }
+    })
+  });
+
+  const data = await response.json().catch(() => null);
+  if (!response.ok) {
+    throw new Error(data?.error?.message || `Gemini API error: ${response.status}`);
+  }
+
+  const content = data?.candidates?.[0]?.content?.parts
+    ?.map((part) => part.text || "")
+    .join("")
+    .trim();
+  const parsed = tryParseJsonRobust(content);
+  if (!parsed) throw new Error("Invalid Gemini response.");
   return parsed;
 }
 
