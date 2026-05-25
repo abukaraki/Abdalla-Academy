@@ -10,9 +10,9 @@
     <link rel="canonical" href="https://abukaraki.github.io/Abdalla-Academy/compiler.html">
     <link rel="icon" type="image/png" href="assets/my-logo-transparent.png">
     <link rel="apple-touch-icon" href="assets/my-logo-transparent.png">
-    <link rel="stylesheet" href="assets/styles.css?v=20260525-contact">
+    <link rel="stylesheet" href="assets/styles.css?v=20260525-compiler-ui">
     <script src="assets/content.js?v=20260523-compiler-lab" defer></script>
-    <script src="assets/main.js?v=20260525-contact" defer></script>
+    <script src="assets/main.js?v=20260525-compiler-ui" defer></script>
   </head>
   <body data-page="compiler">
     <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
@@ -65,7 +65,7 @@
             <button class="button secondary" type="button" data-reset-compiler>
               <span class="lang-ar">استعادة المثال</span><span class="lang-en">Reset Example</span>
             </button>
-            <button class="button primary" type="button" data-run-compiler>
+            <button class="button primary run-terminal-button" type="button" data-run-compiler>
               <span class="lang-ar">تشغيل الكود</span><span class="lang-en">Run Code</span>
             </button>
           </div>
@@ -76,8 +76,12 @@
             <div class="panel-title">
               <span class="status-dot"></span>
               <strong data-compiler-title>HTML</strong>
+              <button class="run-inline-button" type="button" data-run-compiler>run</button>
             </div>
-            <textarea class="studio-editor" spellcheck="false" data-compiler-editor aria-label="Code editor"></textarea>
+            <div class="code-editor-shell">
+              <pre class="studio-highlight" aria-hidden="true"><code data-compiler-highlight></code></pre>
+              <textarea class="studio-editor" spellcheck="false" wrap="off" data-compiler-editor aria-label="Code editor"></textarea>
+            </div>
           </section>
 
           <section class="result-panel">

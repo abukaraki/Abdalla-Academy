@@ -1756,21 +1756,121 @@ html[dir="rtl"] .lesson-bullets {
   box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.1);
 }
 
-.studio-editor {
-  width: 100%;
+.run-inline-button {
+  margin-inline-start: auto;
+  min-height: 34px;
+  border: 1px solid rgba(125, 255, 178, 0.42);
+  border-radius: 8px;
+  padding: 0 1rem;
+  background:
+    linear-gradient(135deg, rgba(125, 255, 178, 0.95), rgba(140, 246, 255, 0.88));
+  color: #02120c;
+  cursor: pointer;
+  font: 900 0.9rem/1 Consolas, "Courier New", monospace;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 22px rgba(125, 255, 178, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.run-inline-button:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow:
+    0 0 32px rgba(125, 255, 178, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.code-editor-shell {
+  position: relative;
   min-height: 560px;
-  resize: vertical;
-  border: 0;
-  padding: 1rem;
-  outline: 0;
+  overflow: hidden;
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
     #07131b;
-  color: #effffb;
+}
+
+.studio-highlight,
+.studio-editor {
+  width: 100%;
+  min-height: 560px;
+  margin: 0;
+  border: 0;
+  padding: 1rem;
   direction: ltr;
   text-align: left;
   font: 0.95rem/1.7 Consolas, "Courier New", monospace;
   tab-size: 2;
+  white-space: pre;
+}
+
+.studio-highlight {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  color: #d8f7ff;
+  pointer-events: none;
+}
+
+.studio-highlight code {
+  display: block;
+  min-width: max-content;
+}
+
+.studio-editor {
+  position: relative;
+  z-index: 2;
+  resize: vertical;
+  outline: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--terminal-green, #7dffb2);
+  -webkit-text-fill-color: transparent;
+  overflow: auto;
+}
+
+.studio-editor::selection {
+  background: rgba(140, 246, 255, 0.22);
+}
+
+.tok-tag {
+  color: #ff7ac6;
+}
+
+.tok-name {
+  color: #8cf6ff;
+}
+
+.tok-attr {
+  color: #ffd166;
+}
+
+.tok-string {
+  color: #7dffb2;
+}
+
+.tok-keyword {
+  color: #a970ff;
+  font-weight: 900;
+}
+
+.tok-function {
+  color: #67e8f9;
+  font-weight: 900;
+}
+
+.tok-variable {
+  color: #f9a8d4;
+}
+
+.tok-number {
+  color: #ffb86b;
+}
+
+.tok-comment {
+  color: #64748b;
+  font-style: italic;
 }
 
 .studio-preview {
@@ -3925,11 +4025,53 @@ body::after {
   color: var(--terminal-cyan);
 }
 
-.studio-editor {
+.code-editor-shell {
   background:
     linear-gradient(rgba(140, 246, 255, 0.03) 1px, transparent 1px) 0 0 / 100% 30px,
     #03070b;
-  color: #f4feff;
+}
+
+.studio-editor {
+  background: transparent;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: var(--terminal-green);
+}
+
+.run-terminal-button {
+  min-width: 160px;
+  min-height: 48px;
+  border-color: rgba(125, 255, 178, 0.48) !important;
+  background:
+    linear-gradient(135deg, rgba(125, 255, 178, 0.98), rgba(140, 246, 255, 0.92)) !important;
+  color: #02120c !important;
+  font-family: Consolas, "Courier New", monospace;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 32px rgba(125, 255, 178, 0.3),
+    0 0 54px rgba(140, 246, 255, 0.12) !important;
+}
+
+.compiler-page .compiler-hero {
+  min-height: 210px;
+  margin-bottom: 1rem;
+}
+
+.compiler-page .terminal-title,
+.compiler-page .compiler-hero-code {
+  min-height: 170px;
+}
+
+.compiler-page .terminal-title span {
+  font-size: clamp(1.45rem, 3.4vw, 3rem);
+}
+
+.compiler-page .terminal-title strong {
+  font-size: clamp(1.9rem, 4.2vw, 3.6rem);
+}
+
+.compiler-page .compiler-workbench {
+  margin-top: 0;
 }
 
 .studio-output {

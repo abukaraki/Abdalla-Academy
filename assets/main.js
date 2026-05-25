@@ -1015,9 +1015,10 @@ function setupCompilerStudio() {
   const output = lab.querySelector("[data-compiler-output]");
   const issues = lab.querySelector("[data-compiler-issues]");
   const title = lab.querySelector("[data-compiler-title]");
+  const highlight = lab.querySelector("[data-compiler-highlight]");
   const tabs = lab.querySelectorAll("[data-compiler-tab]");
-  const runButton = lab.querySelector("[data-run-compiler]");
-  const resetButton = lab.querySelector("[data-reset-compiler]");
+  const runButtons = lab.querySelectorAll("[data-run-compiler]");
+  const resetButtons = lab.querySelectorAll("[data-reset-compiler]");
   if (!editor || !preview || !output || !issues) return;
   if (lab.dataset.compilerReady === "true") {
     runCompilerStudio();
@@ -1033,6 +1034,7 @@ function setupCompilerStudio() {
     const saved = localStorage.getItem(key);
     if (force || !saved) editor.value = compilerExamples[language];
     else editor.value = saved;
+    updateCompilerHighlight(editor, highlight, language);
     runCompilerStudio();
   };
 
@@ -1046,21 +1048,23 @@ function setupCompilerStudio() {
       loadExample(tabNode.dataset.compilerTab || "html");
     });
   });
-  runButton?.addEventListener("click", () => {
+  runButtons.forEach((runButton) => runButton.addEventListener("click", () => {
     saveCurrent();
     runCompilerStudio();
-  });
-  resetButton?.addEventListener("click", () => {
+  }));
+  resetButtons.forEach((resetButton) => resetButton.addEventListener("click", () => {
     localStorage.removeItem(`academy-compiler-${compilerLanguage}`);
     loadExample(compilerLanguage, true);
-  });
+  }));
   editor.addEventListener("input", () => {
     saveCurrent();
+    updateCompilerHighlight(editor, highlight, compilerLanguage);
     if (compilerLanguage === "html" || compilerLanguage === "js") {
       window.clearTimeout(editor.dataset.timer);
       editor.dataset.timer = window.setTimeout(runCompilerStudio, 420);
     }
   });
+  editor.addEventListener("scroll", () => syncCompilerHighlightScroll(editor, highlight));
 
   if (!compilerStudioInitialized) {
     window.addEventListener("message", (event) => {
@@ -1085,6 +1089,7 @@ async function runCompilerStudio() {
   const issues = lab.querySelector("[data-compiler-issues]");
   if (!editor || !preview || !output || !issues) return;
   const code = editor.value;
+  updateCompilerHighlight(editor, lab.querySelector("[data-compiler-highlight]"), compilerLanguage);
   const report = analyzeStudioCode(compilerLanguage, code);
   output.textContent = report.output;
   issues.innerHTML = report.issues.length
@@ -1147,6 +1152,97 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function updateCompilerHighlight(editor, highlight, language) {
+  if (!editor || !highlight) return;
+  highlight.innerHTML = highlightCode(editor.value, language);
+  syncCompilerHighlightScroll(editor, highlight);
+}
+
+function syncCompilerHighlightScroll(editor, highlight) {
+  if (!editor || !highlight) return;
+  highlight.scrollTop = editor.scrollTop;
+  highlight.scrollLeft = editor.scrollLeft;
+}
+
+function highlightCode(code, language) {
+  if (!code) return "";
+  if (language === "html") return highlightHtml(code);
+  if (language === "js") return highlightJs(code);
+  if (language === "php") return highlightPhp(code);
+  if (language === "cpp") return highlightCpp(code);
+  return escapeHtml(code);
+}
+
+function tokenSpan(className, value) {
+  return `<span class="${className}">${value}</span>`;
+}
+
+function protectTokens(html, regex, className) {
+  const tokens = [];
+  const protectedHtml = html.replace(regex, (match) => {
+    const key = `\u0000${tokens.length}\u0000`;
+    tokens.push(tokenSpan(className, match));
+    return key;
+  });
+  return { html: protectedHtml, tokens };
+}
+
+function restoreTokens(html, tokens) {
+  return html.replace(/\u0000(\d+)\u0000/g, (_, index) => tokens[Number(index)] || "");
+}
+
+function highlightHtml(code) {
+  let html = escapeHtml(code);
+  html = html.replace(/(&lt;!--[\s\S]*?--&gt;)/g, tokenSpan("tok-comment", "$1"));
+  html = html.replace(/(&lt;\/?)([a-zA-Z][\w:-]*)([\s\S]*?)(\/?&gt;)/g, (_, open, tag, attrs, close) => {
+    const highlightedAttrs = attrs
+      .replace(/\s([a-zA-Z_:][-a-zA-Z0-9_:.]*)(=)/g, ` <span class="tok-attr">$1</span>$2`)
+      .replace(/(&quot;.*?&quot;|&#039;.*?&#039;)/g, tokenSpan("tok-string", "$1"));
+    return `${tokenSpan("tok-tag", open)}${tokenSpan("tok-name", tag)}${highlightedAttrs}${tokenSpan("tok-tag", close)}`;
+  });
+  return html;
+}
+
+function highlightJs(code) {
+  let html = escapeHtml(code);
+  const comments = protectTokens(html, /(\/\/.*$)/gm, "tok-comment");
+  html = comments.html;
+  const strings = protectTokens(html, /(`(?:\\.|[^`])*`|&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, "tok-string");
+  html = strings.html;
+  html = html.replace(/\b(const|let|var|function|return|if|else|for|while|class|new|async|await|try|catch|throw|document|console)\b/g, tokenSpan("tok-keyword", "$1"));
+  html = html.replace(/\b([a-zA-Z_$][\w$]*)(?=\s*\()/g, tokenSpan("tok-function", "$1"));
+  html = html.replace(/\b(id|name|className|textContent|innerHTML|addEventListener|getElementById|querySelector)\b/g, tokenSpan("tok-attr", "$1"));
+  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, tokenSpan("tok-number", "$1"));
+  return restoreTokens(restoreTokens(html, strings.tokens), comments.tokens);
+}
+
+function highlightPhp(code) {
+  let html = escapeHtml(code);
+  html = html.replace(/(&lt;\?php|\?&gt;)/g, tokenSpan("tok-tag", "$1"));
+  const comments = protectTokens(html, /(\/\/.*$|#.*$)/gm, "tok-comment");
+  html = comments.html;
+  const strings = protectTokens(html, /(&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, "tok-string");
+  html = strings.html;
+  html = html.replace(/(\$[a-zA-Z_]\w*)/g, tokenSpan("tok-variable", "$1"));
+  html = html.replace(/\b(echo|foreach|as|if|else|function|return|class|public|private|protected|new|array|require|include)\b/g, tokenSpan("tok-keyword", "$1"));
+  html = html.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, tokenSpan("tok-function", "$1"));
+  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, tokenSpan("tok-number", "$1"));
+  return restoreTokens(restoreTokens(html, strings.tokens), comments.tokens);
+}
+
+function highlightCpp(code) {
+  let html = escapeHtml(code);
+  const comments = protectTokens(html, /(\/\/.*$)/gm, "tok-comment");
+  html = comments.html;
+  const strings = protectTokens(html, /(&lt;[a-zA-Z0-9_.]+&gt;|&quot;(?:\\.|[^&])*?&quot;|&#039;(?:\\.|[^&])*?&#039;)/g, "tok-string");
+  html = strings.html;
+  html = html.replace(/(#include|#define|#ifdef|#endif)/g, tokenSpan("tok-keyword", "$1"));
+  html = html.replace(/\b(using|namespace|int|return|for|while|if|else|class|public|private|void|const|auto|vector|string|include|std|cout|cin|endl)\b/g, tokenSpan("tok-keyword", "$1"));
+  html = html.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, tokenSpan("tok-function", "$1"));
+  html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, tokenSpan("tok-number", "$1"));
+  return restoreTokens(restoreTokens(html, strings.tokens), comments.tokens);
 }
 
 function buildStudioJsDocument(code) {
