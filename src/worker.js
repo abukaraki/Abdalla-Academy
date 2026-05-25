@@ -105,8 +105,14 @@ async function runAiAssistant(request, env) {
     if (action === "chat" && !message.trim()) {
       return json({ error: "Message is empty." }, 400);
     }
+    const source = action === "chat" ? message : code;
+    if (env.CEREBRAS_API_KEY) {
+      const parsed = await callCerebrasAssistant(action, language, uiLanguage, source, env);
+      return json(normalizeAiPayload(parsed));
+    }
+
     if (!env.OPENAI_API_KEY) {
-      return json(buildLocalAiResponse(action, language, uiLanguage, action === "chat" ? message : code));
+      return json(buildLocalAiResponse(action, language, uiLanguage, source));
     }
 
     const model = env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -133,7 +139,7 @@ async function runAiAssistant(request, env) {
             content: [
               {
                 type: "input_text",
-                text: buildAiPrompt(action, language, action === "chat" ? message : code)
+                text: buildAiPrompt(action, language, source)
               }
             ]
           }
@@ -166,17 +172,65 @@ async function runAiAssistant(request, env) {
       return json({ error: result.error?.message || result.message || "AI request failed." }, response.status);
     }
 
-    const text = extractResponseText(result);
-    const parsed = JSON.parse(text);
-    return json({
-      title: String(parsed.title || "AI"),
-      explanation: String(parsed.explanation || ""),
-      code: String(parsed.code || ""),
-      tips: Array.isArray(parsed.tips) ? parsed.tips.map(String).slice(0, 6) : []
-    });
+    const parsed = tryParseJsonRobust(extractResponseText(result));
+    if (!parsed) throw new Error("Invalid AI response.");
+    return json(normalizeAiPayload(parsed));
   } catch (error) {
     return json({ error: error.message || "AI failed." }, 500);
   }
+}
+
+async function callCerebrasAssistant(action, language, uiLanguage, source, env) {
+  const response = await fetch("https://api.cerebras.ai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.CEREBRAS_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: env.CEREBRAS_MODEL || "llama3.1-8b",
+      temperature: 0.25,
+      max_tokens: 1200,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content: [
+            "You are the Abdalla Academy compiler assistant.",
+            "Answer only for programming, web development, compilers, debugging, and learning code.",
+            "Do not solve the whole task for the learner.",
+            "Point to the problem, explain why it happens, and give ordered hints.",
+            "For compiler help actions, keep the code field empty.",
+            "Return valid JSON only. No markdown. No extra text.",
+            `Write the explanation and tips in ${uiLanguage}.`
+          ].join(" ")
+        },
+        {
+          role: "user",
+          content: buildAiPrompt(action, language, source)
+        }
+      ]
+    })
+  });
+
+  const data = await response.json().catch(() => null);
+  if (!response.ok) {
+    throw new Error(data?.error?.message || data?.message || `Cerebras API error: ${response.status}`);
+  }
+
+  const content = data?.choices?.[0]?.message?.content;
+  const parsed = tryParseJsonRobust(content);
+  if (!parsed) throw new Error("Invalid Cerebras response.");
+  return parsed;
+}
+
+function normalizeAiPayload(parsed) {
+  return {
+    title: String(parsed?.title || "AI"),
+    explanation: String(parsed?.explanation || ""),
+    code: String(parsed?.code || ""),
+    tips: Array.isArray(parsed?.tips) ? parsed.tips.map(String).slice(0, 6) : []
+  };
 }
 
 function normalizeAction(action) {
@@ -287,6 +341,32 @@ function extractResponseText(result) {
     }
   }
   return parts.join("\n");
+}
+
+function tryParseJsonRobust(raw) {
+  if (!raw) return null;
+  if (typeof raw !== "string") return raw;
+
+  const cleaned = raw
+    .trim()
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/```$/i, "")
+    .trim();
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (_) {
+    const first = cleaned.indexOf("{");
+    const last = cleaned.lastIndexOf("}");
+    if (first === -1 || last === -1 || last <= first) return null;
+
+    try {
+      return JSON.parse(cleaned.slice(first, last + 1));
+    } catch (_) {
+      return null;
+    }
+  }
 }
 
 function json(data, status = 200) {
