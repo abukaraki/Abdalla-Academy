@@ -5177,10 +5177,6 @@ body.compiler-world-active .compiler-back-button {
   display: none;
 }
 
-.is-terminal-refreshing {
-  animation: terminalRefresh 360ms ease;
-}
-
 .terminal-title strong::after,
 .terminal-screen p,
 .compiler-boot-window span,
@@ -5188,18 +5184,12 @@ body.compiler-world-active .compiler-back-button {
   animation: none !important;
 }
 
-@keyframes terminalRefresh {
-  from {
-    opacity: 0.72;
-    transform: translateY(6px);
-    filter: brightness(1.16);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: brightness(1);
-  }
+.academy-hero-v2::before,
+.compiler-hero::before,
+.page:not(.compiler-page) > .page-hero::before,
+.code-window,
+.compiler-hero-code {
+  animation: none !important;
 }
 
 @keyframes cursorBlink {

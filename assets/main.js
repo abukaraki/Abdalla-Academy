@@ -660,7 +660,6 @@ function renderAll() {
   setupAdsenseSlots();
   setupCompilerStudio();
   setupPageTerminalHero();
-  setupScrollSystem();
   setupTerminalMotion();
   setupContactForm();
   setupAiChat();
@@ -1963,49 +1962,13 @@ function setupStaticTerminals() {
       "deploy: workers online"
     ]
   ];
-  const commandPools = [
-    [
-      "abdalla@academy:~$ node --check assets/main.js",
-      "abdalla@academy:~$ php index.php",
-      "abdalla@academy:~$ g++ main.cpp -o app",
-      "build: syntax clean",
-      "preview: html rendered",
-      "ai: coach mode ready",
-      "abdalla@academy:~$ git status --short"
-    ],
-    [
-      "abdalla@academy:~$ run compiler --php",
-      "abdalla@academy:~$ run compiler --cpp",
-      "compile: waiting for code",
-      "scan: if loops functions",
-      "coach: analyze question",
-      "status: lightweight motion",
-      "deploy: cache refreshed"
-    ]
-  ];
   document.querySelectorAll("[data-type-terminal]").forEach((terminal, terminalIndex) => {
     const target = terminal.querySelector("code") || terminal.querySelector(".terminal-screen");
     if (!target || target.dataset.staticTerminalReady === "true") return;
     target.dataset.staticTerminalReady = "true";
     const lines = commandSets[terminalIndex % commandSets.length];
     target.innerHTML = lines.map((line) => formatTerminalLine(line, false)).join("\n");
-    startLightTerminalLoop(target, lines.slice(-7), commandPools[terminalIndex % commandPools.length]);
   });
-}
-
-function startLightTerminalLoop(target, currentLines, commandPool) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  let index = 0;
-  window.setInterval(() => {
-    if (document.hidden) return;
-    const nextLine = commandPool[index % commandPool.length];
-    index += 1;
-    currentLines = currentLines.concat(nextLine).slice(-7);
-    target.innerHTML = currentLines.map((line) => formatTerminalLine(line, false)).join("\n");
-    target.classList.remove("is-terminal-refreshing");
-    void target.offsetWidth;
-    target.classList.add("is-terminal-refreshing");
-  }, 2600 + (Math.min(commandPool.length, 7) * 40));
 }
 
 function formatTerminalLine(line, cursor) {
