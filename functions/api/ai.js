@@ -167,9 +167,9 @@ function normalizeAction(action) {
 
 function buildAiPrompt(action, language, code) {
   const tasks = {
-    explain: "Scan the code. Name the important tags/functions/ids/names/classes and point out suspicious lines. Do not rewrite the code.",
-    fix: "Find the likely mistakes. For each mistake, mention the line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
-    improve: "Give learning hints for structure, readability, accessibility, and debugging. Do not return rewritten code.",
+    explain: "Scan the code and runtime output. Name the important tags/functions/ids/names/classes, then point out suspicious lines. Do not rewrite the code.",
+    fix: "Use the code and runtime output to find likely mistakes. For each mistake, mention the file/line/section, why it is wrong, and one hint to fix it. Do not return corrected code.",
+    improve: "Give learning hints for structure, readability, accessibility, debugging, and how to test the next step. Do not return rewritten code.",
     example: "Create a small practice challenge related to this code with steps the learner should try. Do not provide the final solution.",
     chat: "Answer this message only if it is about programming, web development, compilers, debugging, code structure, or learning code. If it is not programming-related, politely say you can only help with programming. Keep code empty unless a short example is necessary.",
     generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."

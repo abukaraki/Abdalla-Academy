@@ -1305,6 +1305,7 @@ function setupCompilerStudio() {
   const output = lab.querySelector("[data-compiler-output]");
   const issues = lab.querySelector("[data-compiler-issues]");
   const title = lab.querySelector("[data-compiler-title]");
+  const resultTitle = lab.querySelector("[data-compiler-result-title]");
   const highlight = lab.querySelector("[data-compiler-highlight]");
   const tabs = lab.querySelectorAll("[data-compiler-tab]");
   const runButtons = lab.querySelectorAll("[data-run-compiler]");
@@ -1326,6 +1327,7 @@ function setupCompilerStudio() {
     compilerLanguage = language;
     tabs.forEach((tabNode) => tabNode.classList.toggle("is-active", tabNode.dataset.compilerTab === language));
     if (title) title.textContent = language === "js" ? "JavaScript" : language.toUpperCase();
+    updateCompilerResultTitle(resultTitle, language);
     if (fileTabs) fileTabs.hidden = language !== "php";
     if (language === "php") {
       if (force) resetPhpProject();
@@ -1369,6 +1371,7 @@ function setupCompilerStudio() {
       compilerFile = button.dataset.compilerFile || "index.php";
       syncFileTabs(fileButtons);
       editor.value = readPhpProjectFile(compilerFile);
+      updateCompilerResultTitle(resultTitle, "php");
       updateCompilerHighlight(editor, highlight, fileLanguage(compilerFile));
       runCompilerStudio();
     });
@@ -1412,6 +1415,25 @@ function fileLanguage(filename) {
 
 function syncFileTabs(buttons) {
   buttons.forEach((button) => button.classList.toggle("is-active", button.dataset.compilerFile === compilerFile));
+}
+
+function updateCompilerResultTitle(node, language) {
+  if (!node) return;
+  const labels = {
+    ar: {
+      html: "معاينة الصفحة",
+      js: "معاينة و console",
+      php: "معاينة PHP والنتيجة",
+      cpp: "مخرجات C++"
+    },
+    en: {
+      html: "Page Preview",
+      js: "Preview and Console",
+      php: "PHP Preview and Output",
+      cpp: "C++ Output"
+    }
+  };
+  node.textContent = labels[currentLang]?.[language] || labels[currentLang]?.html || "Preview";
 }
 
 function phpProjectKey(filename) {
@@ -1504,11 +1526,13 @@ async function runCompilerStudio() {
   const preview = lab.querySelector("[data-compiler-preview]");
   const output = lab.querySelector("[data-compiler-output]");
   const issues = lab.querySelector("[data-compiler-issues]");
+  const resultTitle = lab.querySelector("[data-compiler-result-title]");
   if (!editor || !preview || !output || !issues) return;
   const code = editor.value;
   if (compilerLanguage === "php") writePhpProjectFile(compilerFile, code);
   const activeLanguage = compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
   const runCode = compilerLanguage === "php" ? buildPhpProjectSource() : code;
+  updateCompilerResultTitle(resultTitle, compilerLanguage);
   updateCompilerHighlight(editor, lab.querySelector("[data-compiler-highlight]"), activeLanguage);
   const report = analyzeStudioCode(compilerLanguage, runCode);
   output.textContent = report.output;
@@ -1530,7 +1554,7 @@ async function runCompilerStudio() {
     preview.hidden = true;
     preview.removeAttribute("srcdoc");
     const result = await runCloudCompiler(compilerLanguage, runCode, output, issues);
-    if (compilerLanguage === "php" && result?.stdout && /<\/?[a-z][\s\S]*>/i.test(result.stdout)) {
+    if (compilerLanguage === "php" && result?.hasHtml) {
       preview.srcdoc = result.stdout;
       preview.hidden = false;
     }
@@ -1557,11 +1581,21 @@ async function runCloudCompiler(language, code, output, issues) {
     }
     const stdout = data.stdout || data.output || data.run?.stdout || "";
     const stderr = data.stderr || data.compile_output || data.run?.stderr || data.message || "";
+    const hasHtml = language === "php" && /<\/?[a-z][\s\S]*>/i.test(stdout);
+    if (hasHtml) {
+      output.textContent = stderr
+        ? stderr
+        : (currentLang === "ar" ? "تم تشغيل PHP. المعاينة تعرض الصفحة الناتجة." : "PHP executed. Preview shows the rendered page.");
+      issues.innerHTML = stderr
+        ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات PHP" : "PHP output"}</strong><span>${escapeHtml(stderr)}</span></li>`
+        : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? "الناتج ظهر في المعاينة." : "The result appears in the preview."}</span></li>`;
+      return { stdout, stderr, hasHtml };
+    }
     output.textContent = [stdout, stderr].filter(Boolean).join("\n") || (currentLang === "ar" ? "تم التشغيل بدون مخرجات." : "Executed with no output.");
     issues.innerHTML = stderr
       ? `<li class="warn"><strong>${currentLang === "ar" ? "مخرجات compiler" : "Compiler output"}</strong><span>${escapeHtml(stderr)}</span></li>`
       : `<li class="ok"><strong>${ui[currentLang].noIssues}</strong><span>${currentLang === "ar" ? `تم تشغيل ${label}.` : `${label} executed.`}</span></li>`;
-    return { stdout, stderr };
+    return { stdout, stderr, hasHtml: false };
   } catch (error) {
     output.textContent = currentLang === "ar"
       ? "تعذر تشغيل الكود الآن."
@@ -1602,6 +1636,9 @@ function showCompilerBoot(language) {
 async function runCompilerAi(action, editor, output, highlight) {
   if (!editor || !output) return;
   const activeLanguage = compilerLanguage === "php" ? fileLanguage(compilerFile) : compilerLanguage;
+  const aiLanguage = compilerLanguage === "php" ? "php" : activeLanguage;
+  const runtimeOutput = document.querySelector("[data-compiler-output]")?.textContent || "";
+  const aiSource = buildCompilerAiSource(editor.value, runtimeOutput);
   const actionLabel = {
     explain: currentLang === "ar" ? "AI فحص" : "AI Scan",
     fix: currentLang === "ar" ? "AI المشكلة" : "AI Problem",
@@ -1617,8 +1654,8 @@ async function runCompilerAi(action, editor, output, highlight) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         action,
-        language: activeLanguage,
-        code: editor.value,
+        language: aiLanguage,
+        code: aiSource,
         ui_language: currentLang
       })
     });
@@ -1632,6 +1669,25 @@ async function runCompilerAi(action, editor, output, highlight) {
     output.dataset.mode = "error";
     output.innerHTML = `<strong>AI</strong><p>${currentLang === "ar" ? "المساعد غير متاح الآن. جرّب مرة ثانية بعد لحظات." : "The assistant is not available right now. Try again in a moment."}</p>`;
   }
+}
+
+function buildCompilerAiSource(editorValue, runtimeOutput) {
+  if (compilerLanguage !== "php") {
+    return [
+      "Current code:",
+      editorValue,
+      "",
+      "Runtime output:",
+      runtimeOutput || "No runtime output yet."
+    ].join("\n");
+  }
+  return [
+    "PHP project files:",
+    ...Object.keys(phpProjectDefaults).map((filename) => `--- ${filename} ---\n${readPhpProjectFile(filename)}`),
+    "",
+    "Runtime output:",
+    runtimeOutput || "No runtime output yet."
+  ].join("\n\n");
 }
 
 function renderAiResult(data) {
