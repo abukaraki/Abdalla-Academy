@@ -1185,7 +1185,9 @@ function setupCompilerStudio() {
       editor.dataset.timer = window.setTimeout(runCompilerStudio, 420);
     }
   });
-  editor.addEventListener("scroll", () => syncCompilerHighlightScroll(editor, highlight));
+  editor.addEventListener("scroll", () => {
+    window.requestAnimationFrame(() => syncCompilerHighlightScroll(editor, highlight));
+  });
 
   if (!compilerStudioInitialized) {
     window.addEventListener("message", (event) => {
@@ -1405,7 +1407,7 @@ function escapeHtml(value) {
 function updateCompilerHighlight(editor, highlight, language) {
   if (!editor || !highlight) return;
   highlight.innerHTML = highlightCode(editor.value, language);
-  syncCompilerHighlightScroll(editor, highlight);
+  window.requestAnimationFrame(() => syncCompilerHighlightScroll(editor, highlight));
 }
 
 function syncCompilerHighlightScroll(editor, highlight) {
