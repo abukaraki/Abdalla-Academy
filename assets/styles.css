@@ -1729,8 +1729,16 @@ html[dir="rtl"] .lesson-bullets {
 .editor-panel,
 .result-panel {
   min-width: 0;
+  min-height: 0;
   display: grid;
-  grid-template-rows: auto 1fr;
+}
+
+.editor-panel {
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
+.result-panel {
+  grid-template-rows: auto auto auto auto auto;
 }
 
 .editor-panel {
@@ -1738,6 +1746,7 @@ html[dir="rtl"] .lesson-bullets {
 }
 
 .panel-title {
+  grid-row: 1;
   min-height: 46px;
   display: flex;
   align-items: center;
@@ -1749,6 +1758,7 @@ html[dir="rtl"] .lesson-bullets {
 }
 
 .compiler-file-tabs {
+  grid-row: 2;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -1813,6 +1823,7 @@ html[dir="rtl"] .lesson-bullets {
 }
 
 .code-editor-shell {
+  grid-row: 3;
   position: relative;
   height: 100%;
   min-height: 560px;
@@ -4783,21 +4794,44 @@ body.compiler-world-active .compiler-page {
 }
 
 body.compiler-world-active .compiler-workbench {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100vh;
   min-height: 100vh;
   margin: 0;
   border-radius: 0;
   border: 0;
+  overflow: hidden;
 }
 
 body.compiler-world-active .compiler-layout {
-  min-height: calc(100vh - 76px);
+  height: 100%;
+  min-height: 0;
   grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.96fr);
+  overflow: hidden;
+}
+
+body.compiler-world-active .editor-panel,
+body.compiler-world-active .result-panel {
+  min-height: 0;
+  overflow: hidden;
+}
+
+body.compiler-world-active .result-panel {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: rgba(255, 255, 255, 0.62) rgba(255, 255, 255, 0.08);
+}
+
+body.compiler-world-active .editor-panel {
+  grid-template-rows: auto auto minmax(0, 1fr);
 }
 
 body.compiler-world-active .code-editor-shell,
 body.compiler-world-active .studio-highlight,
 body.compiler-world-active .studio-editor {
-  min-height: calc(100vh - 124px);
+  height: 100%;
+  min-height: 0;
 }
 
 body.compiler-world-active .studio-preview {
