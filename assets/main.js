@@ -242,17 +242,21 @@ function makeCard(item) {
   const icon = item.icon ? `<img class="content-icon" src="${item.icon}" alt="" loading="lazy">` : "";
   const course = item.course ? `<span>${text(item.course)}</span>` : "";
   const lessonCount = item.playlist?.length ? `<span>${item.playlist.length} ${ui[currentLang].lessons}</span>` : "";
+  const date = item.date ? `<span>${item.date}</span>` : "";
+  const duration = item.duration ? `<span>${item.duration}</span>` : "";
+  const level = item.level ? `<span>${item.level}</span>` : "";
   article.innerHTML = `
     ${media}
     <div class="card-meta">
       ${icon}
       ${course}
       ${lessonCount}
-      <span>${item.date}</span>
-      <span>${item.duration || ""}</span>
-      <span>${item.level || ""}</span>
+      ${date}
+      ${duration}
+      ${level}
     </div>
     <h2><a href="${href}">${text(item.title)}</a></h2>
+    <p>${text(item.summary)}</p>
     <a class="button small" href="${href}">${cardAction(item)}</a>
   `;
   return article;
@@ -623,6 +627,7 @@ function renderAll() {
   prepareRevealAnimations();
   setupAdsenseSlots();
   setupCompilerStudio();
+  setupPageTerminalHero();
   setupScrollSystem();
   setupTerminalMotion();
   setupContactForm();
@@ -1354,6 +1359,24 @@ function setupTerminalMotion() {
       node.textContent = commands[index];
     });
   }, 1800);
+}
+
+function setupPageTerminalHero() {
+  const page = document.body.dataset.page || "academy";
+  document.querySelectorAll(".page-hero").forEach((hero) => {
+    if (hero.querySelector(".page-terminal-console")) return;
+    const title = hero.querySelector("h1")?.textContent?.trim() || "Abdalla Academy";
+    const consolePanel = document.createElement("div");
+    consolePanel.className = "page-terminal-console";
+    consolePanel.setAttribute("aria-hidden", "true");
+    consolePanel.innerHTML = `
+      <span><b>$</b> cd ./${escapeHtml(page)}</span>
+      <span><b>$</b> load ${escapeHtml(title)}</span>
+      <span><b>&gt;</b> HTML PHP C++ JS</span>
+      <span><b>&gt;</b> ready</span>
+    `;
+    hero.appendChild(consolePanel);
+  });
 }
 
 function setupContactForm() {
