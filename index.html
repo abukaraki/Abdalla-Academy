@@ -15,9 +15,9 @@
     <link rel="canonical" href="https://abdalla-academy.abdabukaraki.workers.dev/">
     <link rel="icon" type="image/png" href="assets/my-logo-mark.png">
     <link rel="apple-touch-icon" href="assets/my-logo-fast.png">
-    <link rel="stylesheet" href="assets/styles.css?v=20260525-terminal-world32">
+    <link rel="stylesheet" href="assets/styles.css?v=20260525-terminal-world34">
     <script src="assets/content.js?v=20260525-fast-assets1" defer></script>
-    <script src="assets/main.js?v=20260525-terminal-world32" defer></script>
+    <script src="assets/main.js?v=20260525-terminal-world34" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -57,23 +57,26 @@
 
     <main id="main" class="academy-home academy-home-v2">
       <section class="academy-hero-v2">
-        <div class="hero-copy-v2 hacker-hero-terminal" data-type-terminal>
-          <div class="window-bar"><span></span><span></span><span></span><strong>root@abdalla-academy</strong></div>
-          <pre><code><span class="prompt">abdalla@academy:~$</span> git clone Abdalla-Academy
-<span class="prompt">abdalla@academy:~$</span> cd compiler-lab
-<span class="prompt">abdalla@academy:~$</span> npm run start
-<span class="prompt">password:</span> ********
-<span class="ok">access granted</span>
-<span class="prompt">abdalla@academy:~$</span> php -S localhost:8000
-<span class="prompt">abdalla@academy:~$</span> g++ main.cpp -o app && ./app</code></pre>
+        <div class="hero-copy-v2 hacker-hero-terminal site-ai-terminal">
+          <div class="window-bar"><span></span><span></span><span></span><strong>ai@abdalla-academy</strong></div>
+          <div class="site-ai-log" data-site-ai-log></div>
+          <div class="site-ai-prompts" aria-label="Quick questions">
+            <button type="button" data-site-ai-prompt="ما هي الدورات الموجودة؟">الدورات</button>
+            <button type="button" data-site-ai-prompt="كيف أستخدم Compiler؟">Compiler</button>
+            <button type="button" data-site-ai-prompt="كيف أتواصل معكم؟">تواصل</button>
+          </div>
+          <form class="site-ai-form" data-site-ai-form>
+            <input type="text" data-site-ai-input autocomplete="off" placeholder="اسأل عن الموقع">
+            <button type="submit">إرسال</button>
+          </form>
         </div>
 
         <div class="hero-stage hacker-hero-side" aria-label="Programming terminal shortcuts">
           <img src="assets/my-logo-fast.png" alt="Abdalla Academy logo" loading="eager">
-          <a href="compiler.html"><span>$</span> open compiler</a>
-          <a href="courses.html"><span>$</span> list courses</a>
-          <a href="errors.html"><span>$</span> scan errors</a>
-          <a href="ai.html"><span>$</span> boot ai</a>
+          <a href="compiler.html"><span>&gt;</span> Compiler</a>
+          <a href="courses.html"><span>&gt;</span> الدورات</a>
+          <a href="errors.html"><span>&gt;</span> أخطاء برمجية</a>
+          <a href="ai.html"><span>&gt;</span> AI</a>
         </div>
       </section>
 

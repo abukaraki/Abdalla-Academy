@@ -20,13 +20,13 @@ async function runAiAssistant(request, env) {
     const uiLanguage = String(body.ui_language || "ar").toLowerCase() === "en" ? "English" : "Arabic";
     const code = String(body.code || "").slice(0, 20000);
     const message = String(body.message || "").slice(0, 4000);
-    if (!["chat", "generate_example"].includes(action) && !code.trim()) {
+    if (!["chat", "site_chat", "generate_example"].includes(action) && !code.trim()) {
       return json({ error: "Code is empty." }, 400);
     }
-    if (action === "chat" && !message.trim()) {
+    if (["chat", "site_chat"].includes(action) && !message.trim()) {
       return json({ error: "Message is empty." }, 400);
     }
-    const source = action === "chat" ? message : code;
+    const source = ["chat", "site_chat"].includes(action) ? message : code;
     if (env.GEMINI_API_KEY) {
       const parsed = await callGeminiAssistant(action, language, uiLanguage, source, env);
       return json(normalizeAiPayload(parsed));
@@ -227,7 +227,7 @@ function normalizeAiPayload(parsed) {
 
 function normalizeAction(action) {
   const value = String(action || "explain").toLowerCase();
-  return ["explain", "fix", "improve", "example", "teach", "chat", "generate_example"].includes(value) ? value : "explain";
+  return ["explain", "fix", "improve", "example", "teach", "chat", "site_chat", "generate_example"].includes(value) ? value : "explain";
 }
 
 function buildAiPrompt(action, language, code) {
@@ -240,10 +240,12 @@ function buildAiPrompt(action, language, code) {
     chat: "Answer the learner's programming question directly. The question may be conceptual, practical, debugging-related, or about how to think before coding. Do not force the learner to use the Compiler page. If the message is clearly unrelated to programming, politely refuse. Short examples are allowed when they help learning.",
     generate_example: "Generate a fresh beginner-friendly runnable example for the selected language. It must be different from the current code, valid, organized, and ready to run. Use meaningful ids, functions, names, and clear structure. Return full code. For PHP, return files with index.php, style.css, script.js, and page.html."
   };
-  if (action === "chat") {
+  if (action === "chat" || action === "site_chat") {
     return [
-      "Action: chat",
-      tasks.chat,
+      `Action: ${action}`,
+      action === "site_chat"
+        ? "Answer only about using Abdalla Academy: courses, Compiler, AI assistant, coding errors, contact, privacy, terms, materials, search, and learning paths. Do not explain internal commands, implementation details, deployment, source code, secrets, or how the website was built. If asked about those, say you can help with using the platform only."
+        : tasks.chat,
       "Return JSON with title, explanation, code, and tips.",
       "User message:",
       code
@@ -368,9 +370,111 @@ function buildLocalChatResponse(text, ar) {
   };
 }
 
+function buildLocalSiteChatResponse(text, ar) {
+  const value = String(text || "").toLowerCase();
+  const blocked = /(كيف\s+.*(بني|انعمل|صممت|سويت)|أوامر|امر|git|github|cloudflare|worker|deploy|source|secret|api key|token|repository|repo|كود\s+الموقع|بناء\s+الموقع|نشر\s+الموقع|مفاتيح|توكن)/i.test(text);
+  if (blocked) {
+    return {
+      title: ar ? "مساعد الموقع" : "Site assistant",
+      explanation: ar
+        ? "أقدر أساعدك في استخدام Abdalla Academy والتنقل بين أقسامه، لكن لا أشرح الأوامر الداخلية أو طريقة بناء الموقع."
+        : "I can help you use Abdalla Academy and navigate its sections, but I do not explain internal commands or how the website was built.",
+      code: "",
+      tips: ar
+        ? ["اسأل عن الدورات، Compiler، AI، أخطاء برمجية، التواصل، أو صفحات السياسة."]
+        : ["Ask about courses, Compiler, AI, coding errors, contact, or policy pages."]
+    };
+  }
+
+  const reply = (titleAr, titleEn, explanationAr, explanationEn, tipsAr = [], tipsEn = []) => ({
+    title: ar ? titleAr : titleEn,
+    explanation: ar ? explanationAr : explanationEn,
+    code: "",
+    tips: ar ? tipsAr : tipsEn
+  });
+
+  if (/دورات|course|courses|تعلم|مسار/.test(value)) {
+    return reply(
+      "الدورات",
+      "Courses",
+      "افتح قسم الدورات لاختيار المسار المناسب. ستجد مسارات مثل PHP وMySQL وJavaScript وHTML، وكل دورة مرتبة حسب المحاضرات والمستوى.",
+      "Open Courses to choose a learning path. You will find tracks such as PHP, MySQL, JavaScript, and HTML, organized by lessons and level.",
+      ["ابدأ بالأساسيات.", "افتح الدورة ثم تابع المحاضرات بالترتيب.", "استخدم Compiler للتطبيق أثناء التعلم."],
+      ["Start with fundamentals.", "Open the course and follow lessons in order.", "Use Compiler to practice while learning."]
+    );
+  }
+
+  if (/compiler|كومبايلر|كمبايلر|تشغيل|php|c\+\+|html|javascript|js/.test(value)) {
+    return reply(
+      "Compiler",
+      "Compiler",
+      "قسم Compiler مخصص للتجربة. يمكنك تشغيل HTML وJavaScript مباشرة، وتشغيل PHP وC++ من زر التشغيل، ثم قراءة النتيجة والأخطاء.",
+      "The Compiler section is for practice. You can run HTML and JavaScript directly, run PHP and C++ from the run button, then read output and errors.",
+      ["اختر اللغة من الأعلى.", "اكتب الكود.", "اضغط تشغيل الكود.", "استخدم مساعد الكود لفهم الخطأ أو المفهوم."],
+      ["Choose the language.", "Write code.", "Press run.", "Use the code assistant to understand errors or concepts."]
+    );
+  }
+
+  if (/ai|ذكاء|مساعد/.test(value)) {
+    return reply(
+      "AI",
+      "AI",
+      "قسم AI يساعدك في أسئلة البرمجة والتعلم. اسأله عن مفهوم، خطأ، أو طريقة التفكير في الحل، وسيعطيك شرحا وتلميحات بدون أن يأخذ التمرين منك.",
+      "The AI section helps with programming and learning questions. Ask about a concept, error, or how to think through a solution, and it will give explanations and hints.",
+      ["اكتب سؤالا برمجيا واضحا.", "اذكر اللغة إن كانت مهمة.", "أرسل رسالة الخطأ عندما تكون المشكلة في الكود."],
+      ["Write a clear programming question.", "Mention the language when relevant.", "Send the error message when the issue is in code."]
+    );
+  }
+
+  if (/خطأ|اخطاء|errors|error|bug|debug/.test(value)) {
+    return reply(
+      "أخطاء برمجية",
+      "Coding Errors",
+      "قسم أخطاء برمجية يساعدك على فهم الأخطاء الشائعة وطريقة قراءتها. وعند وجود كود فعلي، استخدم Compiler ثم اطلب من مساعد الكود شرح السبب.",
+      "Coding Errors helps you understand common errors and how to read them. For real code, use Compiler, then ask the code assistant to explain the cause.",
+      ["ابدأ من أول سطر خطأ.", "راجع السطر القريب من الرسالة.", "عدّل خطوة واحدة ثم شغّل مرة ثانية."],
+      ["Start from the first error line.", "Check the nearby code line.", "Change one thing, then run again."]
+    );
+  }
+
+  if (/تواصل|contact|ايميل|email|رسالة/.test(value)) {
+    return reply(
+      "التواصل",
+      "Contact",
+      "افتح صفحة التواصل، اكتب بريدك ورسالتك، وسيتم تجهيز رسالة إلى بريد Abdalla Academy.",
+      "Open Contact, enter your email and message, and the site will prepare an email to Abdalla Academy.",
+      ["اكتب رسالة واضحة.", "اذكر الصفحة أو الدورة المقصودة إن وجدت."],
+      ["Write a clear message.", "Mention the page or course if relevant."]
+    );
+  }
+
+  if (/privacy|terms|خصوصية|شروط|سياسة|adsense|إعلانات|اعلانات/.test(value)) {
+    return reply(
+      "صفحات الموقع",
+      "Site pages",
+      "صفحات الخصوصية والشروط والتواصل موجودة في أسفل الموقع. هذه الصفحات مهمة للوضوح وتنظيم استخدام المنصة.",
+      "Privacy, Terms, and Contact are available in the footer. These pages help make the platform clear and organized.",
+      ["راجع Privacy للخصوصية.", "راجع Terms لشروط الاستخدام.", "استخدم Contact للتواصل."],
+      ["Check Privacy for privacy details.", "Check Terms for usage rules.", "Use Contact to reach out."]
+    );
+  }
+
+  return reply(
+    "مساعد الموقع",
+    "Site assistant",
+    "أستطيع مساعدتك في استخدام Abdalla Academy: الدورات، Compiler، AI، أخطاء برمجية، التواصل، وصفحات الموقع.",
+    "I can help you use Abdalla Academy: courses, Compiler, AI, coding errors, contact, and site pages.",
+    ["اكتب مثلا: ما هي الدورات؟", "أو: كيف أستخدم Compiler؟", "أو: كيف أتواصل معكم؟"],
+    ["Try: What courses are available?", "Or: How do I use Compiler?", "Or: How do I contact you?"]
+  );
+}
+
 function buildLocalAiResponse(action, language, uiLanguage, source) {
   const ar = uiLanguage !== "English";
   const text = String(source || "");
+  if (action === "site_chat") {
+    return buildLocalSiteChatResponse(text, ar);
+  }
   if (action === "chat") {
     return isProgrammingTopic(text)
       ? buildLocalChatResponse(text, ar)

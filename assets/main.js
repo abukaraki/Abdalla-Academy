@@ -661,6 +661,7 @@ function renderAll() {
   setupTerminalMotion();
   setupContactForm();
   setupAiChat();
+  setupSiteAiTerminal();
 }
 
 if (menuButton && menu) {
@@ -2229,24 +2230,18 @@ function setupScreenshotWatermark() {
 function setupStaticTerminals() {
   const commandSets = [
     [
-      "abdalla@academy:~$ git clone Abdalla-Academy",
-      "abdalla@academy:~$ cd compiler-lab",
-      "abdalla@academy:~$ npm run start",
-      "password: ********",
-      "access granted",
-      "abdalla@academy:~$ php -S localhost:8000",
-      "abdalla@academy:~$ g++ main.cpp -o app && ./app",
-      "abdalla@academy:~$ open ai --mode hints",
-      "abdalla@academy:~$ deploy --target cloudflare"
+      "courses: PHP, MySQL, JavaScript, HTML",
+      "compiler: HTML, JavaScript, PHP, C++",
+      "ai: programming help",
+      "errors: learn debugging",
+      "contact: message ready"
     ],
     [
-      "abdalla@academy:~$ curl /api/compile",
-      "status: html css js php cpp",
-      "auth: password ********",
-      "run: build, test, debug",
-      "scan: tags functions ids names",
-      "ai: hints only",
-      "deploy: workers online"
+      "الدورات: مسارات مرتبة",
+      "Compiler: تجربة مباشرة",
+      "AI: شرح وتلميحات",
+      "أخطاء برمجية: فهم السبب",
+      "تواصل: إرسال رسالة"
     ]
   ];
   document.querySelectorAll("[data-type-terminal]").forEach((terminal, terminalIndex) => {
@@ -2350,6 +2345,62 @@ function setupAiChat() {
     } catch (error) {
       if (loading) loading.querySelector("p").textContent = currentLang === "ar" ? "المساعد غير متاح الآن. جرّب مرة ثانية بعد لحظات." : "The assistant is not available right now. Try again in a moment.";
     }
+  });
+}
+
+function setupSiteAiTerminal() {
+  const form = document.querySelector("[data-site-ai-form]");
+  if (!form || form.dataset.ready === "true") return;
+  form.dataset.ready = "true";
+
+  const input = form.querySelector("[data-site-ai-input]");
+  const log = document.querySelector("[data-site-ai-log]");
+  const promptButtons = document.querySelectorAll("[data-site-ai-prompt]");
+
+  const append = (role, message) => {
+    if (!log) return null;
+    const item = document.createElement("article");
+    item.className = `site-ai-message ${role}`;
+    item.innerHTML = `<strong>${role === "user" ? "user" : "ai"}</strong><p>${escapeHtml(message)}</p>`;
+    log.appendChild(item);
+    log.scrollTop = log.scrollHeight;
+    return item;
+  };
+
+  append("ai", currentLang === "ar"
+    ? "اسألني عن الدورات، Compiler، أخطاء البرمجة، AI، التواصل، أو صفحات الموقع."
+    : "Ask about courses, Compiler, coding errors, AI, contact, or site pages.");
+
+  const ask = async (message) => {
+    const value = String(message || "").trim();
+    if (!value) return;
+    append("user", value);
+    const loading = append("ai", currentLang === "ar" ? "جاري التجهيز..." : "Working...");
+    try {
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "site_chat", message: value, ui_language: currentLang })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || data.message || `HTTP ${response.status}`);
+      if (loading) loading.querySelector("p").textContent = formatAiChatReply(data);
+    } catch (_) {
+      if (loading) loading.querySelector("p").textContent = currentLang === "ar"
+        ? "المساعد غير متاح الآن. يمكنك فتح الأقسام من الأزرار الموجودة في الصفحة."
+        : "The assistant is unavailable right now. You can use the page buttons to open sections.";
+    }
+  };
+
+  promptButtons.forEach((button) => {
+    button.addEventListener("click", () => ask(button.dataset.siteAiPrompt || button.textContent));
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const value = input?.value || "";
+    if (input) input.value = "";
+    ask(value);
   });
 }
 
