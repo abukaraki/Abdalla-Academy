@@ -1012,7 +1012,7 @@ window.SITE_CONTENT = {
       "id": "course-html-basics",
       "type": "course",
       "date": "2026-05-23",
-      "duration": "20 lessons",
+      "duration": "68 lessons",
       "level": "Beginner",
       "category": "courses",
       "mediaType": "article",
@@ -1023,240 +1023,720 @@ window.SITE_CONTENT = {
         "html"
       ],
       "title": {
-        "ar": "دورة أساسيات HTML الكاملة",
-        "en": "Complete HTML Basics Course"
+        "ar": "دورة HTML الكاملة من الصفر إلى مشروع حقيقي",
+        "en": "Complete HTML Course from Zero to Real Project"
       },
       "summary": {
-        "ar": "مسار كامل يبدأ من معنى HTML وبنية الصفحة، ثم النصوص، الروابط، الصور، الجداول، النماذج، الدلالات، SEO، وإتاحة الوصول، مع محرر كود تفاعلي داخل الصفحة.",
-        "en": "A complete path from HTML meaning and page structure to text, links, images, tables, forms, semantics, SEO, and accessibility, with an interactive code editor on the page."
+        "ar": "مسار HTML عملي واسع يغطي بنية الصفحة، النصوص، الروابط، الصور، الجداول، النماذج، الوسائط، العناصر الدلالية، الإتاحة، SEO، وواجهات HTML الحديثة، مع أمثلة أصلية قابلة للتجربة داخل Compiler Abdalla Academy.",
+        "en": "A broad practical HTML path covering page structure, text, links, images, tables, forms, media, semantic elements, accessibility, SEO, and modern HTML APIs, with original examples ready to run inside the Abdalla Academy Compiler."
       },
       "body": {
         "ar": [
-          "هذه الدورة مخصصة لمن يبدأ من الصفر. الهدف ليس حفظ الوسوم فقط، بل فهم كيف يقرأ المتصفح ملف HTML وكيف تتحول العناصر إلى صفحة منظمة يمكن لمحركات البحث وقارئات الشاشة فهمها.",
-          "كل محاضرة في القائمة تعالج جزءا واحدا بوضوح: المفهوم، الاستخدام الصحيح، الأخطاء الشائعة، وتمرين بسيط. استخدم مختبر الكود لتجربة العناصر مباشرة.",
-          "<section class=\"lesson-section\"><h2>مخرجات الدورة</h2><ul class=\"lesson-bullets\"><li>بناء صفحة HTML صحيحة من البداية.</li><li>كتابة نصوص وروابط وصور وجداول ونماذج.</li><li>استخدام عناصر semantic مثل header وmain وsection وfooter.</li><li>تحسين الصفحة لمحركات البحث وإتاحة الوصول.</li></ul></section>"
+          "هذه الدورة مبنية كمسار تدريبي عملي: كل درس يعطيك فكرة واحدة واضحة، مثال أصلي، وتمرين يمكنك تشغيله داخل Compiler الموقع. الهدف أن تفهم HTML كهيكل صفحة حقيقي، لا كقائمة وسوم محفوظة.",
+          "<section class=\"lesson-section\"><h2>خريطة الدورة</h2><ul class=\"lesson-bullets\"><li>الأساسيات: الملف، العناصر، الخصائص، العناوين، الفقرات، والتعليقات.</li><li>المحتوى: النصوص، الروابط، الصور، الجداول، القوائم، الرموز، والمسارات.</li><li>النماذج: form، عناصر الإدخال، خصائص الإدخال، التحقق، وتجربة المستخدم.</li><li>الصفحات الاحترافية: semantic HTML، layout، responsive، SEO، accessibility، وبيانات منظمة.</li><li>الوسائط وواجهات HTML: audio، video، canvas، svg، storage، drag and drop، geolocation، ومشروع نهائي.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>طريقة التدريب</h2><p>افتح الدرس، جرّب المثال في Compiler، غيّر القيم، ثم استخدم مساعد الكود ليفهمك سبب الخطأ أو معنى الجزء الذي اخترته.</p></section>"
         ],
         "en": [
-          "This course is designed for learners starting from zero. The goal is not only to memorize tags, but to understand how the browser reads HTML and how elements become a structured page that search engines and screen readers can understand.",
-          "Each lesson focuses on one clear part: the concept, correct usage, common mistakes, and a simple exercise. Use the code lab to test elements directly.",
-          "<section class=\"lesson-section\"><h2>Course outcomes</h2><ul class=\"lesson-bullets\"><li>Build a valid HTML page from scratch.</li><li>Write text, links, images, tables, and forms.</li><li>Use semantic elements such as header, main, section, and footer.</li><li>Improve pages for search engines and accessibility.</li></ul></section>"
+          "This course is built as a practical training path: each lesson gives one clear idea, an original example, and an exercise you can run inside the site Compiler. The goal is to understand HTML as a real page structure, not as a memorized tag list.",
+          "<section class=\"lesson-section\"><h2>Course map</h2><ul class=\"lesson-bullets\"><li>Foundations: file, elements, attributes, headings, paragraphs, and comments.</li><li>Content: text, links, images, tables, lists, symbols, and paths.</li><li>Forms: form, input controls, input attributes, validation, and user experience.</li><li>Professional pages: semantic HTML, layout, responsive structure, SEO, accessibility, and structured data.</li><li>Media and HTML APIs: audio, video, canvas, svg, storage, drag and drop, geolocation, and a final project.</li></ul></section>",
+          "<section class=\"lesson-section\"><h2>Training method</h2><p>Open a lesson, run its example in the Compiler, change values, then use the code assistant to understand an error or a selected concept.</p></section>"
         ]
       },
       "playlist": [
         {
           "title": {
-            "ar": "1. ما هي HTML وكيف يعمل المتصفح؟",
-            "en": "1. What is HTML and how does the browser work?"
+            "ar": "1. مدخل HTML ودورها في الويب",
+            "en": "1. HTML introduction and its role on the web"
           },
           "summary": {
-            "ar": "فهم دور HTML في بناء هيكل الصفحة وعلاقتها بالمتصفح.",
-            "en": "Understand HTML's role in page structure and its relationship with the browser."
+            "ar": "فهم أن HTML تبني الهيكل الذي يقرأه المتصفح ومحركات البحث.",
+            "en": "Understand that HTML builds the structure read by browsers and search engines."
           }
         },
         {
           "title": {
-            "ar": "2. إعداد أول ملف HTML",
-            "en": "2. Setting up the first HTML file"
+            "ar": "2. إعداد ملف index.html",
+            "en": "2. Setting up index.html"
           },
           "summary": {
-            "ar": "إنشاء ملف index.html وتشغيله محليا بطريقة صحيحة.",
-            "en": "Create an index.html file and run it locally correctly."
+            "ar": "إنشاء ملف صحيح وتشغيله محليا وداخل Compiler الموقع.",
+            "en": "Create a valid file and run it locally and inside the site Compiler."
           }
         },
         {
           "title": {
-            "ar": "3. بنية الصفحة: html وhead وbody",
-            "en": "3. Page structure: html, head, and body"
+            "ar": "3. بنية المستند: doctype وhtml وhead وbody",
+            "en": "3. Document structure: doctype, html, head, and body"
           },
           "summary": {
-            "ar": "معرفة مكان المعلومات غير المرئية ومكان المحتوى الظاهر.",
-            "en": "Know where metadata lives and where visible content belongs."
+            "ar": "معرفة وظيفة كل جزء وما يظهر للمستخدم وما يبقى معلومات للمتصفح.",
+            "en": "Know what each part does, what users see, and what the browser reads as metadata."
           }
         },
         {
           "title": {
-            "ar": "4. العناوين والفقرات",
-            "en": "4. Headings and paragraphs"
+            "ar": "4. العناصر والوسوم والإغلاق الصحيح",
+            "en": "4. Elements, tags, and correct closing"
           },
           "summary": {
-            "ar": "استخدام h1 إلى h6 وp لبناء تسلسل واضح.",
-            "en": "Use h1 through h6 and p to create a clear hierarchy."
+            "ar": "قراءة العنصر كوسم بداية، محتوى، ووسم نهاية، ومعالجة أخطاء التداخل.",
+            "en": "Read an element as opening tag, content, and closing tag, and fix nesting mistakes."
           }
         },
         {
           "title": {
-            "ar": "5. تنسيق النصوص الأساسية",
-            "en": "5. Basic text formatting"
+            "ar": "5. الخصائص attributes",
+            "en": "5. Attributes"
           },
           "summary": {
-            "ar": "استخدام strong وem وbr وhr بدون إساءة استخدامها.",
-            "en": "Use strong, em, br, and hr without misusing them."
+            "ar": "استخدام href وsrc وalt وtitle وlang وdir بطريقة صحيحة.",
+            "en": "Use href, src, alt, title, lang, and dir correctly."
           }
         },
         {
           "title": {
-            "ar": "6. الروابط والمسارات",
-            "en": "6. Links and paths"
+            "ar": "6. العناوين h1 إلى h6",
+            "en": "6. Headings h1 to h6"
           },
           "summary": {
-            "ar": "الفرق بين الروابط الداخلية والخارجية والمسارات النسبية.",
-            "en": "Difference between internal, external, and relative links."
+            "ar": "بناء تسلسل عناوين واضح يساعد القارئ ومحركات البحث.",
+            "en": "Build a clear heading hierarchy for readers and search engines."
           }
         },
         {
           "title": {
-            "ar": "7. الصور وalt",
-            "en": "7. Images and alt text"
+            "ar": "7. الفقرات وفواصل الأسطر",
+            "en": "7. Paragraphs and line breaks"
           },
           "summary": {
-            "ar": "إضافة الصور مع وصف بديل مفيد لإتاحة الوصول وSEO.",
-            "en": "Add images with meaningful alt text for accessibility and SEO."
+            "ar": "الفرق بين p وbr وhr ومتى يستخدم كل واحد.",
+            "en": "Learn the difference between p, br, and hr and when each one belongs."
           }
         },
         {
           "title": {
-            "ar": "8. القوائم المرتبة وغير المرتبة",
-            "en": "8. Ordered and unordered lists"
+            "ar": "8. التعليقات وتنظيم الكود",
+            "en": "8. Comments and code organization"
           },
           "summary": {
-            "ar": "بناء قوائم خطوات وقوائم عناصر بطريقة صحيحة.",
-            "en": "Build step lists and item lists correctly."
+            "ar": "كتابة تعليقات مفيدة لا تزعج المستخدم ولا تظهر في الصفحة.",
+            "en": "Write useful comments that do not appear on the page."
           }
         },
         {
           "title": {
-            "ar": "9. الجداول",
-            "en": "9. Tables"
+            "ar": "9. تنسيق النصوص الدلالي",
+            "en": "9. Semantic text formatting"
           },
           "summary": {
-            "ar": "استخدام table وthead وtbody لعرض البيانات المجدولة.",
-            "en": "Use table, thead, and tbody for tabular data."
+            "ar": "استخدام strong وem وmark وsmall وsub وsup لمعنى واضح.",
+            "en": "Use strong, em, mark, small, sub, and sup for meaningful text."
           }
         },
         {
           "title": {
-            "ar": "10. النماذج: form وinput",
-            "en": "10. Forms: form and input"
+            "ar": "10. الاقتباسات والاختصارات",
+            "en": "10. Quotations and abbreviations"
           },
           "summary": {
-            "ar": "بناء نموذج إدخال بسيط وفهم name وtype.",
-            "en": "Build a simple form and understand name and type."
+            "ar": "تطبيق blockquote وq وabbr وcite في محتوى تعليمي.",
+            "en": "Apply blockquote, q, abbr, and cite in educational content."
           }
         },
         {
           "title": {
-            "ar": "11. أنواع input المهمة",
-            "en": "11. Important input types"
+            "ar": "11. الألوان داخل HTML ومتى تنتقل إلى CSS",
+            "en": "11. Colors in HTML and when to move to CSS"
           },
           "summary": {
-            "ar": "تطبيق email وpassword وnumber وdate وcheckbox.",
-            "en": "Practice email, password, number, date, and checkbox inputs."
+            "ar": "فهم style السريع، ثم تنظيم التصميم في CSS.",
+            "en": "Understand quick inline style, then move styling into CSS."
           }
         },
         {
           "title": {
-            "ar": "12. الأزرار وselect وtextarea",
-            "en": "12. Buttons, select, and textarea"
+            "ar": "12. ربط CSS بالصفحة",
+            "en": "12. Connecting CSS to the page"
           },
           "summary": {
-            "ar": "إكمال عناصر النماذج المطلوبة في صفحات التسجيل والتواصل.",
-            "en": "Complete form controls needed for registration and contact pages."
+            "ar": "استخدام link داخل head وربط ملف تصميم خارجي.",
+            "en": "Use link inside head and connect an external stylesheet."
           }
         },
         {
           "title": {
-            "ar": "13. العناصر الدلالية",
-            "en": "13. Semantic elements"
+            "ar": "13. الروابط الخارجية والداخلية",
+            "en": "13. External and internal links"
           },
           "summary": {
-            "ar": "استخدام header وnav وmain وarticle وfooter.",
-            "en": "Use header, nav, main, article, and footer."
+            "ar": "إنشاء روابط آمنة وواضحة بين صفحات ومسارات مختلفة.",
+            "en": "Create clear, safe links between pages and paths."
           }
         },
         {
           "title": {
-            "ar": "14. HTML وإتاحة الوصول",
-            "en": "14. HTML and accessibility"
+            "ar": "14. الروابط داخل نفس الصفحة",
+            "en": "14. Same-page anchors"
           },
           "summary": {
-            "ar": "كتابة labels وalt وتسلسل عناوين يساعد جميع المستخدمين.",
-            "en": "Write labels, alt text, and heading order that help all users."
+            "ar": "بناء جدول محتويات ينتقل إلى أقسام داخل الصفحة.",
+            "en": "Build a table of contents that jumps to sections on the same page."
           }
         },
         {
           "title": {
-            "ar": "15. HTML وSEO",
-            "en": "15. HTML and SEO"
+            "ar": "15. مسارات الملفات",
+            "en": "15. File paths"
           },
           "summary": {
-            "ar": "استخدام title وdescription والعناوين لتحسين الفهرسة.",
-            "en": "Use title, description, and headings to improve indexing."
+            "ar": "الفرق بين المسار النسبي والمطلق عند ربط صور وصفحات وملفات.",
+            "en": "Know relative and absolute paths for images, pages, and files."
           }
         },
         {
           "title": {
-            "ar": "16. إضافة ملفات CSS وJS",
-            "en": "16. Adding CSS and JS files"
+            "ar": "16. الصور وalt وloading",
+            "en": "16. Images, alt, and loading"
           },
           "summary": {
-            "ar": "ربط ملفات خارجية بالصفحة بطريقة منظمة.",
-            "en": "Connect external files to the page in an organized way."
+            "ar": "إضافة صور خفيفة بوصف بديل وتحميل مناسب.",
+            "en": "Add lightweight images with alternative text and proper loading."
           }
         },
         {
           "title": {
-            "ar": "17. الأخطاء الشائعة",
-            "en": "17. Common mistakes"
+            "ar": "17. الصور المتجاوبة picture وsrcset",
+            "en": "17. Responsive images with picture and srcset"
           },
           "summary": {
-            "ar": "معالجة الوسوم غير المغلقة والتداخل غير الصحيح.",
-            "en": "Fix unclosed tags and incorrect nesting."
+            "ar": "اختيار صورة مناسبة لحجم الشاشة بدون بطء.",
+            "en": "Serve the right image for the screen size without slowing the page."
           }
         },
         {
           "title": {
-            "ar": "18. بناء صفحة شخصية",
-            "en": "18. Building a personal page"
+            "ar": "18. favicon وعنوان الصفحة",
+            "en": "18. Favicon and page title"
           },
           "summary": {
-            "ar": "تجميع ما سبق في صفحة تعريف بسيطة.",
-            "en": "Combine previous concepts into a simple profile page."
+            "ar": "تجهيز أيقونة المتصفح وtitle واضح لكل صفحة.",
+            "en": "Prepare the browser icon and a clear title for every page."
           }
         },
         {
           "title": {
-            "ar": "19. بناء صفحة درس",
-            "en": "19. Building a lesson page"
+            "ar": "19. القوائم ul وol وdl",
+            "en": "19. Lists: ul, ol, and dl"
           },
           "summary": {
-            "ar": "إنشاء صفحة تعليمية فيها عناوين وفقرات وصور وقائمة.",
-            "en": "Create an educational page with headings, paragraphs, images, and lists."
+            "ar": "تنظيم خطوات، عناصر، ومصطلحات داخل قوائم مناسبة.",
+            "en": "Organize steps, items, and terms with the right list type."
           }
         },
         {
           "title": {
-            "ar": "20. مشروع نهاية دورة HTML",
-            "en": "20. HTML final project"
+            "ar": "20. الجداول الأساسية",
+            "en": "20. Basic tables"
           },
           "summary": {
-            "ar": "تنفيذ صفحة كاملة قابلة للنشر ومناسبة للتطوير لاحقا.",
-            "en": "Build a complete page ready for publishing and future improvement."
+            "ar": "بناء جدول بيانات باستخدام table وtr وth وtd.",
+            "en": "Build tabular data using table, tr, th, and td."
+          }
+        },
+        {
+          "title": {
+            "ar": "21. جداول احترافية accessible",
+            "en": "21. Accessible professional tables"
+          },
+          "summary": {
+            "ar": "استخدام caption وthead وtbody وscope لجدول مفهوم.",
+            "en": "Use caption, thead, tbody, and scope for understandable tables."
+          }
+        },
+        {
+          "title": {
+            "ar": "22. block وinline",
+            "en": "22. Block and inline elements"
+          },
+          "summary": {
+            "ar": "تمييز العناصر التي تبدأ سطرا جديدا عن العناصر داخل النص.",
+            "en": "Distinguish elements that start a new line from inline text elements."
+          }
+        },
+        {
+          "title": {
+            "ar": "23. div وspan بدون فوضى",
+            "en": "23. div and span without chaos"
+          },
+          "summary": {
+            "ar": "استخدام div وspan عند الحاجة فقط مع أسماء واضحة.",
+            "en": "Use div and span only when needed, with clear names."
+          }
+        },
+        {
+          "title": {
+            "ar": "24. class وid",
+            "en": "24. class and id"
+          },
+          "summary": {
+            "ar": "اختيار class للتكرار وid للعنصر الفريد والربط الداخلي.",
+            "en": "Choose class for repeated patterns and id for unique targets and anchors."
+          }
+        },
+        {
+          "title": {
+            "ar": "25. iframe",
+            "en": "25. iframe"
+          },
+          "summary": {
+            "ar": "تضمين محتوى خارجي بأمان وبحجم مناسب.",
+            "en": "Embed external content safely and at the right size."
+          }
+        },
+        {
+          "title": {
+            "ar": "26. JavaScript داخل HTML",
+            "en": "26. JavaScript inside HTML"
+          },
+          "summary": {
+            "ar": "ربط script والتحكم بعنصر بسيط بدون كسر الصفحة.",
+            "en": "Connect script and control a simple element without breaking the page."
+          }
+        },
+        {
+          "title": {
+            "ar": "27. head وmeta tags",
+            "en": "27. head and meta tags"
+          },
+          "summary": {
+            "ar": "كتابة charset وviewport وdescription ومعلومات الصفحة الأساسية.",
+            "en": "Write charset, viewport, description, and core page metadata."
+          }
+        },
+        {
+          "title": {
+            "ar": "28. layout صفحة كاملة",
+            "en": "28. Full page layout"
+          },
+          "summary": {
+            "ar": "بناء header وnav وmain وaside وfooter بترتيب واضح.",
+            "en": "Build header, nav, main, aside, and footer in a clear order."
+          }
+        },
+        {
+          "title": {
+            "ar": "29. responsive HTML foundation",
+            "en": "29. Responsive HTML foundation"
+          },
+          "summary": {
+            "ar": "تجهيز البنية التي تجعل CSS يستجيب بسهولة للشاشات.",
+            "en": "Prepare structure that lets CSS respond easily to screens."
+          }
+        },
+        {
+          "title": {
+            "ar": "30. computer code elements",
+            "en": "30. Computer code elements"
+          },
+          "summary": {
+            "ar": "استخدام code وpre وkbd وsamp لعرض أكواد وأوامر.",
+            "en": "Use code, pre, kbd, and samp to display code and commands."
+          }
+        },
+        {
+          "title": {
+            "ar": "31. semantic HTML",
+            "en": "31. Semantic HTML"
+          },
+          "summary": {
+            "ar": "اختيار عناصر تحمل معنى: article وsection وtime وfigure.",
+            "en": "Choose meaningful elements: article, section, time, and figure."
+          }
+        },
+        {
+          "title": {
+            "ar": "32. style guide للكود النظيف",
+            "en": "32. Clean HTML style guide"
+          },
+          "summary": {
+            "ar": "كتابة HTML مرتب بأسماء واضحة ومسافات متسقة.",
+            "en": "Write tidy HTML with clear names and consistent spacing."
+          }
+        },
+        {
+          "title": {
+            "ar": "33. HTML entities",
+            "en": "33. HTML entities"
+          },
+          "summary": {
+            "ar": "إظهار رموز مثل < و> و& داخل النص بدون كسر الصفحة.",
+            "en": "Show symbols such as <, >, and & in text without breaking the page."
+          }
+        },
+        {
+          "title": {
+            "ar": "34. symbols and icons بالنص",
+            "en": "34. Text symbols and icons"
+          },
+          "summary": {
+            "ar": "استخدام الرموز النصية بحذر مع بدائل واضحة عند الحاجة.",
+            "en": "Use text symbols carefully with clear alternatives when needed."
+          }
+        },
+        {
+          "title": {
+            "ar": "35. emojis واللغة",
+            "en": "35. Emojis and language"
+          },
+          "summary": {
+            "ar": "معرفة متى تفيد الرموز التعبيرية ومتى تضعف الاحتراف.",
+            "en": "Know when emojis help and when they weaken professionalism."
+          }
+        },
+        {
+          "title": {
+            "ar": "36. charsets وUnicode",
+            "en": "36. Charsets and Unicode"
+          },
+          "summary": {
+            "ar": "فهم utf-8 ودعم العربية والإنجليزية داخل نفس الصفحة.",
+            "en": "Understand utf-8 and support Arabic and English on the same page."
+          }
+        },
+        {
+          "title": {
+            "ar": "37. URL encoding",
+            "en": "37. URL encoding"
+          },
+          "summary": {
+            "ar": "فهم ترميز الروابط عندما تحتوي على مسافات أو حروف خاصة.",
+            "en": "Understand URL encoding when links contain spaces or special characters."
+          }
+        },
+        {
+          "title": {
+            "ar": "38. HTML وXHTML",
+            "en": "38. HTML and XHTML"
+          },
+          "summary": {
+            "ar": "معرفة الفروقات التي تهمك عند قراءة كود قديم أو صارم.",
+            "en": "Know the differences that matter when reading old or strict code."
+          }
+        },
+        {
+          "title": {
+            "ar": "39. مقدمة النماذج form",
+            "en": "39. Forms introduction"
+          },
+          "summary": {
+            "ar": "بناء نموذج يرسل بيانات منظمة بأسماء واضحة.",
+            "en": "Build a form that sends structured data with clear names."
+          }
+        },
+        {
+          "title": {
+            "ar": "40. form attributes",
+            "en": "40. Form attributes"
+          },
+          "summary": {
+            "ar": "استخدام action وmethod وautocomplete وtarget بوعي.",
+            "en": "Use action, method, autocomplete, and target with intention."
+          }
+        },
+        {
+          "title": {
+            "ar": "41. input types الأساسية",
+            "en": "41. Core input types"
+          },
+          "summary": {
+            "ar": "تطبيق text وemail وpassword وnumber وdate وfile.",
+            "en": "Practice text, email, password, number, date, and file inputs."
+          }
+        },
+        {
+          "title": {
+            "ar": "42. checkbox وradio",
+            "en": "42. Checkbox and radio"
+          },
+          "summary": {
+            "ar": "اختيار عنصر مناسب للسؤال متعدد الخيارات أو اختيار واحد.",
+            "en": "Choose the right control for multiple choices or one required choice."
+          }
+        },
+        {
+          "title": {
+            "ar": "43. select وtextarea وbutton",
+            "en": "43. select, textarea, and button"
+          },
+          "summary": {
+            "ar": "إكمال النماذج بعناصر اختيار ورسائل وأزرار واضحة.",
+            "en": "Complete forms with selection controls, messages, and clear buttons."
+          }
+        },
+        {
+          "title": {
+            "ar": "44. label وfieldset وlegend",
+            "en": "44. label, fieldset, and legend"
+          },
+          "summary": {
+            "ar": "جعل النماذج مفهومة وسهلة على لوحة المفاتيح وقارئات الشاشة.",
+            "en": "Make forms understandable and usable by keyboard and screen readers."
+          }
+        },
+        {
+          "title": {
+            "ar": "45. input attributes",
+            "en": "45. Input attributes"
+          },
+          "summary": {
+            "ar": "استخدام placeholder وrequired وmin وmax وpattern وmaxlength.",
+            "en": "Use placeholder, required, min, max, pattern, and maxlength."
+          }
+        },
+        {
+          "title": {
+            "ar": "46. form validation",
+            "en": "46. Form validation"
+          },
+          "summary": {
+            "ar": "تجربة التحقق داخل المتصفح قبل إرسال البيانات.",
+            "en": "Try browser validation before sending data."
+          }
+        },
+        {
+          "title": {
+            "ar": "47. Canvas foundation",
+            "en": "47. Canvas foundation"
+          },
+          "summary": {
+            "ar": "رسم شكل بسيط داخل canvas وفهم أنه يحتاج JavaScript.",
+            "en": "Draw a simple shape on canvas and understand that it needs JavaScript."
+          }
+        },
+        {
+          "title": {
+            "ar": "48. SVG داخل HTML",
+            "en": "48. SVG inside HTML"
+          },
+          "summary": {
+            "ar": "إضافة رسم vector خفيف وقابل للتغيير.",
+            "en": "Add a lightweight editable vector drawing."
+          }
+        },
+        {
+          "title": {
+            "ar": "49. audio",
+            "en": "49. Audio"
+          },
+          "summary": {
+            "ar": "تشغيل صوت باستخدام controls ومراعاة تجربة المستخدم.",
+            "en": "Play audio with controls while respecting user experience."
+          }
+        },
+        {
+          "title": {
+            "ar": "50. video",
+            "en": "50. Video"
+          },
+          "summary": {
+            "ar": "إضافة فيديو مع poster وcontrols ومصادر متعددة.",
+            "en": "Add video with poster, controls, and multiple sources."
+          }
+        },
+        {
+          "title": {
+            "ar": "51. YouTube embed",
+            "en": "51. YouTube embed"
+          },
+          "summary": {
+            "ar": "تضمين فيديو تعليمي بأبعاد متجاوبة وtitle مناسب.",
+            "en": "Embed an educational video with responsive dimensions and a proper title."
+          }
+        },
+        {
+          "title": {
+            "ar": "52. Web storage",
+            "en": "52. Web storage"
+          },
+          "summary": {
+            "ar": "حفظ اختيار بسيط للمستخدم باستخدام localStorage.",
+            "en": "Save a simple user choice using localStorage."
+          }
+        },
+        {
+          "title": {
+            "ar": "53. Geolocation",
+            "en": "53. Geolocation"
+          },
+          "summary": {
+            "ar": "فهم طلب الموقع الجغرافي ولماذا يحتاج إذنا صريحا.",
+            "en": "Understand geolocation requests and why they need explicit permission."
+          }
+        },
+        {
+          "title": {
+            "ar": "54. Drag and drop",
+            "en": "54. Drag and drop"
+          },
+          "summary": {
+            "ar": "بناء تمرين سحب وإفلات بسيط باستخدام HTML وJS.",
+            "en": "Build a simple drag-and-drop exercise using HTML and JS."
+          }
+        },
+        {
+          "title": {
+            "ar": "55. Web workers",
+            "en": "55. Web workers"
+          },
+          "summary": {
+            "ar": "فهم فكرة تشغيل مهمة بعيدا عن الواجهة عندما يكبر العمل.",
+            "en": "Understand running a task away from the UI when work grows."
+          }
+        },
+        {
+          "title": {
+            "ar": "56. Server-sent events",
+            "en": "56. Server-sent events"
+          },
+          "summary": {
+            "ar": "قراءة فكرة التحديثات القادمة من السيرفر بشكل مستمر.",
+            "en": "Read the idea of continuous updates coming from a server."
+          }
+        },
+        {
+          "title": {
+            "ar": "57. SEO foundation",
+            "en": "57. SEO foundation"
+          },
+          "summary": {
+            "ar": "بناء title وdescription وheading واحد واضح وlinks مفهومة.",
+            "en": "Build clear title, description, one main heading, and meaningful links."
+          }
+        },
+        {
+          "title": {
+            "ar": "58. Open Graph sharing",
+            "en": "58. Open Graph sharing"
+          },
+          "summary": {
+            "ar": "تجهيز بيانات مشاركة الصفحة على الشبكات والمنصات.",
+            "en": "Prepare page sharing metadata for platforms."
+          }
+        },
+        {
+          "title": {
+            "ar": "59. structured data",
+            "en": "59. Structured data"
+          },
+          "summary": {
+            "ar": "فهم JSON-LD ودوره في توضيح نوع المحتوى لمحركات البحث.",
+            "en": "Understand JSON-LD and how it clarifies content type for search engines."
+          }
+        },
+        {
+          "title": {
+            "ar": "60. accessibility checklist",
+            "en": "60. Accessibility checklist"
+          },
+          "summary": {
+            "ar": "مراجعة العناوين، labels، alt، contrast، والتنقل بلوحة المفاتيح.",
+            "en": "Review headings, labels, alt, contrast, and keyboard navigation."
+          }
+        },
+        {
+          "title": {
+            "ar": "61. AdSense-ready layout",
+            "en": "61. AdSense-ready layout"
+          },
+          "summary": {
+            "ar": "تجهيز أماكن إعلان غير مزعجة داخل بنية صفحة نظيفة.",
+            "en": "Prepare non-intrusive ad areas inside a clean page structure."
+          }
+        },
+        {
+          "title": {
+            "ar": "62. مشروع بطاقة درس",
+            "en": "62. Lesson card project"
+          },
+          "summary": {
+            "ar": "بناء بطاقة درس تعرض عنوانا ومستوى وزر دخول.",
+            "en": "Build a lesson card with title, level, and entry button."
+          }
+        },
+        {
+          "title": {
+            "ar": "63. مشروع صفحة دورة",
+            "en": "63. Course page project"
+          },
+          "summary": {
+            "ar": "بناء صفحة دورة فيها hero وقائمة دروس ونموذج تواصل.",
+            "en": "Build a course page with hero, lesson list, and contact form."
+          }
+        },
+        {
+          "title": {
+            "ar": "64. المشروع النهائي: صفحة تعليمية قابلة للنشر",
+            "en": "64. Final project: publish-ready educational page"
+          },
+          "summary": {
+            "ar": "تجميع كل المهارات في صفحة تعليمية منظمة وسريعة ومتجاوبة.",
+            "en": "Combine all skills into an organized, fast, responsive educational page."
+          }
+        },
+        {
+          "title": {
+            "ar": "65. مكتبة أمثلة HTML",
+            "en": "65. HTML examples library"
+          },
+          "summary": {
+            "ar": "بناء أمثلة صغيرة لكل مفهوم حتى يستطيع الطالب التجربة بسرعة.",
+            "en": "Build small examples for each concept so the learner can experiment quickly."
+          }
+        },
+        {
+          "title": {
+            "ar": "66. مرجع الوسوم tags",
+            "en": "66. Tags reference"
+          },
+          "summary": {
+            "ar": "قراءة الوسم حسب الاستخدام: نص، صورة، نموذج، وسائط، أو دلالة.",
+            "en": "Read tags by use: text, image, form, media, or semantic meaning."
+          }
+        },
+        {
+          "title": {
+            "ar": "67. مرجع الخصائص attributes",
+            "en": "67. Attributes reference"
+          },
+          "summary": {
+            "ar": "معرفة الخصائص العامة وخصائص الروابط والصور والنماذج.",
+            "en": "Know global attributes and link, image, and form attributes."
+          }
+        },
+        {
+          "title": {
+            "ar": "68. مرجع الأحداث events",
+            "en": "68. Events reference"
+          },
+          "summary": {
+            "ar": "فهم أحداث مثل click وinput وsubmit عند ربط HTML مع JavaScript.",
+            "en": "Understand events such as click, input, and submit when connecting HTML with JavaScript."
           }
         }
       ],
       "codeLab": {
         "preview": true,
         "title": {
-          "ar": "مختبر HTML تفاعلي",
-          "en": "Interactive HTML Lab"
+          "ar": "Compiler HTML للدورة",
+          "en": "Course HTML Compiler"
         },
         "initialCode": {
-          "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>صفحتي الأولى</title>\n  </head>\n  <body>\n    <h1>مرحبا في دورة HTML</h1>\n    <p>اكتب عناصر HTML وشاهد النتيجة هنا.</p>\n    <a href=\"https://developer.mozilla.org/\">مصدر تعليمي</a>\n  </body>\n</html>",
-          "en": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>My First Page</title>\n  </head>\n  <body>\n    <h1>Welcome to HTML</h1>\n    <p>Write HTML elements and preview the result here.</p>\n    <a href=\"https://developer.mozilla.org/\">Learning source</a>\n  </body>\n</html>"
+          "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"description\" content=\"صفحة تدريب HTML داخل Abdalla Academy\">\n  <title>مختبر HTML</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: white; }\n    header, main, footer { max-width: 860px; margin: auto; padding: 24px; }\n    nav a { color: #00e5ff; margin-left: 12px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }\n    button { background: #b7ff00; border: 0; padding: 10px 16px; font-weight: bold; cursor: pointer; }\n  </style>\n</head>\n<body>\n  <header>\n    <h1>مسار HTML</h1>\n    <nav>\n      <a href=\"#lessons\">الدروس</a>\n      <a href=\"#contact\">تواصل</a>\n    </nav>\n  </header>\n\n  <main>\n    <section class=\"panel\" id=\"lessons\">\n      <h2>دروس اليوم</h2>\n      <div class=\"grid\">\n        <article><h3>العناصر</h3><p>تعلم تركيب الوسم والمحتوى.</p></article>\n        <article><h3>الخصائص</h3><p>استخدم id وclass وhref بوضوح.</p></article>\n        <article><h3>النماذج</h3><p>اربط label مع input لتجربة أفضل.</p></article>\n      </div>\n    </section>\n\n    <section class=\"panel\" id=\"contact\">\n      <h2>تجربة نموذج</h2>\n      <form>\n        <label for=\"name\">الاسم</label>\n        <input id=\"name\" name=\"name\" required>\n        <button type=\"submit\">إرسال</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>Abdalla Academy</footer>\n</body>\n</html>",
+          "en": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"description\" content=\"HTML training page inside Abdalla Academy\">\n  <title>HTML Lab</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: white; }\n    header, main, footer { max-width: 860px; margin: auto; padding: 24px; }\n    nav a { color: #00e5ff; margin-right: 12px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }\n    button { background: #b7ff00; border: 0; padding: 10px 16px; font-weight: bold; cursor: pointer; }\n  </style>\n</head>\n<body>\n  <header>\n    <h1>HTML Track</h1>\n    <nav>\n      <a href=\"#lessons\">Lessons</a>\n      <a href=\"#contact\">Contact</a>\n    </nav>\n  </header>\n\n  <main>\n    <section class=\"panel\" id=\"lessons\">\n      <h2>Today Lessons</h2>\n      <div class=\"grid\">\n        <article><h3>Elements</h3><p>Learn tag structure and content.</p></article>\n        <article><h3>Attributes</h3><p>Use id, class, and href clearly.</p></article>\n        <article><h3>Forms</h3><p>Connect label with input for a better experience.</p></article>\n      </div>\n    </section>\n\n    <section class=\"panel\" id=\"contact\">\n      <h2>Form Practice</h2>\n      <form>\n        <label for=\"name\">Name</label>\n        <input id=\"name\" name=\"name\" required>\n        <button type=\"submit\">Send</button>\n      </form>\n    </section>\n  </main>\n\n  <footer>Abdalla Academy</footer>\n</body>\n</html>"
         },
         "note": {
-          "ar": "",
-          "en": ""
+          "ar": "غيّر أي عنصر ثم اضغط تشغيل الكود. ركّز على ترتيب head وbody، وعلى ربط label مع input.",
+          "en": "Change any element, then run the code. Focus on head/body order and connecting label with input."
         }
       }
     },
