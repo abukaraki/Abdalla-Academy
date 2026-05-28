@@ -4509,6 +4509,23 @@ body::after {
   color: var(--terminal-green);
 }
 
+.studio-output ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.75rem 0 0;
+  padding-inline-start: 1.2rem;
+}
+
+.studio-output li strong {
+  color: var(--terminal-cyan);
+}
+
+.studio-output li span {
+  display: block;
+  margin-top: 0.18rem;
+  color: var(--terminal-text);
+}
+
 .studio-issues,
 .studio-issues li {
   background: rgba(140, 246, 255, 0.045);

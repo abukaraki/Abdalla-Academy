@@ -1612,12 +1612,12 @@ function getCompilerLearningTopics(language, code) {
     ],
     js: [
       ["if", "if", "if", "if", /\bif\s*\(/],
-      ["function", "function", "function", "function", /\bfunction\b|=>/],
-      ["variable", "variable", "متغير", "variable", /\b(let|const|var)\b/],
-      ["event", "event", "event", "event", /addEventListener|onclick/],
-      ["dom", "DOM", "DOM", "DOM", /document|getElementById|querySelector/],
-      ["array", "array", "array", "array", /\[[\s\S]*\]/],
-      ["loop", "loop", "loop", "loop", /\b(for|while)\b/]
+      ["function", "function", "الدالة function", "function", /\bfunction\b|=>/],
+      ["variable", "variable", "المتغير variable", "variable", /\b(let|const|var)\b/],
+      ["event", "event", "الحدث event", "event", /addEventListener|onclick/],
+      ["dom", "DOM", "عناصر الصفحة DOM", "DOM", /document|getElementById|querySelector/],
+      ["array", "array", "القائمة array", "array", /\[[\s\S]*\]/],
+      ["loop", "loop", "التكرار loop", "loop", /\b(for|while)\b/]
     ],
     php: [
       ["if", "if", "if", "if", /\bif\s*\(/],
@@ -1655,9 +1655,32 @@ function refreshCompilerLearningStrip(editor, strip) {
   const language = getCompilerLearningLanguage();
   const topics = getCompilerLearningTopics(language, editor.value);
   strip.innerHTML = `
-    <span>${currentLang === "ar" ? "تعلم من الكود:" : "Learn:"}</span>
-    ${topics.map((topic) => `<button type="button" data-learn-topic="${escapeHtml(topic.focus)}">${escapeHtml(topic.label)}</button>`).join("")}
+    <span>${currentLang === "ar" ? "اضغط لشرح:" : "Explain:"}</span>
+    ${topics.map((topic) => `<button type="button" data-learn-topic="${escapeHtml(topic.focus)}">${currentLang === "ar" ? "اشرح " : ""}${escapeHtml(topic.label)}</button>`).join("")}
   `;
+}
+
+function describeCompilerTopic(topic) {
+  const descriptions = {
+    if: ["شرط: يشغل كودا فقط عندما يكون السؤال صحيحا.", "Condition: runs code only when the question is true."],
+    function: ["دالة: مجموعة أوامر لها اسم، نستدعيها وقت الحاجة.", "Function: a named group of commands you call when needed."],
+    variable: ["متغير: مكان نخزن فيه قيمة مثل رقم أو نص.", "Variable: a place to store a value such as a number or text."],
+    event: ["حدث: شيء يفعله المستخدم مثل الضغط على زر.", "Event: something the user does, such as clicking a button."],
+    dom: ["DOM: طريقة JavaScript للوصول إلى عناصر الصفحة وتغييرها.", "DOM: how JavaScript reaches and changes page elements."],
+    array: ["قائمة: تخزن أكثر من قيمة داخل متغير واحد.", "Array: stores multiple values inside one variable."],
+    loop: ["تكرار: يعيد تنفيذ نفس الخطوة أكثر من مرة.", "Loop: repeats the same step more than once."],
+    tag: ["وسم HTML: يحدد معنى جزء من الصفحة مثل عنوان أو زر.", "HTML tag: defines a page part such as a heading or button."],
+    id: ["id: اسم فريد لعنصر واحد في الصفحة.", "id: a unique name for one page element."],
+    class: ["class: اسم مشترك لتنسيق أكثر من عنصر.", "class: a shared name used to style multiple elements."],
+    selector: ["selector: يحدد العنصر الذي سيأخذ تنسيق CSS.", "selector: chooses which element receives CSS styling."],
+    echo: ["echo: يطبع نصا أو قيمة من PHP إلى الصفحة.", "echo: prints text or a value from PHP to the page."],
+    main: ["main: نقطة بداية تشغيل برنامج C++.", "main: the starting point of a C++ program."],
+    cout: ["cout: يطبع نتيجة على شاشة C++.", "cout: prints output in C++."],
+    cin: ["cin: يقرأ إدخال المستخدم في C++.", "cin: reads user input in C++."]
+  };
+  const fallback = ["مفهوم موجود في الكود. اضغط عليه ليتم شرحه داخل المثال.", "A concept in the code. Click it to explain it inside this example."];
+  const item = descriptions[topic.id] || fallback;
+  return currentLang === "ar" ? item[0] : item[1];
 }
 
 function showCompilerLearningChoices(editor, output, strip) {
@@ -1667,9 +1690,9 @@ function showCompilerLearningChoices(editor, output, strip) {
   const topics = getCompilerLearningTopics(language, editor?.value || "");
   output.dataset.mode = "ready";
   output.innerHTML = `
-    <strong>${currentLang === "ar" ? "تعلم من الكود" : "Learn from the code"}</strong>
-    <p>${currentLang === "ar" ? "اختر كلمة أو مفهوم من شريط الكود، وسأشرح لك معناها واستخدامها داخل هذا المثال." : "Choose a word or concept from the code strip, and I will explain what it means inside this example."}</p>
-    <ul>${topics.map((topic) => `<li>${escapeHtml(topic.label)}</li>`).join("")}</ul>
+    <strong>${currentLang === "ar" ? "شرح أجزاء الكود" : "Code concept help"}</strong>
+    <p>${currentLang === "ar" ? "الأزرار الموجودة فوق الكود ليست أوامر تشغيل. هي دروس صغيرة: اضغط على أي مفهوم حتى يشرح لك المساعد معناه وأين يظهر في المثال." : "The buttons above the code are not run commands. They are small lessons: click a concept to learn what it means and where it appears in this example."}</p>
+    <ul>${topics.map((topic) => `<li><strong>${escapeHtml(topic.label)}</strong><span>${escapeHtml(describeCompilerTopic(topic))}</span></li>`).join("")}</ul>
   `;
 }
 
