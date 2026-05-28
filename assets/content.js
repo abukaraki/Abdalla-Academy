@@ -1051,6 +1051,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم أن HTML تبني الهيكل الذي يقرأه المتصفح ومحركات البحث.",
             "en": "Understand that HTML builds the structure read by browsers and search engines."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم أن HTML تبني الهيكل الذي يقرأه المتصفح ومحركات البحث.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand that HTML builds the structure read by browsers and search engines.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>مدخل HTML</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: #f8fbff; }\n    main { max-width: 860px; margin: auto; padding: 28px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    a { color: #00e5ff; }\n    mark { background: #b7ff00; color: #05070d; padding: 2px 6px; }\n  </style>\n</head>\n<body>\n  <main>\n    <section class=\"panel\">\n      <h1>أول صفحة HTML</h1>\n      <p>HTML تبني هيكل الصفحة: عنوان، فقرة، رابط، صورة، ونموذج.</p>\n    </section>\n  </main>\n</body>\n</html>",
+            "en": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>مدخل HTML</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: #f8fbff; }\n    main { max-width: 860px; margin: auto; padding: 28px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    a { color: #00e5ff; }\n    mark { background: #b7ff00; color: #05070d; padding: 2px 6px; }\n  </style>\n</head>\n<body>\n  <main>\n    <section class=\"panel\">\n      <h1>أول صفحة HTML</h1>\n      <p>HTML تبني هيكل الصفحة: عنوان، فقرة، رابط، صورة، ونموذج.</p>\n    </section>\n  </main>\n</body>\n</html>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مدخل HTML ودورها في الويب\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"HTML introduction and its role on the web\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1061,6 +1079,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إنشاء ملف صحيح وتشغيله محليا وداخل Compiler الموقع.",
             "en": "Create a valid file and run it locally and inside the site Compiler."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إنشاء ملف صحيح وتشغيله محليا وداخل Compiler الموقع.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Create a valid file and run it locally and inside the site Compiler.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>index.html</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: #f8fbff; }\n    main { max-width: 860px; margin: auto; padding: 28px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    a { color: #00e5ff; }\n    mark { background: #b7ff00; color: #05070d; padding: 2px 6px; }\n  </style>\n</head>\n<body>\n  <main>\n    <h1>ملف index.html</h1>\n    <p>هذا الملف هو نقطة البداية في أغلب المواقع.</p>\n  </main>\n</body>\n</html>",
+            "en": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>index.html</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: #f8fbff; }\n    main { max-width: 860px; margin: auto; padding: 28px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    a { color: #00e5ff; }\n    mark { background: #b7ff00; color: #05070d; padding: 2px 6px; }\n  </style>\n</head>\n<body>\n  <main>\n    <h1>ملف index.html</h1>\n    <p>هذا الملف هو نقطة البداية في أغلب المواقع.</p>\n  </main>\n</body>\n</html>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"إعداد ملف index.html\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Setting up index.html\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1071,6 +1107,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "معرفة وظيفة كل جزء وما يظهر للمستخدم وما يبقى معلومات للمتصفح.",
             "en": "Know what each part does, what users see, and what the browser reads as metadata."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>معرفة وظيفة كل جزء وما يظهر للمستخدم وما يبقى معلومات للمتصفح.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Know what each part does, what users see, and what the browser reads as metadata.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>بنية المستند</title>\n</head>\n<body>\n  <h1>المحتوى الظاهر هنا</h1>\n</body>\n</html>",
+            "en": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>بنية المستند</title>\n</head>\n<body>\n  <h1>المحتوى الظاهر هنا</h1>\n</body>\n</html>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"بنية المستند: doctype وhtml وhead وbody\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Document structure: doctype, html, head, and body\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1081,6 +1135,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "قراءة العنصر كوسم بداية، محتوى، ووسم نهاية، ومعالجة أخطاء التداخل.",
             "en": "Read an element as opening tag, content, and closing tag, and fix nesting mistakes."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>قراءة العنصر كوسم بداية، محتوى، ووسم نهاية، ومعالجة أخطاء التداخل.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Read an element as opening tag, content, and closing tag, and fix nesting mistakes.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<article>\n  <h1>وسم صحيح</h1>\n  <p>كل عنصر واضح البداية والنهاية.</p>\n</article>",
+            "en": "<article>\n  <h1>وسم صحيح</h1>\n  <p>كل عنصر واضح البداية والنهاية.</p>\n</article>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"العناصر والوسوم والإغلاق الصحيح\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Elements, tags, and correct closing\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1091,6 +1163,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام href وsrc وalt وtitle وlang وdir بطريقة صحيحة.",
             "en": "Use href, src, alt, title, lang, and dir correctly."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام href وsrc وalt وtitle وlang وdir بطريقة صحيحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use href, src, alt, title, lang, and dir correctly.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<a href=\"https://example.com\" title=\"زيارة المثال\">رابط واضح</a>\n<img src=\"assets/my-logo-mark.png\" alt=\"شعار Abdalla Academy\">",
+            "en": "<a href=\"https://example.com\" title=\"زيارة المثال\">رابط واضح</a>\n<img src=\"assets/my-logo-mark.png\" alt=\"شعار Abdalla Academy\">"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الخصائص attributes\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Attributes\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1101,6 +1191,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء تسلسل عناوين واضح يساعد القارئ ومحركات البحث.",
             "en": "Build a clear heading hierarchy for readers and search engines."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء تسلسل عناوين واضح يساعد القارئ ومحركات البحث.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build a clear heading hierarchy for readers and search engines.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<h1>عنوان الصفحة</h1>\n<h2>قسم رئيسي</h2>\n<h3>تفصيل داخل القسم</h3>\n<p>لا تستخدم h1 أكثر من مرة بلا سبب.</p>",
+            "en": "<h1>عنوان الصفحة</h1>\n<h2>قسم رئيسي</h2>\n<h3>تفصيل داخل القسم</h3>\n<p>لا تستخدم h1 أكثر من مرة بلا سبب.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"العناوين h1 إلى h6\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Headings h1 to h6\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1111,6 +1219,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "الفرق بين p وbr وhr ومتى يستخدم كل واحد.",
             "en": "Learn the difference between p, br, and hr and when each one belongs."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>الفرق بين p وbr وhr ومتى يستخدم كل واحد.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Learn the difference between p, br, and hr and when each one belongs.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p>هذه فقرة كاملة.</p>\n<hr>\n<p>سطر جديد داخل الفقرة<br>يستخدم عند الحاجة فقط.</p>",
+            "en": "<p>هذه فقرة كاملة.</p>\n<hr>\n<p>سطر جديد داخل الفقرة<br>يستخدم عند الحاجة فقط.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الفقرات وفواصل الأسطر\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Paragraphs and line breaks\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1121,6 +1247,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "كتابة تعليقات مفيدة لا تزعج المستخدم ولا تظهر في الصفحة.",
             "en": "Write useful comments that do not appear on the page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>كتابة تعليقات مفيدة لا تزعج المستخدم ولا تظهر في الصفحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Write useful comments that do not appear on the page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<!-- قسم الدروس -->\n<section>\n  <h2>الدروس</h2>\n  <p>التعليق لا يظهر للمستخدم.</p>\n</section>",
+            "en": "<!-- قسم الدروس -->\n<section>\n  <h2>الدروس</h2>\n  <p>التعليق لا يظهر للمستخدم.</p>\n</section>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"التعليقات وتنظيم الكود\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Comments and code organization\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1131,6 +1275,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام strong وem وmark وsmall وsub وsup لمعنى واضح.",
             "en": "Use strong, em, mark, small, sub, and sup for meaningful text."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام strong وem وmark وsmall وsub وsup لمعنى واضح.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use strong, em, mark, small, sub, and sup for meaningful text.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p><strong>مهم:</strong> استخدم الوسم للمعنى.</p>\n<p><em>ملاحظة:</em> هذا النص للتأكيد.</p>\n<p>تعلم <mark>HTML</mark> خطوة بخطوة.</p>",
+            "en": "<p><strong>مهم:</strong> استخدم الوسم للمعنى.</p>\n<p><em>ملاحظة:</em> هذا النص للتأكيد.</p>\n<p>تعلم <mark>HTML</mark> خطوة بخطوة.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"تنسيق النصوص الدلالي\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Semantic text formatting\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1141,6 +1303,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تطبيق blockquote وq وabbr وcite في محتوى تعليمي.",
             "en": "Apply blockquote, q, abbr, and cite in educational content."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تطبيق blockquote وq وabbr وcite في محتوى تعليمي.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Apply blockquote, q, abbr, and cite in educational content.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<blockquote cite=\"https://developer.mozilla.org/\">\n  HTML gives content structure.\n</blockquote>\n<p><abbr title=\"HyperText Markup Language\">HTML</abbr> لغة هيكلة صفحات.</p>",
+            "en": "<blockquote cite=\"https://developer.mozilla.org/\">\n  HTML gives content structure.\n</blockquote>\n<p><abbr title=\"HyperText Markup Language\">HTML</abbr> لغة هيكلة صفحات.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الاقتباسات والاختصارات\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Quotations and abbreviations\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1151,6 +1331,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم style السريع، ثم تنظيم التصميم في CSS.",
             "en": "Understand quick inline style, then move styling into CSS."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم style السريع، ثم تنظيم التصميم في CSS.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand quick inline style, then move styling into CSS.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<h1 style=\"color:#00e5ff\">عنوان بلون سريع</h1>\n<p style=\"background:#0b1020;color:white;padding:12px\">للتدريب فقط. في المشروع الحقيقي انقل التصميم إلى CSS.</p>",
+            "en": "<h1 style=\"color:#00e5ff\">عنوان بلون سريع</h1>\n<p style=\"background:#0b1020;color:white;padding:12px\">للتدريب فقط. في المشروع الحقيقي انقل التصميم إلى CSS.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الألوان داخل HTML ومتى تنتقل إلى CSS\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Colors in HTML and when to move to CSS\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1161,6 +1359,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام link داخل head وربط ملف تصميم خارجي.",
             "en": "Use link inside head and connect an external stylesheet."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام link داخل head وربط ملف تصميم خارجي.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use link inside head and connect an external stylesheet.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<head>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <h1 class=\"title\">تصميم من ملف خارجي</h1>\n</body>",
+            "en": "<head>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <h1 class=\"title\">تصميم من ملف خارجي</h1>\n</body>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"ربط CSS بالصفحة\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Connecting CSS to the page\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1171,6 +1387,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إنشاء روابط آمنة وواضحة بين صفحات ومسارات مختلفة.",
             "en": "Create clear, safe links between pages and paths."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إنشاء روابط آمنة وواضحة بين صفحات ومسارات مختلفة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Create clear, safe links between pages and paths.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<a href=\"courses.html\">الدورات</a>\n<a href=\"https://developer.mozilla.org/\" target=\"_blank\" rel=\"noopener\">مصدر خارجي</a>",
+            "en": "<a href=\"courses.html\">الدورات</a>\n<a href=\"https://developer.mozilla.org/\" target=\"_blank\" rel=\"noopener\">مصدر خارجي</a>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الروابط الخارجية والداخلية\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"External and internal links\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1181,6 +1415,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء جدول محتويات ينتقل إلى أقسام داخل الصفحة.",
             "en": "Build a table of contents that jumps to sections on the same page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء جدول محتويات ينتقل إلى أقسام داخل الصفحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build a table of contents that jumps to sections on the same page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<nav>\n  <a href=\"#forms\">النماذج</a>\n</nav>\n<section id=\"forms\">\n  <h2>النماذج</h2>\n</section>",
+            "en": "<nav>\n  <a href=\"#forms\">النماذج</a>\n</nav>\n<section id=\"forms\">\n  <h2>النماذج</h2>\n</section>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الروابط داخل نفس الصفحة\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Same-page anchors\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1191,6 +1443,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "الفرق بين المسار النسبي والمطلق عند ربط صور وصفحات وملفات.",
             "en": "Know relative and absolute paths for images, pages, and files."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>الفرق بين المسار النسبي والمطلق عند ربط صور وصفحات وملفات.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Know relative and absolute paths for images, pages, and files.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<img src=\"assets/my-logo-mark.png\" alt=\"شعار\">\n<a href=\"../index.html\">رجوع مستوى واحد</a>\n<a href=\"/courses.html\">مسار من جذر الموقع</a>",
+            "en": "<img src=\"assets/my-logo-mark.png\" alt=\"شعار\">\n<a href=\"../index.html\">رجوع مستوى واحد</a>\n<a href=\"/courses.html\">مسار من جذر الموقع</a>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مسارات الملفات\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"File paths\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1201,6 +1471,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إضافة صور خفيفة بوصف بديل وتحميل مناسب.",
             "en": "Add lightweight images with alternative text and proper loading."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إضافة صور خفيفة بوصف بديل وتحميل مناسب.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Add lightweight images with alternative text and proper loading.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<img src=\"assets/my-logo-fast.png\" alt=\"شعار Abdalla Academy\" loading=\"lazy\" width=\"240\">",
+            "en": "<img src=\"assets/my-logo-fast.png\" alt=\"شعار Abdalla Academy\" loading=\"lazy\" width=\"240\">"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الصور وalt وloading\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Images, alt, and loading\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1211,6 +1499,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "اختيار صورة مناسبة لحجم الشاشة بدون بطء.",
             "en": "Serve the right image for the screen size without slowing the page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>اختيار صورة مناسبة لحجم الشاشة بدون بطء.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Serve the right image for the screen size without slowing the page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<picture>\n  <source media=\"(max-width: 600px)\" srcset=\"assets/my-logo-mark.png\">\n  <img src=\"assets/my-logo-fast.png\" alt=\"شعار متجاوب\" loading=\"lazy\">\n</picture>",
+            "en": "<picture>\n  <source media=\"(max-width: 600px)\" srcset=\"assets/my-logo-mark.png\">\n  <img src=\"assets/my-logo-fast.png\" alt=\"شعار متجاوب\" loading=\"lazy\">\n</picture>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الصور المتجاوبة picture وsrcset\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Responsive images with picture and srcset\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1221,6 +1527,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تجهيز أيقونة المتصفح وtitle واضح لكل صفحة.",
             "en": "Prepare the browser icon and a clear title for every page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تجهيز أيقونة المتصفح وtitle واضح لكل صفحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Prepare the browser icon and a clear title for every page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<head>\n  <title>دورة HTML | Abdalla Academy</title>\n  <link rel=\"icon\" type=\"image/png\" href=\"assets/my-logo-mark.png\">\n</head>",
+            "en": "<head>\n  <title>دورة HTML | Abdalla Academy</title>\n  <link rel=\"icon\" type=\"image/png\" href=\"assets/my-logo-mark.png\">\n</head>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"favicon وعنوان الصفحة\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Favicon and page title\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1231,6 +1555,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تنظيم خطوات، عناصر، ومصطلحات داخل قوائم مناسبة.",
             "en": "Organize steps, items, and terms with the right list type."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تنظيم خطوات، عناصر، ومصطلحات داخل قوائم مناسبة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Organize steps, items, and terms with the right list type.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<ul><li>HTML</li><li>CSS</li></ul>\n<ol><li>افتح الملف</li><li>شغل المثال</li></ol>\n<dl><dt>Tag</dt><dd>وسم داخل HTML</dd></dl>",
+            "en": "<ul><li>HTML</li><li>CSS</li></ul>\n<ol><li>افتح الملف</li><li>شغل المثال</li></ol>\n<dl><dt>Tag</dt><dd>وسم داخل HTML</dd></dl>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"القوائم ul وol وdl\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Lists: ul, ol, and dl\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1241,6 +1583,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء جدول بيانات باستخدام table وtr وth وtd.",
             "en": "Build tabular data using table, tr, th, and td."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء جدول بيانات باستخدام table وtr وth وtd.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build tabular data using table, tr, th, and td.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<table>\n  <tr><th>الدرس</th><th>الحالة</th></tr>\n  <tr><td>HTML</td><td>جاهز</td></tr>\n</table>",
+            "en": "<table>\n  <tr><th>الدرس</th><th>الحالة</th></tr>\n  <tr><td>HTML</td><td>جاهز</td></tr>\n</table>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"الجداول الأساسية\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Basic tables\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1251,6 +1611,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام caption وthead وtbody وscope لجدول مفهوم.",
             "en": "Use caption, thead, tbody, and scope for understandable tables."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام caption وthead وtbody وscope لجدول مفهوم.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use caption, thead, tbody, and scope for understandable tables.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<table>\n  <caption>خطة التدريب</caption>\n  <thead><tr><th scope=\"col\">اليوم</th><th scope=\"col\">الموضوع</th></tr></thead>\n  <tbody><tr><td>1</td><td>العناصر</td></tr></tbody>\n</table>",
+            "en": "<table>\n  <caption>خطة التدريب</caption>\n  <thead><tr><th scope=\"col\">اليوم</th><th scope=\"col\">الموضوع</th></tr></thead>\n  <tbody><tr><td>1</td><td>العناصر</td></tr></tbody>\n</table>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"جداول احترافية accessible\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Accessible professional tables\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1261,6 +1639,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تمييز العناصر التي تبدأ سطرا جديدا عن العناصر داخل النص.",
             "en": "Distinguish elements that start a new line from inline text elements."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تمييز العناصر التي تبدأ سطرا جديدا عن العناصر داخل النص.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Distinguish elements that start a new line from inline text elements.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<div>عنصر block يأخذ سطرا كاملا</div>\n<p>كلمة <span>inline</span> داخل النص.</p>",
+            "en": "<div>عنصر block يأخذ سطرا كاملا</div>\n<p>كلمة <span>inline</span> داخل النص.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"block وinline\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Block and inline elements\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1271,6 +1667,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام div وspan عند الحاجة فقط مع أسماء واضحة.",
             "en": "Use div and span only when needed, with clear names."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام div وspan عند الحاجة فقط مع أسماء واضحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use div and span only when needed, with clear names.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<div class=\"lesson-card\">\n  <span class=\"badge\">HTML</span>\n  <h2>درس جديد</h2>\n</div>",
+            "en": "<div class=\"lesson-card\">\n  <span class=\"badge\">HTML</span>\n  <h2>درس جديد</h2>\n</div>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"div وspan بدون فوضى\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"div and span without chaos\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1281,6 +1695,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "اختيار class للتكرار وid للعنصر الفريد والربط الداخلي.",
             "en": "Choose class for repeated patterns and id for unique targets and anchors."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>اختيار class للتكرار وid للعنصر الفريد والربط الداخلي.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Choose class for repeated patterns and id for unique targets and anchors.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<section id=\"compiler\" class=\"panel active\">\n  <h2 class=\"title\">Compiler</h2>\n</section>",
+            "en": "<section id=\"compiler\" class=\"panel active\">\n  <h2 class=\"title\">Compiler</h2>\n</section>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"class وid\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"class and id\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1291,6 +1723,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تضمين محتوى خارجي بأمان وبحجم مناسب.",
             "en": "Embed external content safely and at the right size."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تضمين محتوى خارجي بأمان وبحجم مناسب.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Embed external content safely and at the right size.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<iframe src=\"https://example.com\" title=\"مثال خارجي\" loading=\"lazy\" width=\"100%\" height=\"260\"></iframe>",
+            "en": "<iframe src=\"https://example.com\" title=\"مثال خارجي\" loading=\"lazy\" width=\"100%\" height=\"260\"></iframe>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"iframe\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"iframe\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1301,6 +1751,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "ربط script والتحكم بعنصر بسيط بدون كسر الصفحة.",
             "en": "Connect script and control a simple element without breaking the page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>ربط script والتحكم بعنصر بسيط بدون كسر الصفحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Connect script and control a simple element without breaking the page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<button id=\"run\">تشغيل</button>\n<p id=\"result\"></p>\n<script>\n  document.getElementById('run').onclick = function () {\n    document.getElementById('result').textContent = 'تم التشغيل';\n  };\n</script>",
+            "en": "<button id=\"run\">تشغيل</button>\n<p id=\"result\"></p>\n<script>\n  document.getElementById('run').onclick = function () {\n    document.getElementById('result').textContent = 'تم التشغيل';\n  };\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"JavaScript داخل HTML\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"JavaScript inside HTML\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1311,6 +1779,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "كتابة charset وviewport وdescription ومعلومات الصفحة الأساسية.",
             "en": "Write charset, viewport, description, and core page metadata."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>كتابة charset وviewport وdescription ومعلومات الصفحة الأساسية.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Write charset, viewport, description, and core page metadata.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"description\" content=\"درس HTML عملي\">\n</head>",
+            "en": "<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"description\" content=\"درس HTML عملي\">\n</head>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"head وmeta tags\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"head and meta tags\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1321,6 +1807,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء header وnav وmain وaside وfooter بترتيب واضح.",
             "en": "Build header, nav, main, aside, and footer in a clear order."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء header وnav وmain وaside وfooter بترتيب واضح.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build header, nav, main, aside, and footer in a clear order.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<header>الشعار والتنقل</header>\n<nav><a href=\"#main\">المحتوى</a></nav>\n<main id=\"main\"><section><h1>الدرس</h1></section></main>\n<aside>روابط إضافية</aside>\n<footer>Abdalla Academy</footer>",
+            "en": "<header>الشعار والتنقل</header>\n<nav><a href=\"#main\">المحتوى</a></nav>\n<main id=\"main\"><section><h1>الدرس</h1></section></main>\n<aside>روابط إضافية</aside>\n<footer>Abdalla Academy</footer>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"layout صفحة كاملة\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Full page layout\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1331,6 +1835,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تجهيز البنية التي تجعل CSS يستجيب بسهولة للشاشات.",
             "en": "Prepare structure that lets CSS respond easily to screens."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تجهيز البنية التي تجعل CSS يستجيب بسهولة للشاشات.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Prepare structure that lets CSS respond easily to screens.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<main class=\"grid\">\n  <article>بطاقة 1</article>\n  <article>بطاقة 2</article>\n</main>",
+            "en": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<main class=\"grid\">\n  <article>بطاقة 1</article>\n  <article>بطاقة 2</article>\n</main>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"responsive HTML foundation\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Responsive HTML foundation\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1341,6 +1863,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام code وpre وkbd وsamp لعرض أكواد وأوامر.",
             "en": "Use code, pre, kbd, and samp to display code and commands."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام code وpre وkbd وsamp لعرض أكواد وأوامر.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use code, pre, kbd, and samp to display code and commands.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p>اكتب الأمر <kbd>Ctrl</kbd> + <kbd>S</kbd>.</p>\n<pre><code>console.log('HTML course');</code></pre>\n<samp>Output ready</samp>",
+            "en": "<p>اكتب الأمر <kbd>Ctrl</kbd> + <kbd>S</kbd>.</p>\n<pre><code>console.log('HTML course');</code></pre>\n<samp>Output ready</samp>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"computer code elements\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Computer code elements\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1351,6 +1891,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "اختيار عناصر تحمل معنى: article وsection وtime وfigure.",
             "en": "Choose meaningful elements: article, section, time, and figure."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>اختيار عناصر تحمل معنى: article وsection وtime وfigure.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Choose meaningful elements: article, section, time, and figure.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<article>\n  <header><h1>عنوان مقال</h1><time datetime=\"2026-05-28\">28 May 2026</time></header>\n  <section><p>محتوى له معنى واضح.</p></section>\n</article>",
+            "en": "<article>\n  <header><h1>عنوان مقال</h1><time datetime=\"2026-05-28\">28 May 2026</time></header>\n  <section><p>محتوى له معنى واضح.</p></section>\n</article>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"semantic HTML\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Semantic HTML\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1361,6 +1919,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "كتابة HTML مرتب بأسماء واضحة ومسافات متسقة.",
             "en": "Write tidy HTML with clear names and consistent spacing."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>كتابة HTML مرتب بأسماء واضحة ومسافات متسقة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Write tidy HTML with clear names and consistent spacing.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<main>\n  <section class=\"course-section\">\n    <h1>عنوان واضح</h1>\n    <p>مسافات ثابتة وأسماء مفهومة.</p>\n  </section>\n</main>",
+            "en": "<main>\n  <section class=\"course-section\">\n    <h1>عنوان واضح</h1>\n    <p>مسافات ثابتة وأسماء مفهومة.</p>\n  </section>\n</main>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"style guide للكود النظيف\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Clean HTML style guide\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1371,6 +1947,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إظهار رموز مثل < و> و& داخل النص بدون كسر الصفحة.",
             "en": "Show symbols such as <, >, and & in text without breaking the page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إظهار رموز مثل < و> و& داخل النص بدون كسر الصفحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Show symbols such as <, >, and & in text without breaking the page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p>لعرض الوسم اكتب: &lt;h1&gt;Title&lt;/h1&gt;</p>\n<p>رمز &amp; يكتب هكذا: &amp;amp;</p>",
+            "en": "<p>لعرض الوسم اكتب: &lt;h1&gt;Title&lt;/h1&gt;</p>\n<p>رمز &amp; يكتب هكذا: &amp;amp;</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"HTML entities\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"HTML entities\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1381,6 +1975,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام الرموز النصية بحذر مع بدائل واضحة عند الحاجة.",
             "en": "Use text symbols carefully with clear alternatives when needed."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام الرموز النصية بحذر مع بدائل واضحة عند الحاجة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use text symbols carefully with clear alternatives when needed.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p>تم الإنجاز &#10003;</p>\n<p>حقوق النشر &copy; Abdalla Academy</p>",
+            "en": "<p>تم الإنجاز &#10003;</p>\n<p>حقوق النشر &copy; Abdalla Academy</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"symbols and icons بالنص\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Text symbols and icons\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1391,6 +2003,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "معرفة متى تفيد الرموز التعبيرية ومتى تضعف الاحتراف.",
             "en": "Know when emojis help and when they weaken professionalism."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>معرفة متى تفيد الرموز التعبيرية ومتى تضعف الاحتراف.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Know when emojis help and when they weaken professionalism.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p aria-label=\"تم الإنجاز\">✅ تم الإنجاز</p>\n<p>استخدم الرموز عندما تضيف معنى، وليس كبديل عن النص.</p>",
+            "en": "<p aria-label=\"تم الإنجاز\">✅ تم الإنجاز</p>\n<p>استخدم الرموز عندما تضيف معنى، وليس كبديل عن النص.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"emojis واللغة\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Emojis and language\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1401,6 +2031,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم utf-8 ودعم العربية والإنجليزية داخل نفس الصفحة.",
             "en": "Understand utf-8 and support Arabic and English on the same page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم utf-8 ودعم العربية والإنجليزية داخل نفس الصفحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand utf-8 and support Arabic and English on the same page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<meta charset=\"utf-8\">\n<p lang=\"ar\" dir=\"rtl\">نص عربي</p>\n<p lang=\"en\" dir=\"ltr\">English text</p>",
+            "en": "<meta charset=\"utf-8\">\n<p lang=\"ar\" dir=\"rtl\">نص عربي</p>\n<p lang=\"en\" dir=\"ltr\">English text</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"charsets وUnicode\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Charsets and Unicode\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1411,6 +2059,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم ترميز الروابط عندما تحتوي على مسافات أو حروف خاصة.",
             "en": "Understand URL encoding when links contain spaces or special characters."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم ترميز الروابط عندما تحتوي على مسافات أو حروف خاصة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand URL encoding when links contain spaces or special characters.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<a href=\"search.html?q=HTML%20forms\">بحث عن HTML forms</a>",
+            "en": "<a href=\"search.html?q=HTML%20forms\">بحث عن HTML forms</a>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"URL encoding\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"URL encoding\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1421,6 +2087,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "معرفة الفروقات التي تهمك عند قراءة كود قديم أو صارم.",
             "en": "Know the differences that matter when reading old or strict code."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>معرفة الفروقات التي تهمك عند قراءة كود قديم أو صارم.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Know the differences that matter when reading old or strict code.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<br>\n<img src=\"assets/my-logo-mark.png\" alt=\"Logo\">\n<p>HTML الحديثة لا تحتاج إغلاق br مثل XHTML.</p>",
+            "en": "<br>\n<img src=\"assets/my-logo-mark.png\" alt=\"Logo\">\n<p>HTML الحديثة لا تحتاج إغلاق br مثل XHTML.</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"HTML وXHTML\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"HTML and XHTML\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1431,6 +2115,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء نموذج يرسل بيانات منظمة بأسماء واضحة.",
             "en": "Build a form that sends structured data with clear names."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء نموذج يرسل بيانات منظمة بأسماء واضحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build a form that sends structured data with clear names.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<form action=\"/contact\" method=\"post\">\n  <label for=\"email\">البريد</label>\n  <input id=\"email\" name=\"email\" type=\"email\">\n  <button>إرسال</button>\n</form>",
+            "en": "<form action=\"/contact\" method=\"post\">\n  <label for=\"email\">البريد</label>\n  <input id=\"email\" name=\"email\" type=\"email\">\n  <button>إرسال</button>\n</form>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مقدمة النماذج form\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Forms introduction\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1441,6 +2143,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام action وmethod وautocomplete وtarget بوعي.",
             "en": "Use action, method, autocomplete, and target with intention."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام action وmethod وautocomplete وtarget بوعي.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use action, method, autocomplete, and target with intention.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<form action=\"/api/contact\" method=\"post\" autocomplete=\"on\" target=\"_self\">\n  <input name=\"message\" required>\n  <button type=\"submit\">إرسال</button>\n</form>",
+            "en": "<form action=\"/api/contact\" method=\"post\" autocomplete=\"on\" target=\"_self\">\n  <input name=\"message\" required>\n  <button type=\"submit\">إرسال</button>\n</form>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"form attributes\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Form attributes\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1451,6 +2171,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تطبيق text وemail وpassword وnumber وdate وfile.",
             "en": "Practice text, email, password, number, date, and file inputs."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تطبيق text وemail وpassword وnumber وdate وfile.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Practice text, email, password, number, date, and file inputs.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<input type=\"text\" name=\"name\" placeholder=\"الاسم\">\n<input type=\"email\" name=\"email\" required>\n<input type=\"date\" name=\"start\">\n<input type=\"file\" name=\"avatar\">",
+            "en": "<input type=\"text\" name=\"name\" placeholder=\"الاسم\">\n<input type=\"email\" name=\"email\" required>\n<input type=\"date\" name=\"start\">\n<input type=\"file\" name=\"avatar\">"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"input types الأساسية\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Core input types\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1461,6 +2199,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "اختيار عنصر مناسب للسؤال متعدد الخيارات أو اختيار واحد.",
             "en": "Choose the right control for multiple choices or one required choice."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>اختيار عنصر مناسب للسؤال متعدد الخيارات أو اختيار واحد.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Choose the right control for multiple choices or one required choice.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<label><input type=\"checkbox\" name=\"terms\"> أوافق</label>\n<label><input type=\"radio\" name=\"level\" value=\"beginner\"> مبتدئ</label>\n<label><input type=\"radio\" name=\"level\" value=\"advanced\"> متقدم</label>",
+            "en": "<label><input type=\"checkbox\" name=\"terms\"> أوافق</label>\n<label><input type=\"radio\" name=\"level\" value=\"beginner\"> مبتدئ</label>\n<label><input type=\"radio\" name=\"level\" value=\"advanced\"> متقدم</label>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"checkbox وradio\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Checkbox and radio\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1471,6 +2227,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إكمال النماذج بعناصر اختيار ورسائل وأزرار واضحة.",
             "en": "Complete forms with selection controls, messages, and clear buttons."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إكمال النماذج بعناصر اختيار ورسائل وأزرار واضحة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Complete forms with selection controls, messages, and clear buttons.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<select name=\"track\">\n  <option>HTML</option>\n  <option>PHP</option>\n</select>\n<textarea name=\"question\" rows=\"4\"></textarea>\n<button type=\"submit\">إرسال</button>",
+            "en": "<select name=\"track\">\n  <option>HTML</option>\n  <option>PHP</option>\n</select>\n<textarea name=\"question\" rows=\"4\"></textarea>\n<button type=\"submit\">إرسال</button>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"select وtextarea وbutton\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"select, textarea, and button\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1481,6 +2255,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "جعل النماذج مفهومة وسهلة على لوحة المفاتيح وقارئات الشاشة.",
             "en": "Make forms understandable and usable by keyboard and screen readers."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>جعل النماذج مفهومة وسهلة على لوحة المفاتيح وقارئات الشاشة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Make forms understandable and usable by keyboard and screen readers.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<fieldset>\n  <legend>بيانات الطالب</legend>\n  <label for=\"student\">الاسم</label>\n  <input id=\"student\" name=\"student\">\n</fieldset>",
+            "en": "<fieldset>\n  <legend>بيانات الطالب</legend>\n  <label for=\"student\">الاسم</label>\n  <input id=\"student\" name=\"student\">\n</fieldset>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"label وfieldset وlegend\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"label, fieldset, and legend\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1491,6 +2283,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "استخدام placeholder وrequired وmin وmax وpattern وmaxlength.",
             "en": "Use placeholder, required, min, max, pattern, and maxlength."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>استخدام placeholder وrequired وmin وmax وpattern وmaxlength.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Use placeholder, required, min, max, pattern, and maxlength.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<input name=\"username\" required minlength=\"3\" maxlength=\"20\">\n<input name=\"age\" type=\"number\" min=\"12\" max=\"90\">\n<input name=\"code\" pattern=\"[A-Za-z0-9-]+\">",
+            "en": "<input name=\"username\" required minlength=\"3\" maxlength=\"20\">\n<input name=\"age\" type=\"number\" min=\"12\" max=\"90\">\n<input name=\"code\" pattern=\"[A-Za-z0-9-]+\">"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"input attributes\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Input attributes\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1501,6 +2311,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تجربة التحقق داخل المتصفح قبل إرسال البيانات.",
             "en": "Try browser validation before sending data."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تجربة التحقق داخل المتصفح قبل إرسال البيانات.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Try browser validation before sending data.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<form>\n  <label for=\"mail\">Email</label>\n  <input id=\"mail\" type=\"email\" required>\n  <button>تحقق</button>\n</form>",
+            "en": "<form>\n  <label for=\"mail\">Email</label>\n  <input id=\"mail\" type=\"email\" required>\n  <button>تحقق</button>\n</form>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"form validation\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Form validation\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1511,6 +2339,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "رسم شكل بسيط داخل canvas وفهم أنه يحتاج JavaScript.",
             "en": "Draw a simple shape on canvas and understand that it needs JavaScript."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>رسم شكل بسيط داخل canvas وفهم أنه يحتاج JavaScript.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Draw a simple shape on canvas and understand that it needs JavaScript.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<canvas id=\"board\" width=\"260\" height=\"140\"></canvas>\n<script>\n  const ctx = document.getElementById('board').getContext('2d');\n  ctx.fillStyle = '#00e5ff';\n  ctx.fillRect(20, 20, 120, 70);\n</script>",
+            "en": "<canvas id=\"board\" width=\"260\" height=\"140\"></canvas>\n<script>\n  const ctx = document.getElementById('board').getContext('2d');\n  ctx.fillStyle = '#00e5ff';\n  ctx.fillRect(20, 20, 120, 70);\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Canvas foundation\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Canvas foundation\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1521,6 +2367,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إضافة رسم vector خفيف وقابل للتغيير.",
             "en": "Add a lightweight editable vector drawing."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إضافة رسم vector خفيف وقابل للتغيير.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Add a lightweight editable vector drawing.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<svg viewBox=\"0 0 220 120\" width=\"220\" role=\"img\" aria-label=\"رسم HTML\">\n  <rect x=\"10\" y=\"10\" width=\"200\" height=\"100\" rx=\"8\" fill=\"#0b1020\" stroke=\"#00e5ff\" />\n  <text x=\"65\" y=\"70\" fill=\"#b7ff00\">HTML</text>\n</svg>",
+            "en": "<svg viewBox=\"0 0 220 120\" width=\"220\" role=\"img\" aria-label=\"رسم HTML\">\n  <rect x=\"10\" y=\"10\" width=\"200\" height=\"100\" rx=\"8\" fill=\"#0b1020\" stroke=\"#00e5ff\" />\n  <text x=\"65\" y=\"70\" fill=\"#b7ff00\">HTML</text>\n</svg>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"SVG داخل HTML\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"SVG inside HTML\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1531,6 +2395,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تشغيل صوت باستخدام controls ومراعاة تجربة المستخدم.",
             "en": "Play audio with controls while respecting user experience."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تشغيل صوت باستخدام controls ومراعاة تجربة المستخدم.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Play audio with controls while respecting user experience.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<audio controls preload=\"metadata\">\n  <source src=\"lesson.mp3\" type=\"audio/mpeg\">\n  المتصفح لا يدعم تشغيل الصوت.\n</audio>",
+            "en": "<audio controls preload=\"metadata\">\n  <source src=\"lesson.mp3\" type=\"audio/mpeg\">\n  المتصفح لا يدعم تشغيل الصوت.\n</audio>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"audio\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Audio\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1541,6 +2423,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "إضافة فيديو مع poster وcontrols ومصادر متعددة.",
             "en": "Add video with poster, controls, and multiple sources."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>إضافة فيديو مع poster وcontrols ومصادر متعددة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Add video with poster, controls, and multiple sources.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<video controls preload=\"metadata\" poster=\"assets/my-logo-fast.png\" width=\"420\">\n  <source src=\"lesson.mp4\" type=\"video/mp4\">\n  المتصفح لا يدعم الفيديو.\n</video>",
+            "en": "<video controls preload=\"metadata\" poster=\"assets/my-logo-fast.png\" width=\"420\">\n  <source src=\"lesson.mp4\" type=\"video/mp4\">\n  المتصفح لا يدعم الفيديو.\n</video>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"video\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Video\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1551,6 +2451,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تضمين فيديو تعليمي بأبعاد متجاوبة وtitle مناسب.",
             "en": "Embed an educational video with responsive dimensions and a proper title."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تضمين فيديو تعليمي بأبعاد متجاوبة وtitle مناسب.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Embed an educational video with responsive dimensions and a proper title.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<div style=\"aspect-ratio:16/9;max-width:640px\">\n  <iframe src=\"https://www.youtube.com/embed/dQw4w9WgXcQ\" title=\"درس فيديو\" loading=\"lazy\" allowfullscreen style=\"width:100%;height:100%\"></iframe>\n</div>",
+            "en": "<div style=\"aspect-ratio:16/9;max-width:640px\">\n  <iframe src=\"https://www.youtube.com/embed/dQw4w9WgXcQ\" title=\"درس فيديو\" loading=\"lazy\" allowfullscreen style=\"width:100%;height:100%\"></iframe>\n</div>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"YouTube embed\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"YouTube embed\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1561,6 +2479,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "حفظ اختيار بسيط للمستخدم باستخدام localStorage.",
             "en": "Save a simple user choice using localStorage."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>حفظ اختيار بسيط للمستخدم باستخدام localStorage.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Save a simple user choice using localStorage.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<button id=\"save\">حفظ الاختيار</button>\n<p id=\"saved\"></p>\n<script>\n  document.getElementById('save').onclick = () => {\n    localStorage.setItem('track', 'HTML');\n    document.getElementById('saved').textContent = localStorage.getItem('track');\n  };\n</script>",
+            "en": "<button id=\"save\">حفظ الاختيار</button>\n<p id=\"saved\"></p>\n<script>\n  document.getElementById('save').onclick = () => {\n    localStorage.setItem('track', 'HTML');\n    document.getElementById('saved').textContent = localStorage.getItem('track');\n  };\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Web storage\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Web storage\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1571,6 +2507,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم طلب الموقع الجغرافي ولماذا يحتاج إذنا صريحا.",
             "en": "Understand geolocation requests and why they need explicit permission."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم طلب الموقع الجغرافي ولماذا يحتاج إذنا صريحا.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand geolocation requests and why they need explicit permission.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<button id=\"geo\">طلب الموقع</button>\n<p id=\"out\"></p>\n<script>\n  document.getElementById('geo').onclick = () => {\n    navigator.geolocation.getCurrentPosition(\n      () => out.textContent = 'تم السماح',\n      () => out.textContent = 'لم يتم السماح'\n    );\n  };\n</script>",
+            "en": "<button id=\"geo\">طلب الموقع</button>\n<p id=\"out\"></p>\n<script>\n  document.getElementById('geo').onclick = () => {\n    navigator.geolocation.getCurrentPosition(\n      () => out.textContent = 'تم السماح',\n      () => out.textContent = 'لم يتم السماح'\n    );\n  };\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Geolocation\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Geolocation\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1581,6 +2535,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء تمرين سحب وإفلات بسيط باستخدام HTML وJS.",
             "en": "Build a simple drag-and-drop exercise using HTML and JS."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء تمرين سحب وإفلات بسيط باستخدام HTML وJS.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build a simple drag-and-drop exercise using HTML and JS.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<div draggable=\"true\" id=\"card\">اسحبني</div>\n<div id=\"drop\" style=\"border:1px solid #00e5ff;padding:30px\">ضع هنا</div>\n<script>\n  card.ondragstart = e => e.dataTransfer.setData('text/plain', 'card');\n  drop.ondragover = e => e.preventDefault();\n  drop.ondrop = () => drop.textContent = 'تم الإفلات';\n</script>",
+            "en": "<div draggable=\"true\" id=\"card\">اسحبني</div>\n<div id=\"drop\" style=\"border:1px solid #00e5ff;padding:30px\">ضع هنا</div>\n<script>\n  card.ondragstart = e => e.dataTransfer.setData('text/plain', 'card');\n  drop.ondragover = e => e.preventDefault();\n  drop.ondrop = () => drop.textContent = 'تم الإفلات';\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Drag and drop\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Drag and drop\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1591,6 +2563,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم فكرة تشغيل مهمة بعيدا عن الواجهة عندما يكبر العمل.",
             "en": "Understand running a task away from the UI when work grows."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم فكرة تشغيل مهمة بعيدا عن الواجهة عندما يكبر العمل.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand running a task away from the UI when work grows.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p>Web Worker يحتاج ملفا خارجيا مثل worker.js.</p>\n<pre><code>const worker = new Worker('worker.js');\nworker.postMessage('start');</code></pre>",
+            "en": "<p>Web Worker يحتاج ملفا خارجيا مثل worker.js.</p>\n<pre><code>const worker = new Worker('worker.js');\nworker.postMessage('start');</code></pre>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Web workers\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Web workers\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1601,6 +2591,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "قراءة فكرة التحديثات القادمة من السيرفر بشكل مستمر.",
             "en": "Read the idea of continuous updates coming from a server."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>قراءة فكرة التحديثات القادمة من السيرفر بشكل مستمر.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Read the idea of continuous updates coming from a server.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<pre><code>const stream = new EventSource('/events');\nstream.onmessage = event => console.log(event.data);</code></pre>",
+            "en": "<pre><code>const stream = new EventSource('/events');\nstream.onmessage = event => console.log(event.data);</code></pre>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Server-sent events\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Server-sent events\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1611,6 +2619,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء title وdescription وheading واحد واضح وlinks مفهومة.",
             "en": "Build clear title, description, one main heading, and meaningful links."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء title وdescription وheading واحد واضح وlinks مفهومة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build clear title, description, one main heading, and meaningful links.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<title>دورة HTML كاملة</title>\n<meta name=\"description\" content=\"تعلم HTML بأمثلة عملية داخل Compiler.\">\n<h1>دورة HTML كاملة</h1>",
+            "en": "<title>دورة HTML كاملة</title>\n<meta name=\"description\" content=\"تعلم HTML بأمثلة عملية داخل Compiler.\">\n<h1>دورة HTML كاملة</h1>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"SEO foundation\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"SEO foundation\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1621,6 +2647,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تجهيز بيانات مشاركة الصفحة على الشبكات والمنصات.",
             "en": "Prepare page sharing metadata for platforms."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تجهيز بيانات مشاركة الصفحة على الشبكات والمنصات.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Prepare page sharing metadata for platforms.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<meta property=\"og:title\" content=\"Abdalla Academy HTML\">\n<meta property=\"og:description\" content=\"دروس HTML عملية\">\n<meta property=\"og:image\" content=\"assets/my-logo-fast.png\">",
+            "en": "<meta property=\"og:title\" content=\"Abdalla Academy HTML\">\n<meta property=\"og:description\" content=\"دروس HTML عملية\">\n<meta property=\"og:image\" content=\"assets/my-logo-fast.png\">"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"Open Graph sharing\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Open Graph sharing\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1631,6 +2675,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم JSON-LD ودوره في توضيح نوع المحتوى لمحركات البحث.",
             "en": "Understand JSON-LD and how it clarifies content type for search engines."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم JSON-LD ودوره في توضيح نوع المحتوى لمحركات البحث.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand JSON-LD and how it clarifies content type for search engines.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Course\",\n  \"name\": \"HTML Course\"\n}\n</script>",
+            "en": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Course\",\n  \"name\": \"HTML Course\"\n}\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"structured data\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Structured data\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1641,6 +2703,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "مراجعة العناوين، labels، alt، contrast، والتنقل بلوحة المفاتيح.",
             "en": "Review headings, labels, alt, contrast, and keyboard navigation."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>مراجعة العناوين، labels، alt، contrast، والتنقل بلوحة المفاتيح.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Review headings, labels, alt, contrast, and keyboard navigation.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<img src=\"assets/my-logo-mark.png\" alt=\"شعار Abdalla Academy\">\n<label for=\"search\">بحث</label>\n<input id=\"search\" name=\"search\">\n<button type=\"button\">تشغيل</button>",
+            "en": "<img src=\"assets/my-logo-mark.png\" alt=\"شعار Abdalla Academy\">\n<label for=\"search\">بحث</label>\n<input id=\"search\" name=\"search\">\n<button type=\"button\">تشغيل</button>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"accessibility checklist\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Accessibility checklist\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1651,6 +2731,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تجهيز أماكن إعلان غير مزعجة داخل بنية صفحة نظيفة.",
             "en": "Prepare non-intrusive ad areas inside a clean page structure."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تجهيز أماكن إعلان غير مزعجة داخل بنية صفحة نظيفة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Prepare non-intrusive ad areas inside a clean page structure.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<main>\n  <article><h1>درس HTML</h1><p>محتوى أصلي وواضح.</p></article>\n  <aside class=\"ad-area\" aria-label=\"مساحة إعلان\"></aside>\n</main>",
+            "en": "<main>\n  <article><h1>درس HTML</h1><p>محتوى أصلي وواضح.</p></article>\n  <aside class=\"ad-area\" aria-label=\"مساحة إعلان\"></aside>\n</main>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"AdSense-ready layout\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"AdSense-ready layout\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1661,6 +2759,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء بطاقة درس تعرض عنوانا ومستوى وزر دخول.",
             "en": "Build a lesson card with title, level, and entry button."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء بطاقة درس تعرض عنوانا ومستوى وزر دخول.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build a lesson card with title, level, and entry button.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<article class=\"lesson-card\">\n  <h2>HTML Elements</h2>\n  <p>المستوى: مبتدئ</p>\n  <a href=\"content.html?id=course-html-basics&lesson=4\">ابدأ</a>\n</article>",
+            "en": "<article class=\"lesson-card\">\n  <h2>HTML Elements</h2>\n  <p>المستوى: مبتدئ</p>\n  <a href=\"content.html?id=course-html-basics&lesson=4\">ابدأ</a>\n</article>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مشروع بطاقة درس\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Lesson card project\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1671,6 +2787,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء صفحة دورة فيها hero وقائمة دروس ونموذج تواصل.",
             "en": "Build a course page with hero, lesson list, and contact form."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء صفحة دورة فيها hero وقائمة دروس ونموذج تواصل.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build a course page with hero, lesson list, and contact form.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<header><h1>دورة HTML</h1></header>\n<main>\n  <section><h2>الدروس</h2><ol><li>العناصر</li><li>النماذج</li></ol></section>\n  <form><input type=\"email\" placeholder=\"email\"><button>تواصل</button></form>\n</main>",
+            "en": "<header><h1>دورة HTML</h1></header>\n<main>\n  <section><h2>الدروس</h2><ol><li>العناصر</li><li>النماذج</li></ol></section>\n  <form><input type=\"email\" placeholder=\"email\"><button>تواصل</button></form>\n</main>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مشروع صفحة دورة\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Course page project\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1681,6 +2815,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "تجميع كل المهارات في صفحة تعليمية منظمة وسريعة ومتجاوبة.",
             "en": "Combine all skills into an organized, fast, responsive educational page."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>تجميع كل المهارات في صفحة تعليمية منظمة وسريعة ومتجاوبة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Combine all skills into an organized, fast, responsive educational page.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>مشروع نهائي</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: #f8fbff; }\n    main { max-width: 860px; margin: auto; padding: 28px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    a { color: #00e5ff; }\n    mark { background: #b7ff00; color: #05070d; padding: 2px 6px; }\n  </style>\n</head>\n<body>\n  <main>\n    <header><h1>منصة درس</h1></header>\n    <main class=\"panel\">\n      <h2>HTML كامل</h2>\n      <p>صفحة سريعة، منظمة، ومتجاوبة.</p>\n      <a href=\"#\">ابدأ التعلم</a>\n    </main>\n  </main>\n</body>\n</html>",
+            "en": "<!doctype html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>مشروع نهائي</title>\n  <style>\n    body { margin: 0; font-family: Arial, sans-serif; background: #05070d; color: #f8fbff; }\n    main { max-width: 860px; margin: auto; padding: 28px; }\n    .panel { border: 1px solid #00e5ff; border-radius: 8px; padding: 18px; background: #0b1020; }\n    a { color: #00e5ff; }\n    mark { background: #b7ff00; color: #05070d; padding: 2px 6px; }\n  </style>\n</head>\n<body>\n  <main>\n    <header><h1>منصة درس</h1></header>\n    <main class=\"panel\">\n      <h2>HTML كامل</h2>\n      <p>صفحة سريعة، منظمة، ومتجاوبة.</p>\n      <a href=\"#\">ابدأ التعلم</a>\n    </main>\n  </main>\n</body>\n</html>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"المشروع النهائي: صفحة تعليمية قابلة للنشر\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Final project: publish-ready educational page\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1691,6 +2843,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "بناء أمثلة صغيرة لكل مفهوم حتى يستطيع الطالب التجربة بسرعة.",
             "en": "Build small examples for each concept so the learner can experiment quickly."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>بناء أمثلة صغيرة لكل مفهوم حتى يستطيع الطالب التجربة بسرعة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Build small examples for each concept so the learner can experiment quickly.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<section>\n  <h2>مكتبة أمثلة</h2>\n  <p>احفظ كل مثال صغير باسم واضح ثم طوّره.</p>\n</section>",
+            "en": "<section>\n  <h2>مكتبة أمثلة</h2>\n  <p>احفظ كل مثال صغير باسم واضح ثم طوّره.</p>\n</section>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مكتبة أمثلة HTML\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"HTML examples library\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1701,6 +2871,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "قراءة الوسم حسب الاستخدام: نص، صورة، نموذج، وسائط، أو دلالة.",
             "en": "Read tags by use: text, image, form, media, or semantic meaning."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>قراءة الوسم حسب الاستخدام: نص، صورة، نموذج، وسائط، أو دلالة.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Read tags by use: text, image, form, media, or semantic meaning.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<p>وسم النص: &lt;p&gt;</p>\n<p>وسم الرابط: &lt;a&gt;</p>\n<p>وسم الصورة: &lt;img&gt;</p>",
+            "en": "<p>وسم النص: &lt;p&gt;</p>\n<p>وسم الرابط: &lt;a&gt;</p>\n<p>وسم الصورة: &lt;img&gt;</p>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مرجع الوسوم tags\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Tags reference\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1711,6 +2899,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "معرفة الخصائص العامة وخصائص الروابط والصور والنماذج.",
             "en": "Know global attributes and link, image, and form attributes."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>معرفة الخصائص العامة وخصائص الروابط والصور والنماذج.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Know global attributes and link, image, and form attributes.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<button id=\"run\" class=\"primary\" data-track=\"html\" title=\"تشغيل المثال\">Run</button>",
+            "en": "<button id=\"run\" class=\"primary\" data-track=\"html\" title=\"تشغيل المثال\">Run</button>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مرجع الخصائص attributes\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Attributes reference\" example, then change the text or attribute used in the lesson."
           }
         },
         {
@@ -1721,6 +2927,24 @@ window.SITE_CONTENT = {
           "summary": {
             "ar": "فهم أحداث مثل click وinput وsubmit عند ربط HTML مع JavaScript.",
             "en": "Understand events such as click, input, and submit when connecting HTML with JavaScript."
+          },
+          "body": {
+            "ar": [
+              "<section class=\"lesson-section\"><h2>الفكرة</h2><p>فهم أحداث مثل click وinput وsubmit عند ربط HTML مع JavaScript.</p></section>",
+              "<section class=\"lesson-section\"><h2>التدريب</h2><ul class=\"lesson-bullets\"><li>اقرأ المثال ثم شغله داخل Compiler.</li><li>غيّر قيمة واحدة على الأقل وشاهد النتيجة.</li><li>إذا ظهر خطأ، راجع الوسوم والخصائص المرتبطة بهذا الدرس.</li></ul></section>"
+            ],
+            "en": [
+              "<section class=\"lesson-section\"><h2>Idea</h2><p>Understand events such as click, input, and submit when connecting HTML with JavaScript.</p></section>",
+              "<section class=\"lesson-section\"><h2>Practice</h2><ul class=\"lesson-bullets\"><li>Read the example, then run it inside the Compiler.</li><li>Change at least one value and watch the result.</li><li>If an error appears, review the tags and attributes related to this lesson.</li></ul></section>"
+            ]
+          },
+          "example": {
+            "ar": "<button id=\"btn\">اضغط</button>\n<script>\n  document.getElementById('btn').addEventListener('click', () => {\n    alert('event fired');\n  });\n</script>",
+            "en": "<button id=\"btn\">اضغط</button>\n<script>\n  document.getElementById('btn').addEventListener('click', () => {\n    alert('event fired');\n  });\n</script>"
+          },
+          "practice": {
+            "ar": "شغّل مثال \"مرجع الأحداث events\" ثم غيّر النص أو الخاصية المطلوبة في الدرس.",
+            "en": "Run the \"Events reference\" example, then change the text or attribute used in the lesson."
           }
         }
       ],
@@ -1738,7 +2962,8 @@ window.SITE_CONTENT = {
           "ar": "غيّر أي عنصر ثم اضغط تشغيل الكود. ركّز على ترتيب head وbody، وعلى ربط label مع input.",
           "en": "Change any element, then run the code. Focus on head/body order and connecting label with input."
         }
-      }
+      },
+      "href": "content.html?id=course-html-basics&lesson=1"
     },
     {
       "id": "php-xampp-install-windows",

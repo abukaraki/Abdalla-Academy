@@ -206,8 +206,9 @@ function ensureNavigation() {
     .slice(0, 3)
     .map((item) => {
       const image = item.thumbnail || item.icon || "assets/my-logo-fast.png";
+      const href = item.href || `content.html?id=${encodeURIComponent(item.id)}`;
       return `
-        <a class="course-menu-card" href="content.html?id=${encodeURIComponent(item.id)}">
+        <a class="course-menu-card" href="${href}">
           <img src="${image}" alt="${escapeHtml(text(item.title))}" loading="lazy">
           <span>${escapeHtml(text(item.title))}</span>
         </a>
@@ -386,34 +387,67 @@ function renderCourseDetail(root, item) {
     Math.max(1, Number(new URLSearchParams(window.location.search).get("lesson") || 1)),
     item.playlist?.length || 1
   );
+  const currentLesson = item.playlist?.[selectedLesson - 1] || item.playlist?.[0];
+  const selectedCode = text(currentLesson?.example) || text(item.codeLab?.initialCode) || "";
+  const selectedNote = text(currentLesson?.practice) || text(item.codeLab?.note) || ui[currentLang].compilerNote;
+  const lessonBody = (text(currentLesson?.body) || []).map(renderBodySegment).join("");
+  const courseUrl = (lessonNumber) => `content.html?id=${encodeURIComponent(item.id)}&lesson=${lessonNumber}`;
   const playlist = (item.playlist || []).map((lesson, index) => `
-    <article class="playlist-item${index + 1 === selectedLesson ? " is-active" : ""}">
+    <a class="playlist-item${index + 1 === selectedLesson ? " is-active" : ""}" href="${courseUrl(index + 1)}">
       <span>${String(index + 1).padStart(2, "0")}</span>
       <div>
         <h3>${text(lesson.title)}</h3>
         <p>${text(lesson.summary)}</p>
       </div>
-      <button class="playlist-select" type="button">${currentLang === "ar" ? "اختيار" : "Select"}</button>
-    </article>
+    </a>
   `).join("");
-  const firstLesson = item.playlist?.[selectedLesson - 1] || item.playlist?.[0];
+  const previousLesson = selectedLesson > 1 ? courseUrl(selectedLesson - 1) : "";
+  const nextLesson = selectedLesson < (item.playlist?.length || 0) ? courseUrl(selectedLesson + 1) : "";
+  const lessonPanel = currentLesson ? `
+    <section class="course-reader">
+      <aside class="course-sidebar" aria-label="${ui[currentLang].playlist}">
+        <div class="course-sidebar-head">
+          <strong>${ui[currentLang].playlist}</strong>
+          <span>${item.playlist?.length || 0}</span>
+        </div>
+        <div class="course-sidebar-list">${playlist}</div>
+      </aside>
+      <article class="course-lesson-terminal">
+        <div class="terminal-bar"><span></span><span></span><span></span><strong>abdalla@html-course</strong></div>
+        <p class="eyebrow">${currentLang === "ar" ? "محاضرة" : "Lesson"} ${selectedLesson}</p>
+        <h2>${text(currentLesson.title)}</h2>
+        <p class="lesson-lead">${text(currentLesson.summary)}</p>
+        ${lessonBody || ""}
+        ${selectedCode ? `
+          <section class="lesson-example-card">
+            <h3>${currentLang === "ar" ? "مثال الدرس" : "Lesson example"}</h3>
+            <pre class="lesson-code"><code>${escapeHtml(selectedCode)}</code></pre>
+          </section>
+        ` : ""}
+        <nav class="lesson-nav" aria-label="${currentLang === "ar" ? "تنقل الدروس" : "Lesson navigation"}">
+          ${previousLesson ? `<a class="button secondary" href="${previousLesson}">${ui[currentLang].previous}</a>` : `<span></span>`}
+          ${nextLesson ? `<a class="button primary" href="${nextLesson}">${ui[currentLang].next}</a>` : `<span></span>`}
+        </nav>
+      </article>
+    </section>
+  ` : "";
   const codeLab = item.codeLab ? `
     <section class="code-lab" data-code-lab="${item.codeLab.preview ? "preview" : "plain"}" data-course-id="${item.id}">
       <div class="code-lab-head">
         <div>
           <p class="eyebrow">${ui[currentLang].practice}</p>
-          <h2>${text(item.codeLab.title)}</h2>
+          <h2>${text(currentLesson?.title) || text(item.codeLab.title)}</h2>
         </div>
         <button class="button primary" type="button" data-run-code>${ui[currentLang].runCode}</button>
       </div>
       <p>${ui[currentLang].codeHint}</p>
       <div class="compiler-grid">
-        <textarea class="code-editor" spellcheck="false">${text(item.codeLab.initialCode)}</textarea>
+        <textarea class="code-editor" spellcheck="false">${escapeHtml(selectedCode)}</textarea>
         <div class="compiler-result">
           ${item.codeLab.preview ? `<iframe class="code-preview" title="${text(item.codeLab.title)}"></iframe>` : ""}
           <section class="compiler-panel">
             <h3>${ui[currentLang].output}</h3>
-            <pre class="code-output"><code>${text(item.codeLab.note) || ui[currentLang].compilerNote}</code></pre>
+            <pre class="code-output"><code>${escapeHtml(selectedNote)}</code></pre>
           </section>
           <section class="compiler-panel">
             <h3>${ui[currentLang].issues}</h3>
@@ -433,12 +467,8 @@ function renderCourseDetail(root, item) {
     </section>
     <article class="prose detail-body course-detail">
       ${intro}
+      ${lessonPanel}
       ${codeLab}
-      <section class="playlist-section">
-        <h2>${ui[currentLang].playlist}</h2>
-        ${firstLesson ? `<div class="current-lesson"><strong>${text(firstLesson.title)}</strong><p>${text(firstLesson.summary)}</p></div>` : ""}
-        <div class="playlist-grid">${playlist}</div>
-      </section>
     </article>
   `;
   document.title = `${text(item.title)} | Abdalla Academy`;
@@ -813,10 +843,13 @@ function analyzeCode(courseId, code) {
     .filter(({ line }) => line && !line.startsWith("//") && !line.startsWith("#") && !/[;{}:]$/.test(line));
 
   if (courseId.includes("html")) {
-    if (!/<!doctype html>/i.test(code)) add("warn", "DOCTYPE مفقود", "Missing DOCTYPE", "أضف <!doctype html> في بداية الصفحة.", "Add <!doctype html> at the beginning of the page.");
-    ["html", "head", "body", "title"].forEach((tag) => {
-      if (!new RegExp(`<${tag}[\\s>]`, "i").test(code)) add("warn", `وسم ${tag} غير موجود`, `Missing ${tag} tag`, `وجود <${tag}> يجعل الصفحة أوضح للمتصفح ومحركات البحث.`, `<${tag}> makes the page clearer for browsers and search engines.`);
-    });
+    const fullDocument = /<!doctype html>|<html[\s>]/i.test(code);
+    if (fullDocument && !/<!doctype html>/i.test(code)) add("warn", "DOCTYPE مفقود", "Missing DOCTYPE", "أضف <!doctype html> في بداية الصفحة.", "Add <!doctype html> at the beginning of the page.");
+    if (fullDocument) {
+      ["html", "head", "body", "title"].forEach((tag) => {
+        if (!new RegExp(`<${tag}[\\s>]`, "i").test(code)) add("warn", `وسم ${tag} غير موجود`, `Missing ${tag} tag`, `وجود <${tag}> يجعل الصفحة أوضح للمتصفح ومحركات البحث.`, `<${tag}> makes the page clearer for browsers and search engines.`);
+      });
+    }
     const opened = [...code.matchAll(/<([a-z][a-z0-9-]*)(\s[^>]*)?>/gi)].map((match) => match[1].toLowerCase()).filter((tag) => !["meta", "link", "img", "br", "hr", "input"].includes(tag));
     opened.forEach((tag) => {
       const openCount = (lower.match(new RegExp(`<${tag}(\\s|>)`, "g")) || []).length;
